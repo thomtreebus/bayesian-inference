@@ -1,6 +1,9 @@
 import express, { Express, Request, Response } from "express";
+const apiRoute = require("./routes/api");
 const app: Express = express();
 const port: number = 3000;
+
+app.use("/", apiRoute);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello World!");

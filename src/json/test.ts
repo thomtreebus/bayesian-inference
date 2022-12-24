@@ -11,11 +11,7 @@ module.exports.test = async function test() {
     const result: Result = isNetwork(simpleNetwork);
     console.log("isNetwork:", result.valid);
   } catch (error: unknown) {
-    if (error instanceof InvalidSchemaError) {
-      console.log(error.output);
-    } else {
-      console.log(error);
-    }
+    console.log(error);
   }
 };
 // test();

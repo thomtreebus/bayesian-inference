@@ -12,7 +12,7 @@ import {
   values,
 } from "ramda";
 
-import { addNode } from "..";
+import { addNode } from "./builder";
 import { isNotEmpty } from "./functions";
 
 const everyInArray = (array1: string[], array2: string[]) =>

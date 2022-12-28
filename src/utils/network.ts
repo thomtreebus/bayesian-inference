@@ -58,10 +58,10 @@ export const hasNodeParents: (node: Node) => boolean = pipe(
   getNodeParents,
   isNotEmpty
 );
-export const getNodeParentsAndId: (node: Node) => string[] = converge(append, [
-  prop("id"),
-  prop("parents"),
-]);
+// export const getNodeParentsAndId: (node: Node) => string[] = converge(append, [
+//   prop("id"),
+//   prop("parents"),
+// ]);
 export const hasNotNodeParents: (node: Node) => boolean =
   complement(hasNodeParents);
 export const getNodesFromNetwork: (network: Network) => Node[] = values;

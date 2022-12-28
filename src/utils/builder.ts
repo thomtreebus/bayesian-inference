@@ -1,13 +1,11 @@
-import { INetwork, INode } from "./types";
+import { Network, Node } from "..//types";
 import { assoc, has } from "ramda";
 
-import validNode from "../validation/node";
+import checkValidNode from "../validation/node";
 
-const validIfNodeIsAlreadyInNetwork = (node: INode, network: INetwork) => {
+const checkNodeInNetwork = (node: Node, network: Network) => {
   if (has(node.id, network)) {
-    throw new Error(
-      `[Node "${node.id}"]: This node is already added to the network.`
-    );
+    throw new Error(`[Node "${node.id}"]: Node already added to network.`);
   }
 };
 
@@ -27,9 +25,9 @@ const validIfNodeIsAlreadyInNetwork = (node: INode, network: INetwork) => {
  *
  * @returns {Object} Bayesian Network with node added
  */
-export const addNode = (network: INetwork, node: INode): INetwork => {
-  validIfNodeIsAlreadyInNetwork(node, network);
-  validNode(node, network);
+export const addNode = (network: Network, node: Node): Network => {
+  checkNodeInNetwork(node, network);
+  checkValidNode(node, network);
 
   return assoc(node.id, node, network);
 };

@@ -1,6 +1,12 @@
 import { Request, Response } from "express";
 
 module.exports.createNetwork = async (req: Request, res: Response) => {
-  res.json({ create: "network" });
-  console.log(req);
+  try {
+    const { hello } = req.body;
+    console.log(hello);
+    return res.status(200).json({ success: "create network" });
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json(error);
+  }
 };

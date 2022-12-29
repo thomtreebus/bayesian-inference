@@ -2,6 +2,8 @@ import express, { Express, Request, Response } from "express";
 const apiRoute = require("./routes/api");
 const app: Express = express();
 
+app.use(express.json());
+
 app.use("/", apiRoute);
 
 app.get("/", (req: Request, res: Response) => {

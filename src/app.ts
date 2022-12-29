@@ -1,6 +1,9 @@
 import express, { Express, Request, Response } from "express";
+import dotenv from "dotenv";
 const apiRoute = require("./routes/api");
 const app: Express = express();
+
+dotenv.config();
 
 app.use(express.json());
 

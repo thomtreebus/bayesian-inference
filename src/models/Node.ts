@@ -1,6 +1,6 @@
 const mongoose = require("mongooose");
 const Schema = mongoose.Schema;
-const { Node, CptWithoutParents, CptWithParents } = require("../types");
+const { CptWithoutParents, CptWithParents } = require("../types");
 
 const NodeSchema = mongoose.Schema({
   id: {
@@ -24,3 +24,7 @@ const NodeSchema = mongoose.Schema({
     required: true,
   },
 });
+
+const Node = mongoose.model("Nodes", NodeSchema);
+
+module.exports = Node;

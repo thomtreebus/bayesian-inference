@@ -28,7 +28,7 @@ describe("Node Id Validations", () => {
   describe('When node has "id" and is a string', () => {
     const node = { id: "node-id" };
 
-    it("does not throws an error", () => {
+    it("does not throw an error", () => {
       expect(() => {
         // @ts-ignore
         validNodeId(node);

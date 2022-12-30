@@ -1,11 +1,21 @@
 import { Request, Response } from "express";
 
+import { Network } from "../types";
+import validNetwork from "../validation/network";
+
 module.exports.createNetwork = async (req: Request, res: Response) => {
   try {
-    console.log(req.body);
+    const network: Network = req.body as Network;
+    validNetwork(network);
+
     return res.status(200).json({ success: "network successfully created" });
-  } catch (error) {
-    console.log(error);
-    return res.status(400).json(error);
+  } catch (error: any) {
+    const statusCode = res.statusCode ? res.statusCode : 500;
+    res.status(statusCode);
+
+    res.json({
+      message: error.message,
+      stack: error.stack,
+    });
   }
 };

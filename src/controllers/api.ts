@@ -1,12 +1,13 @@
 import { Request, Response } from "express";
 
+import { Network } from "../types";
+import validNetwork from "../validation/network";
+
 module.exports.createNetwork = async (req: Request, res: Response) => {
   try {
-    if (!req.body.name) {
-      res.status(400);
-      throw new Error("Please include a network name in the request body.");
-    }
-    console.log(req.body);
+    const network: Network = req.body as Network;
+    validNetwork(network);
+
     return res.status(200).json({ success: "network successfully created" });
   } catch (error: any) {
     const statusCode = res.statusCode ? res.statusCode : 500;

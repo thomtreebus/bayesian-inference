@@ -7,11 +7,19 @@ import {
   Combinations,
 } from "../types";
 
-export const infer: Infer = (
+function likelihoodWeighting(
   network: Network,
-  nodes: Combinations = {},
+  queryNodes: Combinations,
   sampleSize: number,
   observedValues?: Combinations
+): number {
+  return 0;
+}
+
+export const infer: Infer = (
+  network: Network,
+  queryNodes: Combinations = {},
+  observedValues?: Combinations
 ) => {
-  return 1;
+  return likelihoodWeighting(network, queryNodes, 10, observedValues);
 };

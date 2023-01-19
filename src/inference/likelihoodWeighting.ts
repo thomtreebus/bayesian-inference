@@ -1,5 +1,11 @@
-import { Node, Network, CptWithParents, CptWithoutParents } from "../types";
+import {
+  Node,
+  Network,
+  CptWithParents,
+  CptWithoutParents,
+  Infer,
+} from "../types";
 
-function test123() {
+export const infer: Infer = () => {
   return 1;
-}
+};

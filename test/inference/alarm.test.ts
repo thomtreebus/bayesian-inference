@@ -8,14 +8,13 @@ import { inferenceAlgorithms } from "../../src";
 const { likelihoodWeighting } = inferenceAlgorithms;
 
 const network = createNetwork(...allNodes);
-console.log(network);
 
 const inferAlarmGiveBurglaryTrue = (infer: Infer) => {
   const observedValues = { BURGLARY: "T" };
 
-  expect(
-    infer(network, { EARTHQUAKE: "T" }, 10, observedValues).toFixed(4)
-  ).toBe("0.0020");
+  expect(infer(network, { EARTHQUAKE: "T" }, observedValues).toFixed(4)).toBe(
+    "0.0020"
+  );
   //   expect(infer(network, { EARTHQUAKE: "F" }, given).toFixed(4)).toBe("0.9980");
   //   expect(infer(network, { ALARM: "T" }, given).toFixed(4)).toBe("0.9400");
   //   expect(infer(network, { ALARM: "F" }, given).toFixed(4)).toBe("0.0600");

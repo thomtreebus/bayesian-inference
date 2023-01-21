@@ -10,7 +10,9 @@ import {
 function weightedSample(network: Network, observedValues?: Combinations) {
   const x = observedValues;
   const w = 1;
-
+  for (const [nodeName, node] of Object.entries(network)) {
+    console.log(nodeName);
+  }
   return {
     event: x,
     weigh: w,
@@ -35,5 +37,6 @@ export const infer: Infer = (
   queryNodes: Combinations = {},
   observedValues?: Combinations
 ) => {
+  weightedSample(network, observedValues);
   return likelihoodWeighting(network, queryNodes, 10, observedValues);
 };

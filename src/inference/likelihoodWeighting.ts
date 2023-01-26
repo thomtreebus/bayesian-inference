@@ -47,6 +47,7 @@ function weightedSample(network: Network, observedValues: Combinations) {
         }
         weight = weight * probability;
       } else {
+        // random value between 0 and 1
         let random = chance.floating({ min: 0, max: 1 });
         let probability = 0;
         if (node.parents.length > 0) {
@@ -56,6 +57,7 @@ function weightedSample(network: Network, observedValues: Combinations) {
           const cpt = network[nodeName].cpt as CptWithoutParents;
           probability = cpt.T;
         }
+        // create random sample for node
         sample[nodeName] = random <= probability ? "T" : "F";
       }
     }
@@ -72,12 +74,25 @@ function likelihoodWeighting(
   queryNodes: Combinations,
   sampleSize: number,
   observedValues: Combinations
-): number {
-  const W: number[] = [];
-  W.push(0);
-  console.log(W);
-
-  return 0;
+): number[] {
+  // a vector of weighted counts for each value of X, initially zero
+  const weights: number[] = [0, 0];
+  for (let i = 0; i < sampleSize; i++) {
+    const { sample, weight } = weightedSample(network, observedValues);
+    const query = Object.entries(queryNodes)[0];
+    if (sample[query[0]] === "F") {
+      weights[0] = weights[0] + weight;
+    } else {
+      weights[1] = weights[1] + weight;
+    }
+  }
+  console.log("raw weights", weights);
+  const sum = weights[0] + weights[1];
+  weights[0] = weights[0] / sum;
+  weights[1] = weights[1] / sum;
+  console.log("weights", weights);
+  // return weights / sum;
+  return weights;
 }
 
 export const infer: Infer = (
@@ -85,10 +100,17 @@ export const infer: Infer = (
   queryNodes: Combinations = {},
   observedValues: Combinations
 ) => {
-  for (let i = 0; i < 10; i++) {
-    const { sample, weight } = weightedSample(network, observedValues);
-    console.log("weighted sample", sample, weight);
-  }
+  // for (let i = 0; i < 10; i++) {
+  //   const { sample, weight } = weightedSample(network, observedValues);
+  //   console.log("weighted sample", sample, weight);
+  // }
 
-  return likelihoodWeighting(network, queryNodes, 10, observedValues);
+  const likelihood = likelihoodWeighting(
+    network,
+    queryNodes,
+    10000,
+    observedValues
+  );
+  console.log(likelihood);
+  return likelihood[0];
 };

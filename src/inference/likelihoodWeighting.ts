@@ -1,4 +1,7 @@
 import { partialObject } from "ramda";
+const Chance = require("chance");
+const chance = new Chance();
+
 import {
   Node,
   Network,
@@ -33,17 +36,28 @@ function weightedSample(network: Network, observedValues: Combinations) {
 
     for (const value of Object.entries(observedValues)) {
       if (node.id === value[0] && node.states.includes(value[1])) {
-        const probability = network[nodeName].cpt;
-        console.log(probability);
-        // weight = weight * probability;
+        let probability = 0;
+        if (node.parents.length > 0) {
+          const cpt = network[nodeName].cpt as CptWithParents;
+          probability =
+            value[1] === "T" ? cpt[acc].probability.T : cpt[acc].probability.F;
+          console.log(probability);
+        } else {
+          const cpt = network[nodeName].cpt as CptWithoutParents;
+          probability = value[1] === "T" ? cpt.T : cpt.F;
+        }
+        weight = weight * probability;
       } else {
+        let random = chance.floating({ min: 0, max: 1 });
+        let probability = 0;
+        sample.node = random <= probability ? "T" : "F";
       }
     }
     i = i + 1;
   }
   return {
     sample: sample,
-    weigh: weight,
+    weight: weight,
   };
 }
 
@@ -65,6 +79,7 @@ export const infer: Infer = (
   queryNodes: Combinations = {},
   observedValues: Combinations
 ) => {
-  weightedSample(network, observedValues);
+  const { sample, weight } = weightedSample(network, observedValues);
+  console.log("weighted sample", sample, weight);
   return likelihoodWeighting(network, queryNodes, 10, observedValues);
 };

@@ -29,6 +29,7 @@
     "@types/node": "^18.11.12",
     "@typescript-eslint/eslint-plugin": "^5.46.0",
     "@typescript-eslint/parser": "^5.46.0",
+    "chance": "^1.1.9",
     "dotenv": "^16.0.3",
     "eslint": "^8.29.0",
     "expect": "^29.3.1",

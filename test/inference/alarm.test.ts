@@ -15,15 +15,21 @@ const inferAlarmGiveBurglaryTrue = (infer: Infer) => {
   // expect(infer(network, { EARTHQUAKE: "T" }, observedValues).toFixed(4)).toBe(
   //   "0.0020"
   // );
-  expect(infer(network, { EARTHQUAKE: "F" }, observedValues).toFixed(4)).toBe(
-    "0.9980"
-  );
-  //   expect(infer(network, { ALARM: "T" }, observedValues).toFixed(4)).toBe("0.9400");
+  // expect(infer(network, { EARTHQUAKE: "F" }, observedValues).toFixed(4)).toBe(
+  //   "0.9980"
+  // );
+  // expect(infer(network, { ALARM: "T" }, observedValues).toFixed(4)).toBe(
+  //   "0.9400"
+  // );
   //   expect(infer(network, { ALARM: "F" }, observedValues).toFixed(4)).toBe("0.0600");
-  //   expect(infer(network, { JOHN_CALLS: "T" }, observedValues).toFixed(4)).toBe("0.8490");
+  // expect(infer(network, { JOHN_CALLS: "T" }, observedValues).toFixed(4)).toBe(
+  //   "0.8490"
+  // );
   //   expect(infer(network, { JOHN_CALLS: "F" }, observedValues).toFixed(4)).toBe("0.1510");
   //   expect(infer(network, { MARY_CALLS: "T" }, observedValues).toFixed(4)).toBe("0.6586");
-  //   expect(infer(network, { MARY_CALLS: "F" }, observedValues).toFixed(4)).toBe("0.3414");
+  expect(infer(network, { MARY_CALLS: "F" }, observedValues).toFixed(4)).toBe(
+    "0.3414"
+  );
 };
 
 const inferenceAlgorithmNames: { [key: string]: Infer } = {

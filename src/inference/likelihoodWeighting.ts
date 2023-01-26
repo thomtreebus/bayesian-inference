@@ -108,9 +108,12 @@ export const infer: Infer = (
   const likelihood = likelihoodWeighting(
     network,
     queryNodes,
-    10000,
+    50000,
     observedValues
   );
-  console.log(likelihood);
-  return likelihood[0];
+  if (Object.entries(queryNodes)[0][1] == "T") {
+    return likelihood[1];
+  } else {
+    return likelihood[0];
+  }
 };

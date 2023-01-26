@@ -50,7 +50,7 @@ function weightedSample(network: Network, observedValues: Combinations) {
       } else {
         let random = chance.floating({ min: 0, max: 1 });
         let probability = 0;
-        sample.node = random <= probability ? "T" : "F";
+        sample[nodeName] = random <= probability ? "T" : "F";
       }
     }
     i = i + 1;

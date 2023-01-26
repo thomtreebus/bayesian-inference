@@ -41,7 +41,6 @@ function weightedSample(network: Network, observedValues: Combinations) {
           const cpt = network[nodeName].cpt as CptWithParents;
           probability =
             value[1] === "T" ? cpt[acc].probability.T : cpt[acc].probability.F;
-          console.log(probability);
         } else {
           const cpt = network[nodeName].cpt as CptWithoutParents;
           probability = value[1] === "T" ? cpt.T : cpt.F;
@@ -50,6 +49,13 @@ function weightedSample(network: Network, observedValues: Combinations) {
       } else {
         let random = chance.floating({ min: 0, max: 1 });
         let probability = 0;
+        if (node.parents.length > 0) {
+          const cpt = network[nodeName].cpt as CptWithParents;
+          probability = cpt[acc].probability.T;
+        } else {
+          const cpt = network[nodeName].cpt as CptWithoutParents;
+          probability = cpt.T;
+        }
         sample[nodeName] = random <= probability ? "T" : "F";
       }
     }
@@ -79,7 +85,10 @@ export const infer: Infer = (
   queryNodes: Combinations = {},
   observedValues: Combinations
 ) => {
-  const { sample, weight } = weightedSample(network, observedValues);
-  console.log("weighted sample", sample, weight);
+  for (let i = 0; i < 10; i++) {
+    const { sample, weight } = weightedSample(network, observedValues);
+    console.log("weighted sample", sample, weight);
+  }
+
   return likelihoodWeighting(network, queryNodes, 10, observedValues);
 };

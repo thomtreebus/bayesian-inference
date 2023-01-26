@@ -80,6 +80,7 @@ function likelihoodWeighting(
   for (let i = 0; i < sampleSize; i++) {
     const { sample, weight } = weightedSample(network, observedValues);
     const query = Object.entries(queryNodes)[0];
+    console.log(sample, weight);
     if (sample[query[0]] === "F") {
       weights[0] = weights[0] + weight;
     } else {
@@ -90,7 +91,6 @@ function likelihoodWeighting(
   const sum = weights[0] + weights[1];
   weights[0] = weights[0] / sum;
   weights[1] = weights[1] / sum;
-  console.log("weights", weights);
   // return weights / sum;
   return weights;
 }
@@ -108,7 +108,7 @@ export const infer: Infer = (
   const likelihood = likelihoodWeighting(
     network,
     queryNodes,
-    50000,
+    100,
     observedValues
   );
   if (Object.entries(queryNodes)[0][1] == "T") {

@@ -18,12 +18,12 @@ const inferAlarmGiveBurglaryTrue = (infer: Infer) => {
   // expect(infer(network, { EARTHQUAKE: "F" }, observedValues).toFixed(4)).toBe(
   //   "0.9980"
   // );
-  expect(infer(network, { ALARM: "T" }, observedValues).toFixed(4)).toBe(
-    "0.9400"
-  );
-  // expect(infer(network, { ALARM: "F" }, observedValues).toFixed(4)).toBe(
-  //   "0.0600"
+  // expect(infer(network, { ALARM: "T" }, observedValues).toFixed(4)).toBe(
+  //   "0.9400"
   // );
+  expect(infer(network, { ALARM: "F" }, observedValues).toFixed(4)).toBe(
+    "0.0600"
+  );
   // expect(infer(network, { JOHN_CALLS: "T" }, observedValues).toFixed(4)).toBe(
   //   "0.8490"
   // );

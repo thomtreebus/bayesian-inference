@@ -12,41 +12,43 @@ import {
 } from "../types";
 
 function weightedSample(network: Network, observedValues: Combinations) {
-  const sample = observedValues;
+  const sample = Object.assign({}, observedValues);
   let weight = 1;
-  // console.log(observedValues["BURGLARY"]);
-
   let i = 0;
+  let acc = 0;
   for (const [nodeName, node] of Object.entries(network)) {
     const parents = node.parents;
-    const parentValues: Boolean[] = [];
-    for (const p of parents) {
-      if (sample[p] === "T") {
-        parentValues.push(true);
+    if (node.parents.length > 0) {
+      const parentValues: Boolean[] = [];
+      for (const p of parents) {
+        if (sample[p] === "T") {
+          parentValues.push(true);
+        }
       }
-    }
-
-    let acc = 0;
-    let j = 0;
-    for (let value of parentValues) {
-      const exp = parentValues.length - j - 1;
-      acc = value ? 2 ** exp : 0;
-      j += 1;
+      for (const [j, value] of parentValues.entries()) {
+        const exp = parentValues.length - j - 1;
+        acc = value ? 2 ** exp : 0;
+      }
     }
 
     for (const value of Object.entries(observedValues)) {
       if (node.id === value[0] && node.states.includes(value[1])) {
+        console.log(nodeName, " is an evidence variable");
+        // Xi is an evidence variable with value xi in observedValues
         let probability = 0;
         if (node.parents.length > 0) {
+          // node with parents
           const cpt = network[nodeName].cpt as CptWithParents;
           probability =
             value[1] === "T" ? cpt[acc].probability.T : cpt[acc].probability.F;
         } else {
+          // node without parents
           const cpt = network[nodeName].cpt as CptWithoutParents;
           probability = value[1] === "T" ? cpt.T : cpt.F;
         }
         weight = weight * probability;
       } else {
+        // generate random sample from P(Xi | parents(Xi))
         // random value between 0 and 1
         let random = chance.floating({ min: 0, max: 1 });
         let probability = 0;
@@ -63,6 +65,7 @@ function weightedSample(network: Network, observedValues: Combinations) {
     }
     i = i + 1;
   }
+  // console.log(sample, observedValues);
   return {
     sample: sample,
     weight: weight,
@@ -80,18 +83,15 @@ function likelihoodWeighting(
   for (let i = 0; i < sampleSize; i++) {
     const { sample, weight } = weightedSample(network, observedValues);
     const query = Object.entries(queryNodes)[0];
-    console.log(sample, weight);
     if (sample[query[0]] === "F") {
       weights[0] = weights[0] + weight;
     } else {
       weights[1] = weights[1] + weight;
     }
   }
-  console.log("raw weights", weights);
   const sum = weights[0] + weights[1];
   weights[0] = weights[0] / sum;
   weights[1] = weights[1] / sum;
-  // return weights / sum;
   return weights;
 }
 
@@ -100,15 +100,10 @@ export const infer: Infer = (
   queryNodes: Combinations = {},
   observedValues: Combinations
 ) => {
-  // for (let i = 0; i < 10; i++) {
-  //   const { sample, weight } = weightedSample(network, observedValues);
-  //   console.log("weighted sample", sample, weight);
-  // }
-
   const likelihood = likelihoodWeighting(
     network,
     queryNodes,
-    100,
+    1,
     observedValues
   );
   if (Object.entries(queryNodes)[0][1] == "T") {

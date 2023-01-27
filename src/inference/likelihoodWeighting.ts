@@ -14,7 +14,6 @@ import {
 function weightedSample(network: Network, observedValues: Combinations) {
   const sample = Object.assign({}, observedValues);
   let weight = 1;
-  let i = 0;
   let acc = 0;
   for (const [nodeName, node] of Object.entries(network)) {
     const parents = node.parents;
@@ -29,6 +28,7 @@ function weightedSample(network: Network, observedValues: Combinations) {
         const exp = parentValues.length - j - 1;
         acc = value ? 2 ** exp : 0;
       }
+      // console.log(parentValues, acc);
     }
 
     for (const value of Object.entries(observedValues)) {
@@ -54,15 +54,16 @@ function weightedSample(network: Network, observedValues: Combinations) {
         if (node.parents.length > 0) {
           const cpt = network[nodeName].cpt as CptWithParents;
           probability = cpt[acc].probability.T;
+          console.log(nodeName, probability);
         } else {
           const cpt = network[nodeName].cpt as CptWithoutParents;
           probability = cpt.T;
         }
         // create random sample for node
         sample[nodeName] = random <= probability ? "T" : "F";
+        console.log(random, probability, sample[nodeName]);
       }
     }
-    i = i + 1;
   }
   // console.log(sample, observedValues);
   return {
@@ -78,25 +79,16 @@ function likelihoodWeighting(
   observedValues: Combinations
 ): number {
   // a vector of weighted counts for each value of X, initially zero
-  const weights: number[] = [0, 0];
   let totalWeight = 0;
   let consistentQueryWeight = 0;
   for (let i = 0; i < sampleSize; i++) {
     const { sample, weight } = weightedSample(network, observedValues);
-    // const query = Object.entries(query)[0];
-    // TODO switch with sampleConsistentwithQuery function
     totalWeight += weight;
     if (sampleConsistentWithQuery(sample, query)) {
       consistentQueryWeight += weight;
     }
-    if (sample[query[0]] === "F") {
-      weights[0] = weights[0] + weight;
-    } else {
-      weights[1] = weights[1] + weight;
-    }
   }
   return consistentQueryWeight / totalWeight;
-  // return normalize(weights);
 }
 
 export const infer: Infer = (
@@ -104,7 +96,7 @@ export const infer: Infer = (
   query: Combinations = {},
   observedValues: Combinations
 ) => {
-  const likelihood = likelihoodWeighting(network, query, 10000, observedValues);
+  const likelihood = likelihoodWeighting(network, query, 10, observedValues);
   return likelihood;
 };
 

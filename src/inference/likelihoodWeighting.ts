@@ -33,7 +33,6 @@ function weightedSample(network: Network, observedValues: Combinations) {
 
     for (const value of Object.entries(observedValues)) {
       if (node.id === value[0] && node.states.includes(value[1])) {
-        console.log(nodeName, " is an evidence variable");
         // Xi is an evidence variable with value xi in observedValues
         let probability = 0;
         if (node.parents.length > 0) {
@@ -89,10 +88,7 @@ function likelihoodWeighting(
       weights[1] = weights[1] + weight;
     }
   }
-  const sum = weights[0] + weights[1];
-  weights[0] = weights[0] / sum;
-  weights[1] = weights[1] / sum;
-  return weights;
+  return normalize(weights);
 }
 
 export const infer: Infer = (
@@ -103,7 +99,7 @@ export const infer: Infer = (
   const likelihood = likelihoodWeighting(
     network,
     queryNodes,
-    1,
+    100,
     observedValues
   );
   if (Object.entries(queryNodes)[0][1] == "T") {
@@ -112,3 +108,14 @@ export const infer: Infer = (
     return likelihood[0];
   }
 };
+
+function normalize(weights: number[]): number[] {
+  let sum = 0;
+  for (var weight of weights) {
+    sum += weight;
+  }
+  for (let i = 0; i < weights.length; i++) {
+    weights[i] /= sum;
+  }
+  return weights;
+}

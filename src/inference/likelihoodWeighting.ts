@@ -15,53 +15,81 @@ function weightedSample(network: Network, observedValues: Combinations) {
   const sample = Object.assign({}, observedValues);
   let weight = 1;
   let acc = 0;
+  // this is not being created properly -> length of parentValues needs to be
+  // equal to number of parents that node has.
+
   for (const [nodeName, node] of Object.entries(network)) {
+    // const parentValues: Boolean[] = [];
+    // if (node.parents.length > 0) {
+    //   // const parentValues: Boolean[] = [];
+    //   for (const p of parents) {
+    //     if (sample[p] === "T") {
+    //       parentValues.push(true);
+    //     }
+    //   }
+    //   // console.log(parents);
+    //   // console.log(parentValues);
+    //   for (const [j, value] of parentValues.entries()) {
+    //     const exp = parentValues.length - j - 1;
+    //     acc = value ? 2 ** exp : 0;
+    //     // acc = value * 2 ** exp;
+    //   }
+    //   // console.log(parentValues, acc);
+    // }
     const parents = node.parents;
-    if (node.parents.length > 0) {
-      const parentValues: Boolean[] = [];
-      for (const p of parents) {
-        if (sample[p] === "T") {
-          parentValues.push(true);
-        }
+    let parentsValues = "";
+    for (let parent of parents) {
+      if (sample[parent] === "T") {
+        parentsValues = parentsValues.concat("1");
+      } else {
+        parentsValues = parentsValues.concat("0");
       }
-      for (const [j, value] of parentValues.entries()) {
-        const exp = parentValues.length - j - 1;
-        acc = value ? 2 ** exp : 0;
+    }
+    if (parentsValues) {
+      acc = parseInt(parentsValues, 2);
+    }
+
+    // console.log(parentsValues, acc);
+    // console.log(observedValues);
+    if (nodeName in observedValues) {
+      // Xi is an evidence variable with value xi in observedValues
+      let probability = 0;
+      if (parents.length > 0) {
+        // node with parents
+        const cpt = network[nodeName].cpt as CptWithParents;
+        probability =
+          observedValues[nodeName] === "T"
+            ? cpt[cpt.length - acc - 1].probability.T
+            : cpt[cpt.length - acc - 1].probability.F;
+      } else {
+        // node without parents
+        const cpt = network[nodeName].cpt as CptWithoutParents;
+        probability = observedValues[nodeName] === "T" ? cpt.T : cpt.F;
       }
-      // console.log(parentValues, acc);
+      weight = weight * probability;
+    } else {
+      // generate random sample from P(Xi | parents(Xi))
+      // random value between 0 and 1
+      let random = chance.floating({ min: 0, max: 1 });
+      let probability = 0;
+      if (parents.length > 0) {
+        const cpt = network[nodeName].cpt as CptWithParents;
+        // console.log(parentValues);
+        // console.log(cpt[acc]);
+        probability = cpt[cpt.length - acc - 1].probability.T;
+        // console.log(nodeName, probability);
+      } else {
+        const cpt = network[nodeName].cpt as CptWithoutParents;
+        probability = cpt.T;
+      }
+      // create random sample for node
+      sample[nodeName] = random <= probability ? "T" : "F";
+      // console.log(random, probability, sample[nodeName]);
     }
 
     for (const value of Object.entries(observedValues)) {
+      // console.log("value", value);
       if (node.id === value[0] && node.states.includes(value[1])) {
-        // Xi is an evidence variable with value xi in observedValues
-        let probability = 0;
-        if (node.parents.length > 0) {
-          // node with parents
-          const cpt = network[nodeName].cpt as CptWithParents;
-          probability =
-            value[1] === "T" ? cpt[acc].probability.T : cpt[acc].probability.F;
-        } else {
-          // node without parents
-          const cpt = network[nodeName].cpt as CptWithoutParents;
-          probability = value[1] === "T" ? cpt.T : cpt.F;
-        }
-        weight = weight * probability;
-      } else {
-        // generate random sample from P(Xi | parents(Xi))
-        // random value between 0 and 1
-        let random = chance.floating({ min: 0, max: 1 });
-        let probability = 0;
-        if (node.parents.length > 0) {
-          const cpt = network[nodeName].cpt as CptWithParents;
-          probability = cpt[acc].probability.T;
-          console.log(nodeName, probability);
-        } else {
-          const cpt = network[nodeName].cpt as CptWithoutParents;
-          probability = cpt.T;
-        }
-        // create random sample for node
-        sample[nodeName] = random <= probability ? "T" : "F";
-        console.log(random, probability, sample[nodeName]);
       }
     }
   }
@@ -96,7 +124,12 @@ export const infer: Infer = (
   query: Combinations = {},
   observedValues: Combinations
 ) => {
-  const likelihood = likelihoodWeighting(network, query, 10, observedValues);
+  const likelihood = likelihoodWeighting(
+    network,
+    query,
+    100000,
+    observedValues
+  );
   return likelihood;
 };
 

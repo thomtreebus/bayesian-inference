@@ -6,323 +6,131 @@ export const node1: Node = {
   parents: ["node25", "node13", "node16", "node17", "node37"],
   cpt: [
     {
-      condition: {
-        node25: "T",
-        node13: "T",
-        node16: "T",
-        node17: "T",
-        node37: "T",
-      },
+      condition: { node25: "T", node13: "T", node16: "T", node17: "T", node37: "T" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "T",
-        node16: "T",
-        node17: "T",
-        node37: "T",
-      },
+      condition: { node25: "F", node13: "T", node16: "T", node17: "T", node37: "T" },
       probability: { T: 0.01, F: 0.99 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "F",
-        node16: "T",
-        node17: "T",
-        node37: "T",
-      },
+      condition: { node25: "T", node13: "F", node16: "T", node17: "T", node37: "T" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "F",
-        node16: "T",
-        node17: "T",
-        node37: "T",
-      },
+      condition: { node25: "F", node13: "F", node16: "T", node17: "T", node37: "T" },
       probability: { T: 0.01, F: 0.99 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "T",
-        node16: "F",
-        node17: "T",
-        node37: "T",
-      },
+      condition: { node25: "T", node13: "T", node16: "F", node17: "T", node37: "T" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "T",
-        node16: "F",
-        node17: "T",
-        node37: "T",
-      },
+      condition: { node25: "F", node13: "T", node16: "F", node17: "T", node37: "T" },
       probability: { T: 0.01, F: 0.99 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "F",
-        node16: "F",
-        node17: "T",
-        node37: "T",
-      },
+      condition: { node25: "T", node13: "F", node16: "F", node17: "T", node37: "T" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "F",
-        node16: "F",
-        node17: "T",
-        node37: "T",
-      },
+      condition: { node25: "F", node13: "F", node16: "F", node17: "T", node37: "T" },
       probability: { T: 0.01, F: 0.99 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "T",
-        node16: "T",
-        node17: "F",
-        node37: "T",
-      },
+      condition: { node25: "T", node13: "T", node16: "T", node17: "F", node37: "T" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "T",
-        node16: "T",
-        node17: "F",
-        node37: "T",
-      },
+      condition: { node25: "F", node13: "T", node16: "T", node17: "F", node37: "T" },
       probability: { T: 0.01, F: 0.99 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "F",
-        node16: "T",
-        node17: "F",
-        node37: "T",
-      },
+      condition: { node25: "T", node13: "F", node16: "T", node17: "F", node37: "T" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "F",
-        node16: "T",
-        node17: "F",
-        node37: "T",
-      },
+      condition: { node25: "F", node13: "F", node16: "T", node17: "F", node37: "T" },
       probability: { T: 0.01, F: 0.99 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "T",
-        node16: "F",
-        node17: "F",
-        node37: "T",
-      },
+      condition: { node25: "T", node13: "T", node16: "F", node17: "F", node37: "T" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "T",
-        node16: "F",
-        node17: "F",
-        node37: "T",
-      },
+      condition: { node25: "F", node13: "T", node16: "F", node17: "F", node37: "T" },
       probability: { T: 0.01, F: 0.99 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "F",
-        node16: "F",
-        node17: "F",
-        node37: "T",
-      },
+      condition: { node25: "T", node13: "F", node16: "F", node17: "F", node37: "T" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "F",
-        node16: "F",
-        node17: "F",
-        node37: "T",
-      },
+      condition: { node25: "F", node13: "F", node16: "F", node17: "F", node37: "T" },
       probability: { T: 0.01, F: 0.99 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "T",
-        node16: "T",
-        node17: "T",
-        node37: "F",
-      },
+      condition: { node25: "T", node13: "T", node16: "T", node17: "T", node37: "F" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "T",
-        node16: "T",
-        node17: "T",
-        node37: "F",
-      },
+      condition: { node25: "F", node13: "T", node16: "T", node17: "T", node37: "F" },
       probability: { T: 0.01, F: 0.99 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "F",
-        node16: "T",
-        node17: "T",
-        node37: "F",
-      },
+      condition: { node25: "T", node13: "F", node16: "T", node17: "T", node37: "F" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "F",
-        node16: "T",
-        node17: "T",
-        node37: "F",
-      },
+      condition: { node25: "F", node13: "F", node16: "T", node17: "T", node37: "F" },
       probability: { T: 0.01, F: 0.99 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "T",
-        node16: "F",
-        node17: "T",
-        node37: "F",
-      },
+      condition: { node25: "T", node13: "T", node16: "F", node17: "T", node37: "F" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "T",
-        node16: "F",
-        node17: "T",
-        node37: "F",
-      },
+      condition: { node25: "F", node13: "T", node16: "F", node17: "T", node37: "F" },
       probability: { T: 0.01, F: 0.99 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "F",
-        node16: "F",
-        node17: "T",
-        node37: "F",
-      },
+      condition: { node25: "T", node13: "F", node16: "F", node17: "T", node37: "F" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "F",
-        node16: "F",
-        node17: "T",
-        node37: "F",
-      },
+      condition: { node25: "F", node13: "F", node16: "F", node17: "T", node37: "F" },
       probability: { T: 0.01, F: 0.99 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "T",
-        node16: "T",
-        node17: "F",
-        node37: "F",
-      },
+      condition: { node25: "T", node13: "T", node16: "T", node17: "F", node37: "F" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "T",
-        node16: "T",
-        node17: "F",
-        node37: "F",
-      },
+      condition: { node25: "F", node13: "T", node16: "T", node17: "F", node37: "F" },
       probability: { T: 0.01, F: 0.99 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "F",
-        node16: "T",
-        node17: "F",
-        node37: "F",
-      },
+      condition: { node25: "T", node13: "F", node16: "T", node17: "F", node37: "F" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "F",
-        node16: "T",
-        node17: "F",
-        node37: "F",
-      },
+      condition: { node25: "F", node13: "F", node16: "T", node17: "F", node37: "F" },
       probability: { T: 0.01, F: 0.99 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "T",
-        node16: "F",
-        node17: "F",
-        node37: "F",
-      },
+      condition: { node25: "T", node13: "T", node16: "F", node17: "F", node37: "F" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "T",
-        node16: "F",
-        node17: "F",
-        node37: "F",
-      },
+      condition: { node25: "F", node13: "T", node16: "F", node17: "F", node37: "F" },
       probability: { T: 0.01, F: 0.99 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "F",
-        node16: "F",
-        node17: "F",
-        node37: "F",
-      },
+      condition: { node25: "T", node13: "F", node16: "F", node17: "F", node37: "F" },
       probability: { T: 0.01, F: 0.99 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "F",
-        node16: "F",
-        node17: "F",
-        node37: "F",
-      },
+      condition: { node25: "F", node13: "F", node16: "F", node17: "F", node37: "F" },
       probability: { T: 0.01, F: 0.99 },
     },
   ],
@@ -1917,22 +1725,10 @@ export const node10: Node = {
   states: ["T", "F"],
   parents: ["node11", "node12"],
   cpt: [
-    {
-      condition: { node11: "T", node12: "T" },
-      probability: { T: 0.99, F: 0.01 },
-    },
-    {
-      condition: { node11: "F", node12: "T" },
-      probability: { T: 0.99, F: 0.01 },
-    },
-    {
-      condition: { node11: "T", node12: "F" },
-      probability: { T: 0.99, F: 0.01 },
-    },
-    {
-      condition: { node11: "F", node12: "F" },
-      probability: { T: 0.01, F: 0.99 },
-    },
+    { condition: { node11: "T", node12: "T" }, probability: { T: 0.99, F: 0.01 } },
+    { condition: { node11: "F", node12: "T" }, probability: { T: 0.99, F: 0.01 } },
+    { condition: { node11: "T", node12: "F" }, probability: { T: 0.99, F: 0.01 } },
+    { condition: { node11: "F", node12: "F" }, probability: { T: 0.01, F: 0.99 } },
   ],
 };
 export const node11: Node = {
@@ -1952,22 +1748,10 @@ export const node13: Node = {
   states: ["T", "F"],
   parents: ["node14", "node15"],
   cpt: [
-    {
-      condition: { node14: "T", node15: "T" },
-      probability: { T: 0.99, F: 0.01 },
-    },
-    {
-      condition: { node14: "F", node15: "T" },
-      probability: { T: 0.99, F: 0.01 },
-    },
-    {
-      condition: { node14: "T", node15: "F" },
-      probability: { T: 0.99, F: 0.01 },
-    },
-    {
-      condition: { node14: "F", node15: "F" },
-      probability: { T: 0.01, F: 0.99 },
-    },
+    { condition: { node14: "T", node15: "T" }, probability: { T: 0.99, F: 0.01 } },
+    { condition: { node14: "F", node15: "T" }, probability: { T: 0.99, F: 0.01 } },
+    { condition: { node14: "T", node15: "F" }, probability: { T: 0.99, F: 0.01 } },
+    { condition: { node14: "F", node15: "F" }, probability: { T: 0.01, F: 0.99 } },
   ],
 };
 export const node14: Node = {
@@ -1993,22 +1777,10 @@ export const node17: Node = {
   states: ["T", "F"],
   parents: ["node23", "node18"],
   cpt: [
-    {
-      condition: { node23: "T", node18: "T" },
-      probability: { T: 0.99, F: 0.01 },
-    },
-    {
-      condition: { node23: "F", node18: "T" },
-      probability: { T: 0.99, F: 0.01 },
-    },
-    {
-      condition: { node23: "T", node18: "F" },
-      probability: { T: 0.99, F: 0.01 },
-    },
-    {
-      condition: { node23: "F", node18: "F" },
-      probability: { T: 0.01, F: 0.99 },
-    },
+    { condition: { node23: "T", node18: "T" }, probability: { T: 0.99, F: 0.01 } },
+    { condition: { node23: "F", node18: "T" }, probability: { T: 0.99, F: 0.01 } },
+    { condition: { node23: "T", node18: "F" }, probability: { T: 0.99, F: 0.01 } },
+    { condition: { node23: "F", node18: "F" }, probability: { T: 0.01, F: 0.99 } },
   ],
 };
 export const node18: Node = {
@@ -2118,323 +1890,131 @@ export const node24: Node = {
   parents: ["node25", "node13", "node16", "node17", "node37"],
   cpt: [
     {
-      condition: {
-        node25: "T",
-        node13: "T",
-        node16: "T",
-        node17: "T",
-        node37: "T",
-      },
+      condition: { node25: "T", node13: "T", node16: "T", node17: "T", node37: "T" },
       probability: { T: 0.01, F: 0.99 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "T",
-        node16: "T",
-        node17: "T",
-        node37: "T",
-      },
+      condition: { node25: "F", node13: "T", node16: "T", node17: "T", node37: "T" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "F",
-        node16: "T",
-        node17: "T",
-        node37: "T",
-      },
+      condition: { node25: "T", node13: "F", node16: "T", node17: "T", node37: "T" },
       probability: { T: 0.01, F: 0.99 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "F",
-        node16: "T",
-        node17: "T",
-        node37: "T",
-      },
+      condition: { node25: "F", node13: "F", node16: "T", node17: "T", node37: "T" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "T",
-        node16: "F",
-        node17: "T",
-        node37: "T",
-      },
+      condition: { node25: "T", node13: "T", node16: "F", node17: "T", node37: "T" },
       probability: { T: 0.01, F: 0.99 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "T",
-        node16: "F",
-        node17: "T",
-        node37: "T",
-      },
+      condition: { node25: "F", node13: "T", node16: "F", node17: "T", node37: "T" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "F",
-        node16: "F",
-        node17: "T",
-        node37: "T",
-      },
+      condition: { node25: "T", node13: "F", node16: "F", node17: "T", node37: "T" },
       probability: { T: 0.01, F: 0.99 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "F",
-        node16: "F",
-        node17: "T",
-        node37: "T",
-      },
+      condition: { node25: "F", node13: "F", node16: "F", node17: "T", node37: "T" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "T",
-        node16: "T",
-        node17: "F",
-        node37: "T",
-      },
+      condition: { node25: "T", node13: "T", node16: "T", node17: "F", node37: "T" },
       probability: { T: 0.01, F: 0.99 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "T",
-        node16: "T",
-        node17: "F",
-        node37: "T",
-      },
+      condition: { node25: "F", node13: "T", node16: "T", node17: "F", node37: "T" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "F",
-        node16: "T",
-        node17: "F",
-        node37: "T",
-      },
+      condition: { node25: "T", node13: "F", node16: "T", node17: "F", node37: "T" },
       probability: { T: 0.01, F: 0.99 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "F",
-        node16: "T",
-        node17: "F",
-        node37: "T",
-      },
+      condition: { node25: "F", node13: "F", node16: "T", node17: "F", node37: "T" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "T",
-        node16: "F",
-        node17: "F",
-        node37: "T",
-      },
+      condition: { node25: "T", node13: "T", node16: "F", node17: "F", node37: "T" },
       probability: { T: 0.01, F: 0.99 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "T",
-        node16: "F",
-        node17: "F",
-        node37: "T",
-      },
+      condition: { node25: "F", node13: "T", node16: "F", node17: "F", node37: "T" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "F",
-        node16: "F",
-        node17: "F",
-        node37: "T",
-      },
+      condition: { node25: "T", node13: "F", node16: "F", node17: "F", node37: "T" },
       probability: { T: 0.01, F: 0.99 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "F",
-        node16: "F",
-        node17: "F",
-        node37: "T",
-      },
+      condition: { node25: "F", node13: "F", node16: "F", node17: "F", node37: "T" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "T",
-        node16: "T",
-        node17: "T",
-        node37: "F",
-      },
+      condition: { node25: "T", node13: "T", node16: "T", node17: "T", node37: "F" },
       probability: { T: 0.01, F: 0.99 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "T",
-        node16: "T",
-        node17: "T",
-        node37: "F",
-      },
+      condition: { node25: "F", node13: "T", node16: "T", node17: "T", node37: "F" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "F",
-        node16: "T",
-        node17: "T",
-        node37: "F",
-      },
+      condition: { node25: "T", node13: "F", node16: "T", node17: "T", node37: "F" },
       probability: { T: 0.01, F: 0.99 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "F",
-        node16: "T",
-        node17: "T",
-        node37: "F",
-      },
+      condition: { node25: "F", node13: "F", node16: "T", node17: "T", node37: "F" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "T",
-        node16: "F",
-        node17: "T",
-        node37: "F",
-      },
+      condition: { node25: "T", node13: "T", node16: "F", node17: "T", node37: "F" },
       probability: { T: 0.01, F: 0.99 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "T",
-        node16: "F",
-        node17: "T",
-        node37: "F",
-      },
+      condition: { node25: "F", node13: "T", node16: "F", node17: "T", node37: "F" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "F",
-        node16: "F",
-        node17: "T",
-        node37: "F",
-      },
+      condition: { node25: "T", node13: "F", node16: "F", node17: "T", node37: "F" },
       probability: { T: 0.01, F: 0.99 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "F",
-        node16: "F",
-        node17: "T",
-        node37: "F",
-      },
+      condition: { node25: "F", node13: "F", node16: "F", node17: "T", node37: "F" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "T",
-        node16: "T",
-        node17: "F",
-        node37: "F",
-      },
+      condition: { node25: "T", node13: "T", node16: "T", node17: "F", node37: "F" },
       probability: { T: 0.01, F: 0.99 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "T",
-        node16: "T",
-        node17: "F",
-        node37: "F",
-      },
+      condition: { node25: "F", node13: "T", node16: "T", node17: "F", node37: "F" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "F",
-        node16: "T",
-        node17: "F",
-        node37: "F",
-      },
+      condition: { node25: "T", node13: "F", node16: "T", node17: "F", node37: "F" },
       probability: { T: 0.01, F: 0.99 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "F",
-        node16: "T",
-        node17: "F",
-        node37: "F",
-      },
+      condition: { node25: "F", node13: "F", node16: "T", node17: "F", node37: "F" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "T",
-        node16: "F",
-        node17: "F",
-        node37: "F",
-      },
+      condition: { node25: "T", node13: "T", node16: "F", node17: "F", node37: "F" },
       probability: { T: 0.01, F: 0.99 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "T",
-        node16: "F",
-        node17: "F",
-        node37: "F",
-      },
+      condition: { node25: "F", node13: "T", node16: "F", node17: "F", node37: "F" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "F",
-        node16: "F",
-        node17: "F",
-        node37: "F",
-      },
+      condition: { node25: "T", node13: "F", node16: "F", node17: "F", node37: "F" },
       probability: { T: 0.01, F: 0.99 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "F",
-        node16: "F",
-        node17: "F",
-        node37: "F",
-      },
+      condition: { node25: "F", node13: "F", node16: "F", node17: "F", node37: "F" },
       probability: { T: 0.01, F: 0.99 },
     },
   ],
@@ -2445,323 +2025,131 @@ export const node25: Node = {
   parents: ["node26", "node27", "node28", "node29", "node30"],
   cpt: [
     {
-      condition: {
-        node26: "T",
-        node27: "T",
-        node28: "T",
-        node29: "T",
-        node30: "T",
-      },
+      condition: { node26: "T", node27: "T", node28: "T", node29: "T", node30: "T" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node26: "F",
-        node27: "T",
-        node28: "T",
-        node29: "T",
-        node30: "T",
-      },
+      condition: { node26: "F", node27: "T", node28: "T", node29: "T", node30: "T" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node26: "T",
-        node27: "F",
-        node28: "T",
-        node29: "T",
-        node30: "T",
-      },
+      condition: { node26: "T", node27: "F", node28: "T", node29: "T", node30: "T" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node26: "F",
-        node27: "F",
-        node28: "T",
-        node29: "T",
-        node30: "T",
-      },
+      condition: { node26: "F", node27: "F", node28: "T", node29: "T", node30: "T" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node26: "T",
-        node27: "T",
-        node28: "F",
-        node29: "T",
-        node30: "T",
-      },
+      condition: { node26: "T", node27: "T", node28: "F", node29: "T", node30: "T" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node26: "F",
-        node27: "T",
-        node28: "F",
-        node29: "T",
-        node30: "T",
-      },
+      condition: { node26: "F", node27: "T", node28: "F", node29: "T", node30: "T" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node26: "T",
-        node27: "F",
-        node28: "F",
-        node29: "T",
-        node30: "T",
-      },
+      condition: { node26: "T", node27: "F", node28: "F", node29: "T", node30: "T" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node26: "F",
-        node27: "F",
-        node28: "F",
-        node29: "T",
-        node30: "T",
-      },
+      condition: { node26: "F", node27: "F", node28: "F", node29: "T", node30: "T" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node26: "T",
-        node27: "T",
-        node28: "T",
-        node29: "F",
-        node30: "T",
-      },
+      condition: { node26: "T", node27: "T", node28: "T", node29: "F", node30: "T" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node26: "F",
-        node27: "T",
-        node28: "T",
-        node29: "F",
-        node30: "T",
-      },
+      condition: { node26: "F", node27: "T", node28: "T", node29: "F", node30: "T" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node26: "T",
-        node27: "F",
-        node28: "T",
-        node29: "F",
-        node30: "T",
-      },
+      condition: { node26: "T", node27: "F", node28: "T", node29: "F", node30: "T" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node26: "F",
-        node27: "F",
-        node28: "T",
-        node29: "F",
-        node30: "T",
-      },
+      condition: { node26: "F", node27: "F", node28: "T", node29: "F", node30: "T" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node26: "T",
-        node27: "T",
-        node28: "F",
-        node29: "F",
-        node30: "T",
-      },
+      condition: { node26: "T", node27: "T", node28: "F", node29: "F", node30: "T" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node26: "F",
-        node27: "T",
-        node28: "F",
-        node29: "F",
-        node30: "T",
-      },
+      condition: { node26: "F", node27: "T", node28: "F", node29: "F", node30: "T" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node26: "T",
-        node27: "F",
-        node28: "F",
-        node29: "F",
-        node30: "T",
-      },
+      condition: { node26: "T", node27: "F", node28: "F", node29: "F", node30: "T" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node26: "F",
-        node27: "F",
-        node28: "F",
-        node29: "F",
-        node30: "T",
-      },
+      condition: { node26: "F", node27: "F", node28: "F", node29: "F", node30: "T" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node26: "T",
-        node27: "T",
-        node28: "T",
-        node29: "T",
-        node30: "F",
-      },
+      condition: { node26: "T", node27: "T", node28: "T", node29: "T", node30: "F" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node26: "F",
-        node27: "T",
-        node28: "T",
-        node29: "T",
-        node30: "F",
-      },
+      condition: { node26: "F", node27: "T", node28: "T", node29: "T", node30: "F" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node26: "T",
-        node27: "F",
-        node28: "T",
-        node29: "T",
-        node30: "F",
-      },
+      condition: { node26: "T", node27: "F", node28: "T", node29: "T", node30: "F" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node26: "F",
-        node27: "F",
-        node28: "T",
-        node29: "T",
-        node30: "F",
-      },
+      condition: { node26: "F", node27: "F", node28: "T", node29: "T", node30: "F" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node26: "T",
-        node27: "T",
-        node28: "F",
-        node29: "T",
-        node30: "F",
-      },
+      condition: { node26: "T", node27: "T", node28: "F", node29: "T", node30: "F" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node26: "F",
-        node27: "T",
-        node28: "F",
-        node29: "T",
-        node30: "F",
-      },
+      condition: { node26: "F", node27: "T", node28: "F", node29: "T", node30: "F" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node26: "T",
-        node27: "F",
-        node28: "F",
-        node29: "T",
-        node30: "F",
-      },
+      condition: { node26: "T", node27: "F", node28: "F", node29: "T", node30: "F" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node26: "F",
-        node27: "F",
-        node28: "F",
-        node29: "T",
-        node30: "F",
-      },
+      condition: { node26: "F", node27: "F", node28: "F", node29: "T", node30: "F" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node26: "T",
-        node27: "T",
-        node28: "T",
-        node29: "F",
-        node30: "F",
-      },
+      condition: { node26: "T", node27: "T", node28: "T", node29: "F", node30: "F" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node26: "F",
-        node27: "T",
-        node28: "T",
-        node29: "F",
-        node30: "F",
-      },
+      condition: { node26: "F", node27: "T", node28: "T", node29: "F", node30: "F" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node26: "T",
-        node27: "F",
-        node28: "T",
-        node29: "F",
-        node30: "F",
-      },
+      condition: { node26: "T", node27: "F", node28: "T", node29: "F", node30: "F" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node26: "F",
-        node27: "F",
-        node28: "T",
-        node29: "F",
-        node30: "F",
-      },
+      condition: { node26: "F", node27: "F", node28: "T", node29: "F", node30: "F" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node26: "T",
-        node27: "T",
-        node28: "F",
-        node29: "F",
-        node30: "F",
-      },
+      condition: { node26: "T", node27: "T", node28: "F", node29: "F", node30: "F" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node26: "F",
-        node27: "T",
-        node28: "F",
-        node29: "F",
-        node30: "F",
-      },
+      condition: { node26: "F", node27: "T", node28: "F", node29: "F", node30: "F" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node26: "T",
-        node27: "F",
-        node28: "F",
-        node29: "F",
-        node30: "F",
-      },
+      condition: { node26: "T", node27: "F", node28: "F", node29: "F", node30: "F" },
       probability: { T: 0.99, F: 0.01 },
     },
     {
-      condition: {
-        node26: "F",
-        node27: "F",
-        node28: "F",
-        node29: "F",
-        node30: "F",
-      },
+      condition: { node26: "F", node27: "F", node28: "F", node29: "F", node30: "F" },
       probability: { T: 0.01, F: 0.99 },
     },
   ],
@@ -2801,22 +2189,10 @@ export const node31: Node = {
   states: ["T", "F"],
   parents: ["node1", "node24"],
   cpt: [
-    {
-      condition: { node1: "T", node24: "T" },
-      probability: { T: 0.99, F: 0.01 },
-    },
-    {
-      condition: { node1: "F", node24: "T" },
-      probability: { T: 0.99, F: 0.01 },
-    },
-    {
-      condition: { node1: "T", node24: "F" },
-      probability: { T: 0.99, F: 0.01 },
-    },
-    {
-      condition: { node1: "F", node24: "F" },
-      probability: { T: 0.01, F: 0.99 },
-    },
+    { condition: { node1: "T", node24: "T" }, probability: { T: 0.99, F: 0.01 } },
+    { condition: { node1: "F", node24: "T" }, probability: { T: 0.99, F: 0.01 } },
+    { condition: { node1: "T", node24: "F" }, probability: { T: 0.99, F: 0.01 } },
+    { condition: { node1: "F", node24: "F" }, probability: { T: 0.01, F: 0.99 } },
   ],
 };
 export const node32: Node = {
@@ -2824,22 +2200,10 @@ export const node32: Node = {
   states: ["T", "F"],
   parents: ["node1", "node24"],
   cpt: [
-    {
-      condition: { node1: "T", node24: "T" },
-      probability: { T: 0.99, F: 0.01 },
-    },
-    {
-      condition: { node1: "F", node24: "T" },
-      probability: { T: 0.99, F: 0.01 },
-    },
-    {
-      condition: { node1: "T", node24: "F" },
-      probability: { T: 0.99, F: 0.01 },
-    },
-    {
-      condition: { node1: "F", node24: "F" },
-      probability: { T: 0.01, F: 0.99 },
-    },
+    { condition: { node1: "T", node24: "T" }, probability: { T: 0.99, F: 0.01 } },
+    { condition: { node1: "F", node24: "T" }, probability: { T: 0.99, F: 0.01 } },
+    { condition: { node1: "T", node24: "F" }, probability: { T: 0.99, F: 0.01 } },
+    { condition: { node1: "F", node24: "F" }, probability: { T: 0.01, F: 0.99 } },
   ],
 };
 export const node33: Node = {
@@ -2847,22 +2211,10 @@ export const node33: Node = {
   states: ["T", "F"],
   parents: ["node1", "node24"],
   cpt: [
-    {
-      condition: { node1: "T", node24: "T" },
-      probability: { T: 0.99, F: 0.01 },
-    },
-    {
-      condition: { node1: "F", node24: "T" },
-      probability: { T: 0.99, F: 0.01 },
-    },
-    {
-      condition: { node1: "T", node24: "F" },
-      probability: { T: 0.99, F: 0.01 },
-    },
-    {
-      condition: { node1: "F", node24: "F" },
-      probability: { T: 0.01, F: 0.99 },
-    },
+    { condition: { node1: "T", node24: "T" }, probability: { T: 0.99, F: 0.01 } },
+    { condition: { node1: "F", node24: "T" }, probability: { T: 0.99, F: 0.01 } },
+    { condition: { node1: "T", node24: "F" }, probability: { T: 0.99, F: 0.01 } },
+    { condition: { node1: "F", node24: "F" }, probability: { T: 0.01, F: 0.99 } },
   ],
 };
 export const node34: Node = {
@@ -2870,22 +2222,10 @@ export const node34: Node = {
   states: ["T", "F"],
   parents: ["node1", "node24"],
   cpt: [
-    {
-      condition: { node1: "T", node24: "T" },
-      probability: { T: 0.99, F: 0.01 },
-    },
-    {
-      condition: { node1: "F", node24: "T" },
-      probability: { T: 0.99, F: 0.01 },
-    },
-    {
-      condition: { node1: "T", node24: "F" },
-      probability: { T: 0.99, F: 0.01 },
-    },
-    {
-      condition: { node1: "F", node24: "F" },
-      probability: { T: 0.01, F: 0.99 },
-    },
+    { condition: { node1: "T", node24: "T" }, probability: { T: 0.99, F: 0.01 } },
+    { condition: { node1: "F", node24: "T" }, probability: { T: 0.99, F: 0.01 } },
+    { condition: { node1: "T", node24: "F" }, probability: { T: 0.99, F: 0.01 } },
+    { condition: { node1: "F", node24: "F" }, probability: { T: 0.01, F: 0.99 } },
   ],
 };
 export const node35: Node = {
@@ -2893,22 +2233,10 @@ export const node35: Node = {
   states: ["T", "F"],
   parents: ["node1", "node24"],
   cpt: [
-    {
-      condition: { node1: "T", node24: "T" },
-      probability: { T: 0.99, F: 0.01 },
-    },
-    {
-      condition: { node1: "F", node24: "T" },
-      probability: { T: 0.99, F: 0.01 },
-    },
-    {
-      condition: { node1: "T", node24: "F" },
-      probability: { T: 0.99, F: 0.01 },
-    },
-    {
-      condition: { node1: "F", node24: "F" },
-      probability: { T: 0.01, F: 0.99 },
-    },
+    { condition: { node1: "T", node24: "T" }, probability: { T: 0.99, F: 0.01 } },
+    { condition: { node1: "F", node24: "T" }, probability: { T: 0.99, F: 0.01 } },
+    { condition: { node1: "T", node24: "F" }, probability: { T: 0.99, F: 0.01 } },
+    { condition: { node1: "F", node24: "F" }, probability: { T: 0.01, F: 0.99 } },
   ],
 };
 export const node36: Node = {
@@ -2917,323 +2245,131 @@ export const node36: Node = {
   parents: ["node25", "node13", "node16", "node17", "node37"],
   cpt: [
     {
-      condition: {
-        node25: "T",
-        node13: "T",
-        node16: "T",
-        node17: "T",
-        node37: "T",
-      },
+      condition: { node25: "T", node13: "T", node16: "T", node17: "T", node37: "T" },
       probability: { T: 0, F: 1 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "T",
-        node16: "T",
-        node17: "T",
-        node37: "T",
-      },
+      condition: { node25: "F", node13: "T", node16: "T", node17: "T", node37: "T" },
       probability: { T: 0, F: 1 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "F",
-        node16: "T",
-        node17: "T",
-        node37: "T",
-      },
+      condition: { node25: "T", node13: "F", node16: "T", node17: "T", node37: "T" },
       probability: { T: 0, F: 1 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "F",
-        node16: "T",
-        node17: "T",
-        node37: "T",
-      },
+      condition: { node25: "F", node13: "F", node16: "T", node17: "T", node37: "T" },
       probability: { T: 0, F: 1 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "T",
-        node16: "F",
-        node17: "T",
-        node37: "T",
-      },
+      condition: { node25: "T", node13: "T", node16: "F", node17: "T", node37: "T" },
       probability: { T: 0, F: 1 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "T",
-        node16: "F",
-        node17: "T",
-        node37: "T",
-      },
+      condition: { node25: "F", node13: "T", node16: "F", node17: "T", node37: "T" },
       probability: { T: 0, F: 1 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "F",
-        node16: "F",
-        node17: "T",
-        node37: "T",
-      },
+      condition: { node25: "T", node13: "F", node16: "F", node17: "T", node37: "T" },
       probability: { T: 0, F: 1 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "F",
-        node16: "F",
-        node17: "T",
-        node37: "T",
-      },
+      condition: { node25: "F", node13: "F", node16: "F", node17: "T", node37: "T" },
       probability: { T: 0, F: 1 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "T",
-        node16: "T",
-        node17: "F",
-        node37: "T",
-      },
+      condition: { node25: "T", node13: "T", node16: "T", node17: "F", node37: "T" },
       probability: { T: 0, F: 1 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "T",
-        node16: "T",
-        node17: "F",
-        node37: "T",
-      },
+      condition: { node25: "F", node13: "T", node16: "T", node17: "F", node37: "T" },
       probability: { T: 0, F: 1 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "F",
-        node16: "T",
-        node17: "F",
-        node37: "T",
-      },
+      condition: { node25: "T", node13: "F", node16: "T", node17: "F", node37: "T" },
       probability: { T: 0, F: 1 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "F",
-        node16: "T",
-        node17: "F",
-        node37: "T",
-      },
+      condition: { node25: "F", node13: "F", node16: "T", node17: "F", node37: "T" },
       probability: { T: 0, F: 1 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "T",
-        node16: "F",
-        node17: "F",
-        node37: "T",
-      },
+      condition: { node25: "T", node13: "T", node16: "F", node17: "F", node37: "T" },
       probability: { T: 0, F: 1 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "T",
-        node16: "F",
-        node17: "F",
-        node37: "T",
-      },
+      condition: { node25: "F", node13: "T", node16: "F", node17: "F", node37: "T" },
       probability: { T: 0, F: 1 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "F",
-        node16: "F",
-        node17: "F",
-        node37: "T",
-      },
+      condition: { node25: "T", node13: "F", node16: "F", node17: "F", node37: "T" },
       probability: { T: 0, F: 1 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "F",
-        node16: "F",
-        node17: "F",
-        node37: "T",
-      },
+      condition: { node25: "F", node13: "F", node16: "F", node17: "F", node37: "T" },
       probability: { T: 0, F: 1 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "T",
-        node16: "T",
-        node17: "T",
-        node37: "F",
-      },
+      condition: { node25: "T", node13: "T", node16: "T", node17: "T", node37: "F" },
       probability: { T: 0, F: 1 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "T",
-        node16: "T",
-        node17: "T",
-        node37: "F",
-      },
+      condition: { node25: "F", node13: "T", node16: "T", node17: "T", node37: "F" },
       probability: { T: 0, F: 1 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "F",
-        node16: "T",
-        node17: "T",
-        node37: "F",
-      },
+      condition: { node25: "T", node13: "F", node16: "T", node17: "T", node37: "F" },
       probability: { T: 0, F: 1 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "F",
-        node16: "T",
-        node17: "T",
-        node37: "F",
-      },
+      condition: { node25: "F", node13: "F", node16: "T", node17: "T", node37: "F" },
       probability: { T: 0, F: 1 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "T",
-        node16: "F",
-        node17: "T",
-        node37: "F",
-      },
+      condition: { node25: "T", node13: "T", node16: "F", node17: "T", node37: "F" },
       probability: { T: 0, F: 1 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "T",
-        node16: "F",
-        node17: "T",
-        node37: "F",
-      },
+      condition: { node25: "F", node13: "T", node16: "F", node17: "T", node37: "F" },
       probability: { T: 0, F: 1 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "F",
-        node16: "F",
-        node17: "T",
-        node37: "F",
-      },
+      condition: { node25: "T", node13: "F", node16: "F", node17: "T", node37: "F" },
       probability: { T: 0, F: 1 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "F",
-        node16: "F",
-        node17: "T",
-        node37: "F",
-      },
+      condition: { node25: "F", node13: "F", node16: "F", node17: "T", node37: "F" },
       probability: { T: 0, F: 1 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "T",
-        node16: "T",
-        node17: "F",
-        node37: "F",
-      },
+      condition: { node25: "T", node13: "T", node16: "T", node17: "F", node37: "F" },
       probability: { T: 0, F: 1 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "T",
-        node16: "T",
-        node17: "F",
-        node37: "F",
-      },
+      condition: { node25: "F", node13: "T", node16: "T", node17: "F", node37: "F" },
       probability: { T: 0, F: 1 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "F",
-        node16: "T",
-        node17: "F",
-        node37: "F",
-      },
+      condition: { node25: "T", node13: "F", node16: "T", node17: "F", node37: "F" },
       probability: { T: 0, F: 1 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "F",
-        node16: "T",
-        node17: "F",
-        node37: "F",
-      },
+      condition: { node25: "F", node13: "F", node16: "T", node17: "F", node37: "F" },
       probability: { T: 0, F: 1 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "T",
-        node16: "F",
-        node17: "F",
-        node37: "F",
-      },
+      condition: { node25: "T", node13: "T", node16: "F", node17: "F", node37: "F" },
       probability: { T: 0, F: 1 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "T",
-        node16: "F",
-        node17: "F",
-        node37: "F",
-      },
+      condition: { node25: "F", node13: "T", node16: "F", node17: "F", node37: "F" },
       probability: { T: 0, F: 1 },
     },
     {
-      condition: {
-        node25: "T",
-        node13: "F",
-        node16: "F",
-        node17: "F",
-        node37: "F",
-      },
+      condition: { node25: "T", node13: "F", node16: "F", node17: "F", node37: "F" },
       probability: { T: 0, F: 1 },
     },
     {
-      condition: {
-        node25: "F",
-        node13: "F",
-        node16: "F",
-        node17: "F",
-        node37: "F",
-      },
+      condition: { node25: "F", node13: "F", node16: "F", node17: "F", node37: "F" },
       probability: { T: 0, F: 1 },
     },
   ],
@@ -3243,22 +2379,10 @@ export const node37: Node = {
   states: ["T", "F"],
   parents: ["node38", "node39"],
   cpt: [
-    {
-      condition: { node38: "T", node39: "T" },
-      probability: { T: 0.99, F: 0.01 },
-    },
-    {
-      condition: { node38: "F", node39: "T" },
-      probability: { T: 0.99, F: 0.01 },
-    },
-    {
-      condition: { node38: "T", node39: "F" },
-      probability: { T: 0.99, F: 0.01 },
-    },
-    {
-      condition: { node38: "F", node39: "F" },
-      probability: { T: 0.01, F: 0.99 },
-    },
+    { condition: { node38: "T", node39: "T" }, probability: { T: 0.99, F: 0.01 } },
+    { condition: { node38: "F", node39: "T" }, probability: { T: 0.99, F: 0.01 } },
+    { condition: { node38: "T", node39: "F" }, probability: { T: 0.99, F: 0.01 } },
+    { condition: { node38: "F", node39: "F" }, probability: { T: 0.01, F: 0.99 } },
   ],
 };
 export const node38: Node = {
@@ -3266,22 +2390,10 @@ export const node38: Node = {
   states: ["T", "F"],
   parents: ["node2", "node10"],
   cpt: [
-    {
-      condition: { node2: "T", node10: "T" },
-      probability: { T: 0.99, F: 0.01 },
-    },
-    {
-      condition: { node2: "F", node10: "T" },
-      probability: { T: 0.99, F: 0.01 },
-    },
-    {
-      condition: { node2: "T", node10: "F" },
-      probability: { T: 0.99, F: 0.01 },
-    },
-    {
-      condition: { node2: "F", node10: "F" },
-      probability: { T: 0.01, F: 0.99 },
-    },
+    { condition: { node2: "T", node10: "T" }, probability: { T: 0.99, F: 0.01 } },
+    { condition: { node2: "F", node10: "T" }, probability: { T: 0.99, F: 0.01 } },
+    { condition: { node2: "T", node10: "F" }, probability: { T: 0.99, F: 0.01 } },
+    { condition: { node2: "F", node10: "F" }, probability: { T: 0.01, F: 0.99 } },
   ],
 };
 export const node39: Node = {

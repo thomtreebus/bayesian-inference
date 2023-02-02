@@ -108,12 +108,13 @@ function likelihoodWeighting(
 export const infer: Infer = (
   network: Network,
   query: Combinations = {},
-  observedValues: Combinations
+  observedValues: Combinations,
+  sampleSize: number
 ) => {
   const likelihood = likelihoodWeighting(
     network,
     query,
-    100000,
+    sampleSize,
     observedValues
   );
   return likelihood;

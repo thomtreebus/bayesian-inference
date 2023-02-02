@@ -15,29 +15,10 @@ function weightedSample(network: Network, observedValues: Combinations) {
   const sample = Object.assign({}, observedValues);
   let weight = 1;
   let acc = 0;
-  // this is not being created properly -> length of parentValues needs to be
-  // equal to number of parents that node has.
 
   for (const [nodeName, node] of Object.entries(network)) {
-    // const parentValues: Boolean[] = [];
-    // if (node.parents.length > 0) {
-    //   // const parentValues: Boolean[] = [];
-    //   for (const p of parents) {
-    //     if (sample[p] === "T") {
-    //       parentValues.push(true);
-    //     }
-    //   }
-    //   // console.log(parents);
-    //   // console.log(parentValues);
-    //   for (const [j, value] of parentValues.entries()) {
-    //     const exp = parentValues.length - j - 1;
-    //     acc = value ? 2 ** exp : 0;
-    //     // acc = value * 2 ** exp;
-    //   }
-    //   // console.log(parentValues, acc);
-    // }
     const parents = node.parents;
-    let parentsValues = "";
+    let parentsValues = ""; // binary string
     for (let parent of parents) {
       if (sample[parent] === "T") {
         parentsValues = parentsValues.concat("1");
@@ -45,9 +26,14 @@ function weightedSample(network: Network, observedValues: Combinations) {
         parentsValues = parentsValues.concat("0");
       }
     }
+    // find index of row in CPT that this combination of parents(Xi) is supposed to be
     if (parentsValues) {
       acc = parseInt(parentsValues, 2);
     }
+
+    /* 
+    parent values now created correctly, run through code below to check that probability is computed correctly
+    */
 
     // console.log(parentsValues, acc);
     // console.log(observedValues);
@@ -61,6 +47,7 @@ function weightedSample(network: Network, observedValues: Combinations) {
           observedValues[nodeName] === "T"
             ? cpt[cpt.length - acc - 1].probability.T
             : cpt[cpt.length - acc - 1].probability.F;
+        // console.log("probability", probability);
       } else {
         // node without parents
         const cpt = network[nodeName].cpt as CptWithoutParents;
@@ -84,7 +71,6 @@ function weightedSample(network: Network, observedValues: Combinations) {
       }
       // create random sample for node
       sample[nodeName] = random <= probability ? "T" : "F";
-      // console.log(random, probability, sample[nodeName]);
     }
 
     for (const value of Object.entries(observedValues)) {

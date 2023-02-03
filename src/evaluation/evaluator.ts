@@ -16,7 +16,8 @@ console.log("evaluating....");
 // ];
 const results = [];
 const sampleSizes = [10, 100, 500, 1000];
-for (let sampleSize = 1; sampleSize < 10000; sampleSize++) {
+for (let sampleSize = 1000; sampleSize < 500001; sampleSize += 1000) {
+  console.log("sample:", sampleSize);
   const observedValues = { BURGLARY: "T" };
   results.push([
     sampleSize,
@@ -37,7 +38,7 @@ const csv = convertArrayToCSV(results, {
 // console.log(csv);
 
 try {
-  fs.writeFileSync("test.csv", csv);
+  fs.writeFileSync("test2.csv", csv);
   console.log("file written successfully!");
   // file written successfully
 } catch (err) {

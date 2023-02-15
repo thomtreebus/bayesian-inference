@@ -43,15 +43,29 @@ function weightedSample(network: Network, observedValues: Combinations) {
       if (parents.length > 0) {
         // node with parents
         const cpt = network[nodeName].cpt as CptWithParents;
-        probability =
-          observedValues[nodeName] === "T"
-            ? cpt[cpt.length - acc - 1].probability.T
-            : cpt[cpt.length - acc - 1].probability.F;
+        // probability =
+        //   observedValues[nodeName] === "T"
+        //     ? cpt[cpt.length - acc - 1].probability.T
+        //     : cpt[cpt.length - acc - 1].probability.F;
+        for (const [value, prob] of Object.entries(
+          cpt[cpt.length - acc - 1].probability
+        )) {
+          if (value === observedValues[nodeName]) {
+            probability = prob;
+          }
+        }
+        // probability =
+        //   cpt[cpt.length - acc - 1].probability.observedValues[nodeName];
         // console.log("probability", probability);
       } else {
         // node without parents
         const cpt = network[nodeName].cpt as CptWithoutParents;
-        probability = observedValues[nodeName] === "T" ? cpt.T : cpt.F;
+        // probability = observedValues[nodeName] === "T" ? cpt.T : cpt.F;
+        for (const [value, prob] of Object.entries(cpt[cpt.length - acc - 1])) {
+          if (value === observedValues[nodeName]) {
+            probability = prob;
+          }
+        }
       }
       weight = weight * probability;
     } else {
@@ -64,10 +78,22 @@ function weightedSample(network: Network, observedValues: Combinations) {
         // console.log(parentValues);
         // console.log(cpt[acc]);
         probability = cpt[cpt.length - acc - 1].probability.T;
+        for (const [value, prob] of Object.entries(
+          cpt[cpt.length - acc - 1].probability
+        )) {
+          if (value === observedValues[nodeName]) {
+            probability = prob;
+          }
+        }
         // console.log(nodeName, probability);
       } else {
         const cpt = network[nodeName].cpt as CptWithoutParents;
-        probability = cpt.T;
+        // probability = cpt.T;
+        for (const [value, prob] of Object.entries(cpt[cpt.length - acc - 1])) {
+          if (value === observedValues[nodeName]) {
+            probability = prob;
+          }
+        }
       }
       // create random sample for node
       sample[nodeName] = random <= probability ? "T" : "F";

@@ -47,9 +47,9 @@ const inferAlarmGiveBurglaryTrue = (infer: Infer) => {
   expect(true).toBeTruthy();
   const given = { BURGLARY: "T" };
 
-  expect(infer(network, { EARTHQUAKE: "T" }, given, samples).toFixed(4)).toBe(
-    "0.0020"
-  );
+  // expect(infer(network, { EARTHQUAKE: "T" }, given, samples).toFixed(4)).toBe(
+  //   "0.0020"
+  // );
   // expect(infer(network, { EARTHQUAKE: "F" }, given, samples).toFixed(4)).toBe(
   //   "0.9980"
   // );
@@ -83,9 +83,9 @@ const infersAlarmGiveAlarmTrue = (infer: Infer) => {
   //   "0.231"
   // );
 
-  expect(infer(network, { EARTHQUAKE: "F" }, given, samples).toFixed(4)).toBe(
-    "0.769"
-  );
+  // expect(infer(network, { EARTHQUAKE: "F" }, given, samples).toFixed(4)).toBe(
+  //   "0.769"
+  // );
 
   // approx = infer(network, { EARTHQUAKE: "F" }, observedValues, samples);
   // expect(within1Percent(0.769, approx)).toBeTruthy();

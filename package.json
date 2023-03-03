@@ -36,6 +36,7 @@
     "expect": "^29.3.1",
     "fs": "^0.0.1-security",
     "jest": "^29.3.1",
+    "lodash": "^4.17.21",
     "mongodb": "^4.13.0",
     "mongoose": "^6.8.2",
     "nodemon": "^2.0.20",

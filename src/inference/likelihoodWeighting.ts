@@ -1,6 +1,6 @@
-import { partialObject } from "ramda";
 const Chance = require("chance");
 const chance = new Chance();
+const _ = require("lodash");
 
 import {
   Node,
@@ -14,72 +14,53 @@ import {
 function weightedSample(network: Network, observedValues: Combinations) {
   const sample = Object.assign({}, observedValues);
   let weight = 1;
-  let acc = 0;
+  let index = 0;
 
   for (const [nodeName, node] of Object.entries(network)) {
     const parents = node.parents;
-    let parentsValues = ""; // binary string
+    const parentValues: any = {};
     for (let parent of parents) {
-      if (sample[parent] === "T") {
-        parentsValues = parentsValues.concat("1");
-      } else {
-        parentsValues = parentsValues.concat("0");
-      }
+      parentValues[parent] = sample[parent];
     }
     // find index of row in CPT that this combination of parents(Xi) is supposed to be
-    if (parentsValues) {
-      acc = parseInt(parentsValues, 2);
+    if (parentValues) {
+      index = getCptRowIndex(node.cpt as CptWithParents, parentValues);
     }
-
     /* 
     parent values now created correctly, run through code below to check that probability is computed correctly
     */
-
-    // console.log(parentsValues, acc);
-    // console.log(observedValues);
     if (nodeName in observedValues) {
       // Xi is an evidence variable with value xi in observedValues
       let probability = 0;
+      const observedValue: keyof CptWithoutParents | CptWithParents =
+        observedValues[nodeName];
       if (parents.length > 0) {
         // node with parents
-        const cpt = network[nodeName].cpt as CptWithParents;
-        probability =
-          observedValues[nodeName] === "T"
-            ? cpt[cpt.length - acc - 1].probability.T
-            : cpt[cpt.length - acc - 1].probability.F;
-        // console.log("probability", probability);
+        const cpt = node.cpt as CptWithParents;
+        probability = cpt[index].probability[observedValue];
       } else {
         // node without parents
-        const cpt = network[nodeName].cpt as CptWithoutParents;
-        probability = observedValues[nodeName] === "T" ? cpt.T : cpt.F;
+        const cpt = node.cpt as CptWithoutParents;
+        probability = cpt[observedValue];
       }
       weight = weight * probability;
     } else {
       // generate random sample from P(Xi | parents(Xi))
-      // random value between 0 and 1
-      let random = chance.floating({ min: 0, max: 1 });
-      let probability = 0;
+      let weights: number[] = [];
+      let states: string[] = [];
       if (parents.length > 0) {
         const cpt = network[nodeName].cpt as CptWithParents;
-        // console.log(parentValues);
-        // console.log(cpt[acc]);
-        probability = cpt[cpt.length - acc - 1].probability.T;
-        // console.log(nodeName, probability);
+        weights = Object.values(cpt[index].probability);
+        states = Object.keys(cpt[index].probability);
       } else {
-        const cpt = network[nodeName].cpt as CptWithoutParents;
-        probability = cpt.T;
+        const cpt = node.cpt as CptWithoutParents;
+        weights = Object.values(cpt);
+        states = Object.keys(cpt);
       }
       // create random sample for node
-      sample[nodeName] = random <= probability ? "T" : "F";
-    }
-
-    for (const value of Object.entries(observedValues)) {
-      // console.log("value", value);
-      if (node.id === value[0] && node.states.includes(value[1])) {
-      }
+      sample[nodeName] = getRandom(weights, states);
     }
   }
-  // console.log(sample, observedValues);
   return {
     sample: sample,
     weight: weight,
@@ -130,6 +111,30 @@ function sampleConsistentWithQuery(
     }
   }
   return true;
+}
+
+function getCptRowIndex(cpt: CptWithParents, condition: any) {
+  let index = 0;
+  for (let i = 0; i < cpt.length; i++) {
+    if (_.isEqual(cpt[i].condition, condition)) {
+      index = i;
+    }
+  }
+  return index;
+}
+
+function getRandom(weights: number[], states: string[]) {
+  const num = chance.floating({ min: 0, max: 1 });
+  let s = 0;
+  let lastIndex = weights.length - 1;
+
+  for (var i = 0; i < lastIndex; ++i) {
+    s += weights[i];
+    if (num < s) {
+      return states[i];
+    }
+  }
+  return states[lastIndex];
 }
 
 function normalize(weights: number[]): number[] {

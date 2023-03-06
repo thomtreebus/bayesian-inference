@@ -9,7 +9,8 @@
     "start": "npx nodemon",
     "start:prod": "npm run build && node build/server.js",
     "lint": "eslint . --ext .ts",
-    "build": "npx tsc"
+    "build": "npx tsc",
+    "eval": "npx ts-node src/evaluation/evaluator.ts"
   },
   "repository": {
     "type": "git",
@@ -35,6 +36,7 @@
     "expect": "^29.3.1",
     "fs": "^0.0.1-security",
     "jest": "^29.3.1",
+    "lodash": "^4.17.21",
     "mongodb": "^4.13.0",
     "mongoose": "^6.8.2",
     "nodemon": "^2.0.20",
@@ -48,6 +50,8 @@
   "dependencies": {
     "@hyperjump/json-schema": "^0.23.4",
     "@types/ramda": "^0.28.20",
-    "express": "^4.18.2"
+    "convert-array-to-csv": "^2.0.0",
+    "express": "^4.18.2",
+    "xlsx": "^0.18.5"
   }
 }

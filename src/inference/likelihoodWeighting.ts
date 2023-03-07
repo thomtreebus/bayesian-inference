@@ -10,7 +10,12 @@ import {
   Infer,
   Combinations,
 } from "../types";
-
+/**
+ * Generate a weighted sample for a
+ * @param network a bayesian network to sample
+ * @param observedValues observed values e for E evidence variables
+ * @returns a sample (variables and states) along with a weight
+ */
 function weightedSample(network: Network, observedValues: Combinations) {
   const sample = Object.assign({}, observedValues);
   let weight = 1;
@@ -67,6 +72,14 @@ function weightedSample(network: Network, observedValues: Combinations) {
   };
 }
 
+/**
+ * The likelihood weighting algorithm
+ * @param network a bayesian network
+ * @param query variable to query on
+ * @param sampleSize number of samples to generate
+ * @param observedValues observed values e for E evidence variables
+ * @returns likelihood of P(E|X)
+ */
 function likelihoodWeighting(
   network: Network,
   query: Combinations,
@@ -86,6 +99,14 @@ function likelihoodWeighting(
   return consistentQueryWeight / totalWeight;
 }
 
+/**
+ * Infer P(X|E)
+ * @param network a bayesian network
+ * @param query variable X to query on with value x
+ * @param observedValues observed values e for E evidence variables
+ * @param sampleSize number of samples to generate
+ * @returns approximate value for P(X|E)
+ */
 export const infer: Infer = (
   network: Network,
   query: Combinations = {},
@@ -101,6 +122,12 @@ export const infer: Infer = (
   return likelihood;
 };
 
+/**
+ * Check if a query variable X has value x in a sample
+ * @param sample a random sample
+ * @param query query variable X with value x
+ * @returns true if the query values are consistent with the sample values
+ */
 function sampleConsistentWithQuery(
   sample: Combinations,
   query: Combinations
@@ -113,6 +140,12 @@ function sampleConsistentWithQuery(
   return true;
 }
 
+/**
+ * Find the index of a combination (condition) in a conditional probability table
+ * @param cpt conditional probability table
+ * @param condition the condition to find
+ * @returns index of the combination in the CPT
+ */
 function getCptRowIndex(cpt: CptWithParents, condition: any) {
   let index = 0;
   for (let i = 0; i < cpt.length; i++) {
@@ -123,6 +156,12 @@ function getCptRowIndex(cpt: CptWithParents, condition: any) {
   return index;
 }
 
+/**
+ * Create a random value for a variable using it's probability distribution
+ * @param weights the probability of each sate
+ * @param states the states for a variable
+ * @returns random state from states
+ */
 function getRandom(weights: number[], states: string[]) {
   const num = chance.floating({ min: 0, max: 1 });
   let s = 0;
@@ -135,15 +174,4 @@ function getRandom(weights: number[], states: string[]) {
     }
   }
   return states[lastIndex];
-}
-
-function normalize(weights: number[]): number[] {
-  let sum = 0;
-  for (var weight of weights) {
-    sum += weight;
-  }
-  for (let i = 0; i < weights.length; i++) {
-    weights[i] /= sum;
-  }
-  return weights;
 }

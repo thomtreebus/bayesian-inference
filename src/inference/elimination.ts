@@ -1,3 +1,4 @@
+const _ = require("lodash");
 import {
   Node,
   Network,
@@ -37,7 +38,7 @@ export const infer: Infer = (
       Object.keys(factor[0].states).some((nodeId) => nodeId === varToEliminate)
     );
 
-    const resultFactor = eliminateVariable(
+    const resultFactor = sumOut(
       factorsToJoin.reduce((f1, f2) => joinFactors(f1, f2)),
       varToEliminate
     );
@@ -163,34 +164,41 @@ function joinFactors(f1: Factor, f2: Factor): Factor {
 
     rowNewFactor.value = rowF1.value * rowF2.value;
   }
-
   return newFactor;
 }
 
-function eliminateVariable(factor: Factor, variable: string): Factor {
+function sumOut(factor: Factor, nodeId: string): Factor {
   const newFactor = [];
-
+  console.log("original factor", factor, "var", nodeId);
   for (let i = 0; i < factor.length; i++) {
-    const states = { ...factor[i].states };
+    const currentFactor = factor[i];
 
-    delete states[variable];
+    let newStates: any = {}; // states without the variable to sum out
+    for (const variable of Object.keys(currentFactor.states)) {
+      if (variable !== nodeId) {
+        newStates[variable] = currentFactor.states[variable];
+      }
+    }
+    // console.log("states", states, newStates);
 
-    const nodeIds = Object.keys(states);
-
-    const existingRow = newFactor.find((x) =>
-      nodeIds.every((nodeId) => x.states[nodeId] === states[nodeId])
-    );
+    let existingRow;
+    for (const row of newFactor) {
+      if (_.isEqual(row.states, newStates)) {
+        existingRow = row;
+        break;
+      }
+    }
 
     if (existingRow === undefined) {
       newFactor.push({
-        states,
-        value: factor[i].value,
+        states: newStates,
+        value: currentFactor.value,
       });
     } else {
       existingRow.value += factor[i].value;
     }
   }
-
+  console.log("new factor", newFactor);
   return newFactor;
 }
 

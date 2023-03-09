@@ -38,7 +38,7 @@ export const infer: Infer = (
       Object.keys(factor[0].states).some((nodeId) => nodeId === varToEliminate)
     );
 
-    const resultFactor = sumOut(
+    const resultFactor = sumOutVariable(
       factorsToJoin.reduce((f1, f2) => joinFactors(f1, f2)),
       varToEliminate
     );
@@ -128,13 +128,14 @@ function joinFactors(f1: Factor, f2: Factor): Factor {
         ...f2[j].states,
       };
 
-      const nodeIds = Object.keys(states);
+      let rowAlreadyExists = false;
+      for (const row of newFactor) {
+        if (_.isEqual(row.states, states)) {
+          rowAlreadyExists = true;
+        }
+      }
 
-      const alreadyExists = newFactor.some((x) =>
-        nodeIds.every((nodeId) => x.states[nodeId] === states[nodeId])
-      );
-
-      if (!alreadyExists) {
+      if (!rowAlreadyExists) {
         newFactor.push({ states, value: 0 });
       }
     }
@@ -142,7 +143,6 @@ function joinFactors(f1: Factor, f2: Factor): Factor {
 
   const nodeIdsF1 = Object.keys(f1[0].states);
   const nodeIdsF2 = Object.keys(f2[0].states);
-
   for (let i = 0; i < newFactor.length; i++) {
     const rowNewFactor = newFactor[i];
 
@@ -159,17 +159,21 @@ function joinFactors(f1: Factor, f2: Factor): Factor {
     );
 
     if (rowF1 === undefined || rowF2 === undefined) {
-      throw new Error("Fatal error");
+      throw new Error("Error while joining factors");
     }
 
     rowNewFactor.value = rowF1.value * rowF2.value;
   }
   return newFactor;
 }
-
-function sumOut(factor: Factor, nodeId: string): Factor {
+/**
+ * Sum out a variable from a factor
+ * @param factor factor to sum the variable out of
+ * @param nodeId id of the node/variable to sum out
+ * @returns new factor that doesn't contain the variable
+ */
+function sumOutVariable(factor: Factor, nodeId: string): Factor {
   const newFactor = [];
-  console.log("original factor", factor, "var", nodeId);
   for (let i = 0; i < factor.length; i++) {
     const currentFactor = factor[i];
 
@@ -179,7 +183,6 @@ function sumOut(factor: Factor, nodeId: string): Factor {
         newStates[variable] = currentFactor.states[variable];
       }
     }
-    // console.log("states", states, newStates);
 
     let existingRow;
     for (const row of newFactor) {
@@ -198,10 +201,14 @@ function sumOut(factor: Factor, nodeId: string): Factor {
       existingRow.value += factor[i].value;
     }
   }
-  console.log("new factor", newFactor);
   return newFactor;
 }
 
+/**
+ * Normalize a factor
+ * @param factor factor to normalize
+ * @returns normalized factor
+ */
 function normalizeFactor(factor: Factor): Factor {
   let total = 0;
   for (let i = 0; i < factor.length; i++) {

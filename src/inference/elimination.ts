@@ -27,28 +27,12 @@ export const infer: Infer = (
       !variablesObservedValues.some((y) => y === x)
   );
 
-  const factors = variables.map((nodeId) =>
-    buildFactor(network[nodeId], observedValues)
+  const factors = eliminateVariables(
+    variables,
+    network,
+    observedValues,
+    variablesToEliminate
   );
-
-  while (variablesToEliminate.length > 0) {
-    const varToEliminate = variablesToEliminate.shift()!;
-
-    const factorsToJoin = factors.filter((factor) =>
-      Object.keys(factor[0].states).some((nodeId) => nodeId === varToEliminate)
-    );
-
-    const resultFactor = sumOutVariable(
-      factorsToJoin.reduce((f1, f2) => joinFactors(f1, f2)),
-      varToEliminate
-    );
-
-    for (let i = 0; i < factorsToJoin.length; i++) {
-      factors.splice(factors.indexOf(factorsToJoin[i]), 1);
-    }
-
-    factors.push(resultFactor);
-  }
 
   const joinedFactor = factors
     .filter((factor) => Object.keys(factor[0].states).length > 0)
@@ -67,6 +51,37 @@ export const infer: Infer = (
 
   return inferenceRow.value;
 };
+
+function eliminateVariables(
+  variables: string[],
+  network: Network,
+  observedValues: Combinations,
+  variablesToEliminate: string[]
+) {
+  const factors = variables.map((nodeId) =>
+    buildFactor(network[nodeId], observedValues)
+  );
+
+  while (variablesToEliminate.length > 0) {
+    const varToEliminate = variablesToEliminate.shift()!;
+
+    const factorsToJoin = factors.filter((factor) =>
+      Object.keys(factor[0].states).some((nodeId) => nodeId === varToEliminate)
+    );
+
+    const resultFactor = sumOutVariable(
+      factorsToJoin.reduce((factor1, factor2) => joinFactors(factor1, factor2)),
+      varToEliminate
+    );
+
+    for (let i = 0; i < factorsToJoin.length; i++) {
+      factors.splice(factors.indexOf(factorsToJoin[i]), 1);
+    }
+
+    factors.push(resultFactor);
+  }
+  return factors;
+}
 
 function buildFactor(node: Node, observedValues?: Combinations): Factor {
   const factor = [];
@@ -146,18 +161,8 @@ function joinFactors(f1: Factor, f2: Factor): Factor {
   for (let i = 0; i < newFactor.length; i++) {
     const rowNewFactor = newFactor[i];
 
-    const rowF1 = f1.find((x) =>
-      nodeIdsF1.every(
-        (nodeId) => x.states[nodeId] === rowNewFactor.states[nodeId]
-      )
-    );
-
-    const rowF2 = f2.find((x) =>
-      nodeIdsF2.every(
-        (nodeId) => x.states[nodeId] === rowNewFactor.states[nodeId]
-      )
-    );
-
+    const rowF1 = findRow(f1, nodeIdsF1, rowNewFactor);
+    const rowF2 = findRow(f2, nodeIdsF2, rowNewFactor);
     if (rowF1 === undefined || rowF2 === undefined) {
       throw new Error("Error while joining factors");
     }
@@ -166,6 +171,13 @@ function joinFactors(f1: Factor, f2: Factor): Factor {
   }
   return newFactor;
 }
+
+function findRow(factor: Factor, nodeIds: string[], rowNewFactor: any) {
+  return factor.find((x) =>
+    nodeIds.every((nodeId) => x.states[nodeId] === rowNewFactor.states[nodeId])
+  );
+}
+
 /**
  * Sum out a variable from a factor
  * @param factor factor to sum the variable out of

@@ -58,79 +58,140 @@ function eliminateVariables(
   observedValues: Combinations,
   variablesToEliminate: string[]
 ) {
-  const factors = variables.map((nodeId) =>
+  let factors = variables.map((nodeId) =>
     buildFactor(network[nodeId], observedValues)
   );
 
-  while (variablesToEliminate.length > 0) {
-    const varToEliminate = variablesToEliminate.shift()!;
-
+  for (const varToEliminate of variablesToEliminate) {
     const factorsToJoin = factors.filter((factor) =>
       Object.keys(factor[0].states).some((nodeId) => nodeId === varToEliminate)
     );
 
-    const resultFactor = sumOutVariable(
+    const factorWithoutVariable = sumOutVariable(
       factorsToJoin.reduce((factor1, factor2) => joinFactors(factor1, factor2)),
       varToEliminate
     );
 
-    for (let i = 0; i < factorsToJoin.length; i++) {
-      factors.splice(factors.indexOf(factorsToJoin[i]), 1);
-    }
-
-    factors.push(resultFactor);
+    factors = removeFactorsToJoin(factorsToJoin, factors);
+    factors.push(factorWithoutVariable);
   }
   return factors;
 }
 
+/**
+ * Remove all factors to join from a list of factors
+ * @param factorsToJoin array of factors to remove
+ * @param factors factors to remove from
+ * @returns factors with factorsToJoin removed
+ */
+function removeFactorsToJoin(factorsToJoin: Factor[], factors: Factor[]) {
+  for (const factorToJoin of factorsToJoin) {
+    factors = removeFactor(factors, factorToJoin);
+  }
+  return factors;
+}
+
+/**
+ * Remove a factor from a list of factors
+ * @param factors array of factors to remove from
+ * @param factorToRemove factor to remove
+ * @returns factors with the factorToRemoved removed from the list
+ */
+function removeFactor(factors: Factor[], factorToRemove: Factor): Factor[] {
+  const index = factors.indexOf(factorToRemove);
+  if (index > -1) {
+    factors.splice(index, 1);
+  }
+  return factors;
+}
+
+/**
+ * Build a factor for a given node. If observed values have been provided,
+ * then only those will be included in the factor.
+ * @param node node to create factor for
+ * @param observedValues values that have been observed
+ * @returns a factor with the combinations of states and corresponding values
+ */
 function buildFactor(node: Node, observedValues?: Combinations): Factor {
-  const factor = [];
+  const factor: any[] = [];
 
   if (node.parents.length === 0) {
-    const cpt = node.cpt as CptWithoutParents;
-
-    for (let i = 0; i < node.states.length; i++) {
-      const state = node.states[i];
-
-      factor.push({
-        states: { [node.id]: state },
-        value: cpt[state],
-      });
-    }
+    addFactorWithoutParents(node, factor);
   } else {
-    const cpt = node.cpt as CptWithParents;
-
-    for (let i = 0; i < cpt.length; i++) {
-      for (let j = 0; j < node.states.length; j++) {
-        const state = node.states[j];
-
-        factor.push({
-          states: { ...cpt[i].condition, [node.id]: state },
-          value: cpt[i].probability[state],
-        });
-      }
-    }
+    addFactorWithParents(node, factor);
   }
 
   if (observedValues) {
-    const observedIds = Object.keys(observedValues);
-
-    for (let i = factor.length - 1; i >= 0; i--) {
-      for (let j = 0; j < observedIds.length; j++) {
-        const givingId = observedIds[j];
-
-        if (
-          factor[i].states[givingId] &&
-          factor[i].states[givingId] !== observedValues[givingId]
-        ) {
-          factor.splice(i, 1);
-          break;
-        }
-      }
-    }
+    removeUnobservedValuesFromFactor(observedValues, factor);
   }
 
   return factor;
+}
+
+/**
+ * Add a factor from a node with parents
+ * @param node node with parents
+ * @param factor factor to add to
+ */
+function addFactorWithParents(node: Node, factor: any[]) {
+  const cpt = node.cpt as CptWithParents;
+
+  for (let i = 0; i < cpt.length; i++) {
+    for (let j = 0; j < node.states.length; j++) {
+      const state = node.states[j];
+
+      factor.push({
+        states: { ...cpt[i].condition, [node.id]: state },
+        value: cpt[i].probability[state],
+      });
+    }
+  }
+}
+
+/**
+ * Add a factor from a node without any parents
+ * @param node node without parents
+ * @param factor factor to add to
+ */
+function addFactorWithoutParents(node: Node, factor: any[]) {
+  const cpt = node.cpt as CptWithoutParents;
+
+  for (let i = 0; i < node.states.length; i++) {
+    const state = node.states[i];
+
+    factor.push({
+      states: { [node.id]: state },
+      value: cpt[state],
+    });
+  }
+}
+/**
+ * Remove all combinations with values that haven't been observed from a factor
+ * @param observedValues values that have been observed
+ * @param factor factor to remove from
+ */
+function removeUnobservedValuesFromFactor(
+  observedValues: Combinations,
+  factor: any[]
+) {
+  const observedIds = Object.keys(observedValues);
+  console.log("observed", observedValues);
+  console.log("before", factor);
+
+  for (let i = factor.length - 1; i >= 0; i--) {
+    for (let j = 0; j < observedIds.length; j++) {
+      const givingId = observedIds[j];
+
+      if (
+        factor[i].states[givingId] &&
+        factor[i].states[givingId] !== observedValues[givingId]
+      ) {
+        factor.splice(i, 1);
+        break;
+      }
+    }
+  }
+  console.log("after", factor);
 }
 
 function joinFactors(f1: Factor, f2: Factor): Factor {

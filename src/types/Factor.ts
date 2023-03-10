@@ -7,8 +7,12 @@
  */
 
 export interface FactorItem {
-  states: { [nodeId: string]: string };
+  combination: { [nodeId: string]: string };
   value: number;
 }
 
 export type Factor = Array<FactorItem>;
+// export interface Factor {
+//   node: string;
+//   items: Array<FactorItem>;
+// }

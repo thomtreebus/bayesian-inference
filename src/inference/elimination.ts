@@ -20,22 +20,20 @@ export const infer: Infer = (
 ): number => {
   const variables = Object.keys(network);
   const variablesToInfer = Object.keys(query);
-  const hiddenVariables = variables.filter((v) => v !== variablesToInfer[0]);
+  let hiddenVariables = variables.filter((v) => v !== variablesToInfer[0]);
   const variablesObservedValues = observedValues
     ? Object.keys(observedValues)
     : [];
 
-  const variablesToEliminate = variables.filter(
-    (x) =>
-      !variablesToInfer.some((y) => y === x) &&
-      !variablesObservedValues.some((y) => y === x)
+  hiddenVariables = hiddenVariables.filter(
+    (hiddenVar) => !variablesObservedValues.includes(hiddenVar)
   );
 
   const factors = variables.map((nodeId) =>
     createFactor(network[nodeId], observedValues)
   );
 
-  const remainingFactors = eliminateVariables(factors, variablesToEliminate);
+  const remainingFactors = eliminateVariables(factors, hiddenVariables);
 
   const joinedFactor = remainingFactors
     .filter((factor) => Object.keys(factor[0].combination).length > 0)
@@ -177,12 +175,10 @@ function removeUnobservedValuesFromFactor(
   const observedIds = Object.keys(observedValues);
 
   for (let i = factor.length - 1; i >= 0; i--) {
-    for (let j = 0; j < observedIds.length; j++) {
-      const givingId = observedIds[j];
-
+    for (const id of observedIds) {
       if (
-        factor[i].combination[givingId] &&
-        factor[i].combination[givingId] !== observedValues[givingId]
+        factor[i].combination[id] &&
+        factor[i].combination[id] !== observedValues[id]
       ) {
         factor.splice(i, 1);
         break;
@@ -194,21 +190,14 @@ function removeUnobservedValuesFromFactor(
 function joinFactors(factor1: Factor, factor2: Factor): Factor {
   const newFactor: any[] = [];
 
-  for (let i = 0; i < factor1.length; i++) {
-    for (let j = 0; j < factor2.length; j++) {
+  for (const row1 of factor1) {
+    for (const row2 of factor2) {
       const combination = {
-        ...factor1[i].combination,
-        ...factor2[j].combination,
+        ...row1.combination,
+        ...row2.combination,
       };
 
-      let rowAlreadyExists = false;
-      for (const row of newFactor) {
-        if (_.isEqual(row.combination, combination)) {
-          rowAlreadyExists = true;
-        }
-      }
-
-      if (!rowAlreadyExists) {
+      if (!combinationExistsInFactor(combination, newFactor)) {
         newFactor.push({ combination, value: 0 });
       }
     }
@@ -216,6 +205,24 @@ function joinFactors(factor1: Factor, factor2: Factor): Factor {
 
   updateFactorValues(factor1, factor2, newFactor);
   return newFactor;
+}
+
+/**
+ * Check if a combination exists in a factor
+ * @param combination combination to check for
+ * @param factor factor to check for
+ * @returns true if combination exists in factor
+ */
+function combinationExistsInFactor(
+  combination: { [x: string]: string },
+  factor: any[]
+) {
+  for (const row of factor) {
+    if (_.isEqual(row.combination, combination)) {
+      return true;
+    }
+  }
+  return false;
 }
 
 /**

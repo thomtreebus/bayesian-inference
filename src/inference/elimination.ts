@@ -7,6 +7,7 @@ import {
   Infer,
   Combinations,
   Factor,
+  FactorItem,
 } from "../types";
 
 export const infer: Infer = (
@@ -14,7 +15,7 @@ export const infer: Infer = (
   query: Combinations = {},
   observedValues: Combinations,
   sampleSize: number = 0
-) => {
+): number => {
   const variables = Object.keys(network);
   const variablesToInfer = Object.keys(query);
   const hiddenVariables = variables.filter((v) => v !== variablesToInfer[0]);
@@ -28,14 +29,13 @@ export const infer: Infer = (
       !variablesObservedValues.some((y) => y === x)
   );
 
-  const factors = eliminateVariables(
-    variables,
-    network,
-    observedValues,
-    variablesToEliminate
+  const factors = variables.map((nodeId) =>
+    buildFactor(network[nodeId], observedValues)
   );
 
-  const joinedFactor = factors
+  const remainingFactors = eliminateVariables(factors, variablesToEliminate);
+
+  const joinedFactor = remainingFactors
     .filter((factor) => Object.keys(factor[0].combination).length > 0)
     .sort((f1, f2) => f1.length - f2.length)
     .reduce((f1, f2) => joinFactors(f1, f2));
@@ -53,16 +53,7 @@ export const infer: Infer = (
   return inferenceRow.value;
 };
 
-function eliminateVariables(
-  variables: string[],
-  network: Network,
-  observedValues: Combinations,
-  variablesToEliminate: string[]
-) {
-  let factors = variables.map((nodeId) =>
-    buildFactor(network[nodeId], observedValues)
-  );
-
+function eliminateVariables(factors: Factor[], variablesToEliminate: string[]) {
   for (const varToEliminate of variablesToEliminate) {
     const factorsToJoin = factors.filter((factor) =>
       Object.keys(factor[0].combination).some(
@@ -117,7 +108,6 @@ function removeFactor(factors: Factor[], factorToRemove: Factor): Factor[] {
  */
 function buildFactor(node: Node, observedValues?: Combinations): Factor {
   const factor: any[] = [];
-  console.log(node);
   if (node.parents.length === 0) {
     addFactorWithoutParents(node, factor);
   } else {
@@ -127,7 +117,6 @@ function buildFactor(node: Node, observedValues?: Combinations): Factor {
   if (observedValues) {
     removeUnobservedValuesFromFactor(observedValues, factor);
   }
-  console.log(factor);
   return factor;
 }
 
@@ -229,18 +218,11 @@ function joinFactors(factor1: Factor, factor2: Factor): Factor {
  * @param factor factor to update values for
  */
 function updateFactorValues(factor1: Factor, factor2: Factor, factor: any[]) {
-  for (let i = 0; i < factor.length; i++) {
-    const factorRow = factor[i];
-
-    const rowF1 = findRow(factor1, factorRow);
-    const rowF2 = findRow(factor2, factorRow);
-
-    if (rowF1 === undefined || rowF2 === undefined) {
-      throw new Error("Error while joining factors");
-    }
-
-    factorRow.value = rowF1.value * rowF2.value;
-  }
+  factor.forEach((row) => {
+    const rowF1 = findRow(factor1, row);
+    const rowF2 = findRow(factor2, row);
+    row.value = rowF1.value * rowF2.value;
+  });
 }
 /**
  * Find a row in a factor that equals to a row in another factor
@@ -248,11 +230,13 @@ function updateFactorValues(factor1: Factor, factor2: Factor, factor: any[]) {
  * @param row factor to compare with
  * @returns row that corresponds to row in factor
  */
-function findRow(factor: Factor, row: any) {
+function findRow(factor: Factor, row: any): FactorItem {
   const nodeIds = Object.keys(factor[0].combination);
-  return factor.find((x) =>
+
+  const factorRow = factor.find((x) =>
     nodeIds.every((nodeId) => x.combination[nodeId] === row.combination[nodeId])
   );
+  return factorRow as unknown as FactorItem;
 }
 
 /**

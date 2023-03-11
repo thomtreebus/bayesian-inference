@@ -8,7 +8,7 @@
 
 import { Node } from "../types/Node";
 import { Network } from "../types/Network";
-import { isNil } from "ramda";
+import { isNil, isEmpty } from "ramda";
 
 import { addNode } from "./builder";
 
@@ -24,9 +24,8 @@ const getNext = (oNodes: Node[]) => {
   return () => {
     for (let i = 0; i < nodes.length; i++) {
       const node: Node = nodes[i];
-      const noParents: boolean = node.parents.length === 0;
 
-      if (noParents || everyInArray(node.parents, nodesGiven)) {
+      if (hasNoParents(node) || everyInArray(node.parents, nodesGiven)) {
         nodesGiven.push(node.id);
         nodes.splice(i, 1);
         return node;
@@ -45,4 +44,8 @@ export const createNetwork = (...nodes: Node[]): Network => {
 
     return { ...addNode(net, node) };
   }, {});
+};
+
+export const hasNoParents = (node: Node): boolean => {
+  return isEmpty(node.parents);
 };

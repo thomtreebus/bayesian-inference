@@ -10,6 +10,8 @@ import {
   Infer,
   Combinations,
 } from "../types";
+
+import { hasNoParents } from "../utils/network";
 /**
  * Generate a weighted sample for a
  * @param network a bayesian network to sample
@@ -39,28 +41,28 @@ function weightedSample(network: Network, observedValues: Combinations) {
       let probability = 0;
       const observedValue: keyof CptWithoutParents | CptWithParents =
         observedValues[nodeName];
-      if (parents.length > 0) {
-        // node with parents
-        const cpt = node.cpt as CptWithParents;
-        probability = cpt[index].probability[observedValue];
-      } else {
+      if (hasNoParents(node)) {
         // node without parents
         const cpt = node.cpt as CptWithoutParents;
         probability = cpt[observedValue];
+      } else {
+        // node with parents
+        const cpt = node.cpt as CptWithParents;
+        probability = cpt[index].probability[observedValue];
       }
       weight = weight * probability;
     } else {
       // generate random sample from P(Xi | parents(Xi))
       let weights: number[] = [];
       let states: string[] = [];
-      if (parents.length > 0) {
-        const cpt = network[nodeName].cpt as CptWithParents;
-        weights = Object.values(cpt[index].probability);
-        states = Object.keys(cpt[index].probability);
-      } else {
+      if (hasNoParents(node)) {
         const cpt = node.cpt as CptWithoutParents;
         weights = Object.values(cpt);
         states = Object.keys(cpt);
+      } else {
+        const cpt = network[nodeName].cpt as CptWithParents;
+        weights = Object.values(cpt[index].probability);
+        states = Object.keys(cpt[index].probability);
       }
       // create random sample for node
       sample[nodeName] = getRandom(weights, states);

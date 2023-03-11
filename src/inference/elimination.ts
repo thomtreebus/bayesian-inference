@@ -9,6 +9,8 @@ import {
   Factor,
   FactorItem,
 } from "../types";
+import { isNil } from "ramda";
+import { hasNoParents } from "../utils/network";
 
 export const infer: Infer = (
   network: Network,
@@ -30,15 +32,15 @@ export const infer: Infer = (
   );
 
   const factors = variables.map((nodeId) =>
-    buildFactor(network[nodeId], observedValues)
+    createFactor(network[nodeId], observedValues)
   );
 
   const remainingFactors = eliminateVariables(factors, variablesToEliminate);
 
   const joinedFactor = remainingFactors
     .filter((factor) => Object.keys(factor[0].combination).length > 0)
-    .sort((f1, f2) => f1.length - f2.length)
-    .reduce((f1, f2) => joinFactors(f1, f2));
+    .sort((factor1, factor2) => factor1.length - factor2.length)
+    .reduce((factor1, factor2) => joinFactors(factor1, factor2));
 
   const normalizedFactor = normalizeFactor(joinedFactor);
 
@@ -46,13 +48,19 @@ export const infer: Infer = (
     variablesToInfer.every((v) => row.combination[v] === query[v])
   );
 
-  if (inferenceRow === undefined) {
+  if (isNil(inferenceRow)) {
     return 0;
   }
 
   return inferenceRow.value;
 };
 
+/**
+ * Eliminate variables from a factor by summing them out
+ * @param factors factors to eliminate from
+ * @param variablesToEliminate variables to eliminate
+ * @returns factors with variables eliminated
+ */
 function eliminateVariables(factors: Factor[], variablesToEliminate: string[]) {
   for (const varToEliminate of variablesToEliminate) {
     const factorsToJoin = factors.filter((factor) =>
@@ -106,9 +114,9 @@ function removeFactor(factors: Factor[], factorToRemove: Factor): Factor[] {
  * @param observedValues values that have been observed
  * @returns a factor with the combinations of states and corresponding values
  */
-function buildFactor(node: Node, observedValues?: Combinations): Factor {
+function createFactor(node: Node, observedValues?: Combinations): Factor {
   const factor: any[] = [];
-  if (node.parents.length === 0) {
+  if (hasNoParents(node)) {
     addFactorWithoutParents(node, factor);
   } else {
     addFactorWithParents(node, factor);

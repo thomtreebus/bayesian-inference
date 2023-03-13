@@ -52,9 +52,7 @@ export const infer: Infer = (
 function eliminateVariables(factors: Factor[], variablesToEliminate: string[]) {
   for (const varToEliminate of variablesToEliminate) {
     const factorsToJoin = factors.filter((factor) =>
-      Object.keys(factor[0].combination).some(
-        (nodeId) => nodeId === varToEliminate
-      )
+      Object.keys(factor[0].combination).includes(varToEliminate)
     );
 
     const factorWithoutVariable = sumOutVariable(

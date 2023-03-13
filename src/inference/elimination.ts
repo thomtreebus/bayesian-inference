@@ -56,7 +56,7 @@ function eliminateVariables(factors: Factor[], variablesToEliminate: string[]) {
     );
 
     const factorWithoutVariable = sumOutVariable(
-      factorsToJoin.reduce((factor1, factor2) => joinFactors(factor1, factor2)),
+      factorsToJoin.reduce(joinFactors),
       varToEliminate
     );
 

@@ -20,14 +20,9 @@ export const infer: Infer = (
 ): number => {
   const variables = Object.keys(network);
   const variablesToInfer = Object.keys(query);
-  let hiddenVariables = variables.filter((v) => v !== variablesToInfer[0]);
-  const variablesObservedValues = observedValues
-    ? Object.keys(observedValues)
-    : [];
-
-  hiddenVariables = hiddenVariables.filter(
-    (hiddenVar) => !variablesObservedValues.includes(hiddenVar)
-  );
+  const hiddenVariables = variables
+    .filter((v) => v !== variablesToInfer[0])
+    .filter((hiddenVar) => !observedValues?.[hiddenVar]);
 
   const factors = variables.map((nodeId) =>
     createFactor(network[nodeId], observedValues)
@@ -36,9 +31,8 @@ export const infer: Infer = (
   const remainingFactors = eliminateVariables(factors, hiddenVariables);
 
   const joinedFactor = remainingFactors
-    .filter((factor) => Object.keys(factor[0].combination).length > 0)
-    .sort((factor1, factor2) => factor1.length - factor2.length)
-    .reduce((factor1, factor2) => joinFactors(factor1, factor2));
+    .filter((factor) => factor.length > 0)
+    .reduce(joinFactors);
 
   const normalizedFactor = normalizeFactor(joinedFactor);
 
@@ -46,11 +40,7 @@ export const infer: Infer = (
     variablesToInfer.every((v) => row.combination[v] === query[v])
   );
 
-  if (isNil(inferenceRow)) {
-    return 0;
-  }
-
-  return inferenceRow.value;
+  return inferenceRow?.value ?? 0;
 };
 
 /**

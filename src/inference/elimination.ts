@@ -106,15 +106,12 @@ function removeFactor(factors: Factor[], factorToRemove: Factor): Factor[] {
  * @returns a factor with the combinations of states and corresponding values
  */
 function createFactor(node: Node, observedValues?: Combinations): Factor {
-  const factor: any[] = [];
-  if (hasNoParents(node)) {
-    addFactorWithoutParents(node, factor);
-  } else {
-    addFactorWithParents(node, factor);
-  }
+  let factor: any[] = hasNoParents(node)
+    ? addFactorWithoutParents(node)
+    : addFactorWithParents(node);
 
   if (observedValues) {
-    removeUnobservedValuesFromFactor(observedValues, factor);
+    factor = removeUnobservedValuesFromFactor(observedValues, factor);
   }
   return factor;
 }
@@ -124,16 +121,14 @@ function createFactor(node: Node, observedValues?: Combinations): Factor {
  * @param node node with parents
  * @param factor factor to add to
  */
-function addFactorWithParents(node: Node, factor: any[]) {
+function addFactorWithParents(node: Node): Factor {
   const cpt = node.cpt as CptWithParents;
-  for (const { condition, probability } of cpt) {
-    for (const state of node.states) {
-      factor.push({
-        combination: { ...condition, [node.id]: state },
-        value: probability[state],
-      });
-    }
-  }
+  return cpt.flatMap(({ condition, probability }) =>
+    node.states.map((state) => ({
+      combination: { ...condition, [node.id]: state },
+      value: probability[state],
+    }))
+  );
 }
 
 /**
@@ -141,15 +136,14 @@ function addFactorWithParents(node: Node, factor: any[]) {
  * @param node node without parents
  * @param factor factor to add to
  */
-function addFactorWithoutParents(node: Node, factor: any[]) {
+function addFactorWithoutParents(node: Node): Factor {
   const cpt = node.cpt as CptWithoutParents;
-  for (const state of node.states) {
-    factor.push({
-      combination: { [node.id]: state },
-      value: cpt[state],
-    });
-  }
+  return node.states.map((state) => ({
+    combination: { [node.id]: state },
+    value: cpt[state],
+  }));
 }
+
 /**
  * Remove all combinations with values that haven't been observed from a factor
  * @param observedValues values that have been observed
@@ -158,20 +152,13 @@ function addFactorWithoutParents(node: Node, factor: any[]) {
 function removeUnobservedValuesFromFactor(
   observedValues: Combinations,
   factor: Factor
-) {
+): Factor {
   const observedIds = Object.keys(observedValues);
-
-  for (let i = factor.length - 1; i >= 0; i--) {
-    for (const id of observedIds) {
-      if (
-        factor[i].combination[id] &&
-        factor[i].combination[id] !== observedValues[id]
-      ) {
-        factor.splice(i, 1);
-        break;
-      }
-    }
-  }
+  return factor.filter((row) =>
+    observedIds.every(
+      (id) => !row.combination[id] || row.combination[id] === observedValues[id]
+    )
+  );
 }
 
 function joinFactors(factor1: Factor, factor2: Factor): Factor {

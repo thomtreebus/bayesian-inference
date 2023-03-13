@@ -6,11 +6,16 @@ import {
   CptWithoutParents,
   Infer,
   Combinations,
-  Factor,
-  FactorItem,
 } from "../types";
 import { isNil } from "ramda";
 import { hasNoParents } from "../utils/network";
+
+interface FactorRow {
+  combination: Combinations;
+  value: number;
+}
+
+type Factor = FactorRow[];
 
 export const infer: Infer = (
   network: Network,
@@ -121,14 +126,11 @@ function createFactor(node: Node, observedValues?: Combinations): Factor {
  */
 function addFactorWithParents(node: Node, factor: any[]) {
   const cpt = node.cpt as CptWithParents;
-
-  for (let i = 0; i < cpt.length; i++) {
-    for (let j = 0; j < node.states.length; j++) {
-      const state = node.states[j];
-
+  for (const { condition, probability } of cpt) {
+    for (const state of node.states) {
       factor.push({
-        combination: { ...cpt[i].condition, [node.id]: state },
-        value: cpt[i].probability[state],
+        combination: { ...condition, [node.id]: state },
+        value: probability[state],
       });
     }
   }
@@ -141,10 +143,7 @@ function addFactorWithParents(node: Node, factor: any[]) {
  */
 function addFactorWithoutParents(node: Node, factor: any[]) {
   const cpt = node.cpt as CptWithoutParents;
-
-  for (let i = 0; i < node.states.length; i++) {
-    const state = node.states[i];
-
+  for (const state of node.states) {
     factor.push({
       combination: { [node.id]: state },
       value: cpt[state],
@@ -158,7 +157,7 @@ function addFactorWithoutParents(node: Node, factor: any[]) {
  */
 function removeUnobservedValuesFromFactor(
   observedValues: Combinations,
-  factor: any[]
+  factor: Factor
 ) {
   const observedIds = Object.keys(observedValues);
 
@@ -176,20 +175,17 @@ function removeUnobservedValuesFromFactor(
 }
 
 function joinFactors(factor1: Factor, factor2: Factor): Factor {
-  const newFactor: any[] = [];
+  const newFactor: Factor = [];
 
-  for (const row1 of factor1) {
-    for (const row2 of factor2) {
-      const combination = {
-        ...row1.combination,
-        ...row2.combination,
-      };
+  const combinations = factor1.flatMap((row1) =>
+    factor2.map((row2) => Object.assign({}, row1.combination, row2.combination))
+  );
 
-      if (!combinationExistsInFactor(combination, newFactor)) {
-        newFactor.push({ combination, value: 0 });
-      }
+  combinations.forEach((combination) => {
+    if (!combinationExistsInFactor(combination, newFactor)) {
+      newFactor.push({ combination, value: 0 });
     }
-  }
+  });
 
   updateFactorValues(factor1, factor2, newFactor);
   return newFactor;
@@ -201,16 +197,12 @@ function joinFactors(factor1: Factor, factor2: Factor): Factor {
  * @param factor factor to check for
  * @returns true if combination exists in factor
  */
-function combinationExistsInFactor(
-  combination: { [x: string]: string },
-  factor: any[]
-) {
-  for (const row of factor) {
-    if (_.isEqual(row.combination, combination)) {
-      return true;
-    }
-  }
-  return false;
+function combinationExistsInFactor(combination: Combinations, factor: any[]) {
+  return factor.some((row) =>
+    Object.entries(combination).every(
+      ([key, value]) => row.combination[key] === value
+    )
+  );
 }
 
 /**
@@ -233,13 +225,13 @@ function updateFactorValues(factor1: Factor, factor2: Factor, factor: any[]) {
  * @param row factor to compare with
  * @returns row that corresponds to row in factor
  */
-function findRow(factor: Factor, row: any): FactorItem {
+function findRow(factor: Factor, row: any): FactorRow {
   const nodeIds = Object.keys(factor[0].combination);
 
   const factorRow = factor.find((x) =>
     nodeIds.every((nodeId) => x.combination[nodeId] === row.combination[nodeId])
   );
-  return factorRow as unknown as FactorItem;
+  return factorRow as unknown as FactorRow;
 }
 
 /**

@@ -6,6 +6,13 @@
  * NPM Link: https://www.npmjs.com/package/bayesjs
  */
 
-export interface Combinations {
-  [key: string]: string;
+export interface FactorItem {
+  combination: { [nodeId: string]: string };
+  value: number;
 }
+
+export type Factor = Array<FactorItem>;
+// export interface Factor {
+//   node: string;
+//   items: Array<FactorItem>;
+// }

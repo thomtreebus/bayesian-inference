@@ -1,22 +1,19 @@
+/**
+ * This file is a modified version of a file from the BayesJS package
+ * Original authors: Felipe Nolleto Nascimento, Fernando Alex Helwanger
+ * Version: v0.6.5
+ * Github Repository: https://github.com/bayesjs/bayesjs
+ * NPM Link: https://www.npmjs.com/package/bayesjs
+ */
+
 import { Node } from "../types/Node";
 import { Network } from "../types/Network";
-import {
-  append,
-  complement,
-  converge,
-  filter,
-  isNil,
-  map,
-  pipe,
-  prop,
-  values,
-} from "ramda";
+import { isNil, isEmpty } from "ramda";
 
 import { addNode } from "./builder";
-import { isNotEmpty } from "./functions";
 
-const everyInArray = (array1: string[], array2: string[]) =>
-  array1.every((parent) => array2.indexOf(parent) !== -1);
+const everyInArray = (arr1: string[], arr2: string[]) =>
+  arr1.every((parent) => arr2.indexOf(parent) !== -1);
 
 const getNext = (oNodes: Node[]) => {
   const nodes = [...oNodes].sort(
@@ -27,9 +24,8 @@ const getNext = (oNodes: Node[]) => {
   return () => {
     for (let i = 0; i < nodes.length; i++) {
       const node: Node = nodes[i];
-      const noParents: boolean = node.parents.length === 0;
 
-      if (noParents || everyInArray(node.parents, nodesGiven)) {
+      if (hasNoParents(node) || everyInArray(node.parents, nodesGiven)) {
         nodesGiven.push(node.id);
         nodes.splice(i, 1);
         return node;
@@ -50,27 +46,6 @@ export const createNetwork = (...nodes: Node[]): Network => {
   }, {});
 };
 
-export const getNodeParents: (node: Node) => string[] = prop("parents");
-export const getNodeId: (node: Node) => string = prop("id");
-export const getNodeStates: (node: Node) => string[] = prop("states");
-
-export const hasNodeParents: (node: Node) => boolean = pipe(
-  getNodeParents,
-  isNotEmpty
-);
-// export const getNodeParentsAndId: (node: Node) => string[] = converge(append, [
-//   prop("id"),
-//   prop("parents"),
-// ]);
-export const hasNotNodeParents: (node: Node) => boolean =
-  complement(hasNodeParents);
-export const getNodesFromNetwork: (network: Network) => Node[] = values;
-
-export const filterNodeWithParents: (nodes: Node[]) => Node[] =
-  filter(hasNodeParents);
-
-export const getNodeIdsWithoutParents: (network: Network) => string[] = pipe(
-  getNodesFromNetwork,
-  filter(hasNotNodeParents),
-  map(getNodeId)
-);
+export const hasNoParents = (node: Node): boolean => {
+  return isEmpty(node.parents);
+};

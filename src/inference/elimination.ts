@@ -177,7 +177,6 @@ function removeUnobservedValuesFromFactor(
  * @returns new factor obtained by joining factor1 and factor2
  */
 function joinFactors(factor1: Factor, factor2: Factor): Factor {
-  console.log(factor1, factor1);
   const newFactor: Factor = [];
 
   const combinations = factor1.flatMap((row1) =>

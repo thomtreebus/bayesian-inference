@@ -15,7 +15,7 @@ console.log("evaluating....");
 //   10, 100, 500, 1000, 5000, 10000, 50000, 100000, 500000, 1000000,
 // ];
 const results = [];
-const sampleSizes = [10, 100, 500, 1000];
+// const sampleSizes = [10, 100, 500, 1000];
 for (let sampleSize = 1000; sampleSize < 500001; sampleSize += 1000) {
   console.log("sample:", sampleSize);
   const observedValues = { BURGLARY: "T" };

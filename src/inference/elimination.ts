@@ -50,6 +50,7 @@ export const infer: Infer = (
 
 /**
  * Eliminate variables from a factor by summing them out
+ *
  * @param factors factors to eliminate from
  * @param variablesToEliminate variables to eliminate
  * @returns factors with variables eliminated
@@ -161,7 +162,22 @@ function removeUnobservedValuesFromFactor(
   );
 }
 
+/**
+ * Join two factors together by matching the variables they share
+ *
+ * Assumes that the two input factors are consistent, i.e., they share
+ * the same set of variables and the same values for those variables. The resulting factor
+ * will also be consistent with the inputs.
+ *
+ * Resulting factor will have all the variables from the input
+ * factors except the shared ones.
+ *
+ * @param factor1 first factor to be joined.
+ * @param factor2 second factor to be joined.
+ * @returns new factor obtained by joining factor1 and factor2
+ */
 function joinFactors(factor1: Factor, factor2: Factor): Factor {
+  console.log(factor1, factor1);
   const newFactor: Factor = [];
 
   const combinations = factor1.flatMap((row1) =>
@@ -195,6 +211,7 @@ function combinationExistsInFactor(combination: Combinations, factor: any[]) {
 /**
  * Update the values of a new factor, given two factors that are
  * being joined
+ *
  * @param factor1 first factor being joined
  * @param factor2 second factor being joined
  * @param factor factor to update values for
@@ -208,6 +225,7 @@ function updateFactorValues(factor1: Factor, factor2: Factor, factor: any[]) {
 }
 /**
  * Find a row in a factor that equals to a row in another factor
+ *
  * @param factor original factor
  * @param row factor to compare with
  * @returns row that corresponds to row in factor
@@ -223,6 +241,7 @@ function findRow(factor: Factor, row: any): FactorRow {
 
 /**
  * Sum out a variable from a factor
+ *
  * @param factor factor to sum the variable out of
  * @param nodeId id of the node/variable to sum out
  * @returns new factor that doesn't contain the variable
@@ -259,9 +278,13 @@ function sumOutVariable(factor: Factor, nodeId: string): Factor {
 }
 
 /**
- * Normalize a factor
- * @param factor factor to normalize
- * @returns normalized factor
+ * Normalize the given factor by dividing each value by the sum of all values
+ *
+ * Resulting factor will have the same variables as the input factor, but
+ * with normalized values
+ *  *
+ * @param factor factor to be normalized
+ * @returns normalized factor, with all values summing to 1
  */
 function normalizeFactor(factor: Factor): Factor {
   let total = 0;

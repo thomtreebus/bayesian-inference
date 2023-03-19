@@ -19,3 +19,7 @@ module.exports.createNetwork = async (req: Request, res: Response) => {
     });
   }
 };
+
+module.exports.inference = async (req: Request, res: Response) => {
+  res.status(200).json({ message: "success!" });
+};

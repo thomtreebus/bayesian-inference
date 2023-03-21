@@ -8,6 +8,14 @@ import { inferenceAlgorithms } from "../../src";
 const { variableElimination, likelihoodWeighting } = inferenceAlgorithms;
 import validNetwork from "../validation/network";
 
+/**
+ * Create a Bayesian network and store it in the database.
+ * In the response, include the id of the network in the database.
+ *
+ * @param {Request} req - The request
+ * @param {Response} res - The response
+ * @async
+ */
 module.exports.createNetwork = async (req: Request, res: Response) => {
   try {
     // check if input is a valid network
@@ -34,6 +42,19 @@ module.exports.createNetwork = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * Run inference using the details provided in the body.
+ * The body should include:
+ *  - networkId
+ *  - algorithm
+ *  - query
+ *  - evidence
+ *  - sampleSize (if algorithm is likelihood weighting)
+ *
+ * @param {Request} req - The request
+ * @param {Response} res - The response
+ * @async
+ */
 module.exports.inference = async (req: Request, res: Response) => {
   console.log(req.body);
   let status = 400;
@@ -87,7 +108,11 @@ module.exports.inference = async (req: Request, res: Response) => {
       );
     }
     console.log(result);
-    res.status(200).json({ message: "success!" });
+    res.status(200).json({
+      message: "success!",
+      query: `P(${Object.keys(query)}|${Object.keys(evidence)})`,
+      probability: result,
+    });
   } catch (err: any) {
     res.status(status).json({ message: err.message });
   }

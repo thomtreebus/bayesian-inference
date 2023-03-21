@@ -3,6 +3,6 @@ const router = express.Router();
 const { createNetwork, inference } = require("../controllers/api");
 
 router.post("/api/create", createNetwork);
-router.get("/api/inference", inference);
+router.post("/api/inference", inference);
 
 module.exports = router;

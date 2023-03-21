@@ -5,17 +5,25 @@ import { Network } from "../types";
 import validNetwork from "../validation/network";
 
 module.exports.createNetwork = async (req: Request, res: Response) => {
-  console.log(req.body);
   try {
+    // check if input is a valid network
     const network: Network = req.body as Network;
     validNetwork(network);
 
-    return res.status(200).json({ success: "network successfully created" });
+    // create new network and save to db
+    const nodes = Object.values(req.body);
+    const newNetwork = await NetworkSchema.create({ nodes: nodes });
+    await newNetwork.save();
+
+    return res.status(200).json({
+      message: "network successfully created",
+      networkId: newNetwork.id,
+    });
   } catch (error: any) {
     const statusCode = res.statusCode ? res.statusCode : 500;
-    res.status(statusCode);
+    // res.status(statusCode);
 
-    res.json({
+    res.status(statusCode).json({
       message: error.message,
       stack: error.stack,
     });

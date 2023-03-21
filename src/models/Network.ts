@@ -9,6 +9,7 @@ const NetworkSchema = new mongoose.Schema({
       states: [String],
       parents: [String],
       cpt: CptWithParents | CptWithoutParents,
+      _id: false,
     },
   ],
 });

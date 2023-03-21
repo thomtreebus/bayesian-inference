@@ -24,7 +24,6 @@ const getNext = (oNodes: Node[]) => {
   return () => {
     for (let i = 0; i < nodes.length; i++) {
       const node: Node = nodes[i];
-
       if (hasNoParents(node) || everyInArray(node.parents, nodesGiven)) {
         nodesGiven.push(node.id);
         nodes.splice(i, 1);

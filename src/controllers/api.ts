@@ -1,7 +1,11 @@
 import { Request, Response } from "express";
 const mongoose = require("mongoose");
 const NetworkSchema = require("../models/Network");
-import { Network } from "../types";
+import { Network, Combinations } from "../types";
+import { createNetwork } from "../../src/utils/network";
+import { inferenceAlgorithms } from "../../src";
+
+const { variableElimination, likelihoodWeighting } = inferenceAlgorithms;
 import validNetwork from "../validation/network";
 
 module.exports.createNetwork = async (req: Request, res: Response) => {
@@ -14,7 +18,7 @@ module.exports.createNetwork = async (req: Request, res: Response) => {
     const nodes = Object.values(req.body);
     const newNetwork = await NetworkSchema.create({ nodes: nodes });
     await newNetwork.save();
-
+    console.log(newNetwork);
     return res.status(200).json({
       message: "network successfully created",
       networkId: newNetwork.id,
@@ -35,27 +39,56 @@ module.exports.inference = async (req: Request, res: Response) => {
   let status = 400;
   try {
     const body = req.body;
-    const network = await NetworkSchema.findById({
-      _id: new mongoose.Types.ObjectId(body.network),
+    const { networkId, algorithm, sampleSize } = body;
+    const query = body.query as Combinations;
+    const evidence = body.evidence as Combinations;
+    const networkFromDB = await NetworkSchema.findById({
+      _id: new mongoose.Types.ObjectId(networkId),
     });
-    if (!network) {
+
+    if (!networkId || !algorithm || !query || !evidence) {
+      status = 400;
+      throw Error(
+        "Please make sure all required body elements are included in the request"
+      );
+    }
+    if (!networkFromDB) {
       status = 404;
-      throw Error("Network does not exist");
+      throw Error(`Network with id ${networkId} does not exist`);
     }
 
-    const algorithm = body.algorithm;
-    if (algorithm !== "VE" || algorithm !== "LW") {
+    const network = createNetwork(...networkFromDB.nodes);
+
+    if (algorithm !== "VE" && algorithm !== "LW") {
       status = 404;
-      throw Error("Not a valid algorithm");
+      throw Error(`${algorithm} is not a valid algorithm`);
     }
 
-    if (algorithm === "LW" && !body.sampleSize) {
+    if (algorithm === "LW" && !sampleSize) {
       status = 400;
       throw Error("Sample Size required for LW algorithm");
     }
 
+    let result = 0;
+    if (algorithm === "VE") {
+      result = variableElimination.infer(
+        network,
+        body.query as Combinations,
+        body.evidence as Combinations,
+        0
+      );
+    }
+    if (algorithm == "LW") {
+      result = likelihoodWeighting.infer(
+        network,
+        body.query as Combinations,
+        body.evidence as Combinations,
+        sampleSize
+      );
+    }
+    console.log(result);
     res.status(200).json({ message: "success!" });
   } catch (err: any) {
-    res.status(status).json({ message: err.message, stack: err.stack });
+    res.status(status).json({ message: err.message });
   }
 };

@@ -20,7 +20,7 @@ afterAll(async () => {
 });
 
 // Define the test suite
-describe("API Controller", () => {
+describe("API POST create network", () => {
   // Define the test case for the POST endpoint
   describe("POST /api/create", () => {
     it("should insert data into the database", async () => {

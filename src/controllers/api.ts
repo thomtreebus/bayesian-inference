@@ -59,7 +59,6 @@ module.exports.createNetwork = async (req: Request, res: Response) => {
  * @async
  */
 module.exports.inference = async (req: Request, res: Response) => {
-  console.log(req.body);
   let status = 400;
   try {
     const body = req.body;
@@ -110,7 +109,6 @@ module.exports.inference = async (req: Request, res: Response) => {
         sampleSize
       );
     }
-    console.log(result);
     res.status(200).json({
       message: "success!",
       query: `P(${Object.keys(query)}|${Object.keys(evidence)})`,

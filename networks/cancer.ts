@@ -78,4 +78,4 @@ export const bronchitis: Node = {
   ],
 };
 
-export const allNodes = [smoker, pollution, cancer, xRay, bronchitis];
+export const cancerNodes = [smoker, pollution, cancer, xRay, bronchitis];

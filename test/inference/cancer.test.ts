@@ -1,13 +1,13 @@
 import expect from "expect";
 
 import { Infer } from "../../src/types";
-import { allNodes } from "../../networks/cancer";
+import { cancerNodes } from "../../networks/cancer";
 import { createNetwork } from "../../src/utils/network";
 import { inferenceAlgorithms } from "../../src";
 
 const { likelihoodWeighting } = inferenceAlgorithms;
 
-const network = createNetwork(...allNodes);
+const network = createNetwork(...cancerNodes);
 const samples = 100000;
 
 const within1Percent = (actual: number, approximation: number) => {

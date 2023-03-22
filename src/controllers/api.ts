@@ -30,15 +30,12 @@ module.exports.createNetwork = async (req: Request, res: Response) => {
     const nodes = Object.values(req.body);
     const newNetwork = await NetworkSchema.create({ nodes: nodes });
     await newNetwork.save();
-    // console.log(newNetwork);
+
     return res.status(200).json({
       message: "network successfully created",
       networkId: newNetwork.id,
     });
   } catch (error: any) {
-    // const statusCode = res.statusCode ? res.statusCode : 500;
-    // res.status(statusCode);
-
     res.status(status).json({
       message: error.message,
     });

@@ -10,7 +10,9 @@
     "start:prod": "npm run build && node build/server.js",
     "lint": "eslint . --ext .ts",
     "build": "npx tsc",
-    "eval": "npx ts-node src/evaluation/evaluator.ts"
+    "eval": "npx ts-node src/evaluation/evaluator.ts",
+    "seed": "npx ts-node src/tools/seed.ts",
+    "unseed": "npx ts-node src/tools/unseed.ts"
   },
   "repository": {
     "type": "git",

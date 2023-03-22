@@ -17,8 +17,12 @@ import validNetwork from "../validation/network";
  * @async
  */
 module.exports.createNetwork = async (req: Request, res: Response) => {
+  let status = 400;
   try {
     // check if input is a valid network
+    if (Object.entries(req.body).length === 0) {
+      throw Error("request body must include a network");
+    }
     const network: Network = req.body as Network;
     validNetwork(network);
 
@@ -26,18 +30,17 @@ module.exports.createNetwork = async (req: Request, res: Response) => {
     const nodes = Object.values(req.body);
     const newNetwork = await NetworkSchema.create({ nodes: nodes });
     await newNetwork.save();
-    console.log(newNetwork);
+    // console.log(newNetwork);
     return res.status(200).json({
       message: "network successfully created",
       networkId: newNetwork.id,
     });
   } catch (error: any) {
-    const statusCode = res.statusCode ? res.statusCode : 500;
+    // const statusCode = res.statusCode ? res.statusCode : 500;
     // res.status(statusCode);
 
-    res.status(statusCode).json({
+    res.status(status).json({
       message: error.message,
-      stack: error.stack,
     });
   }
 };

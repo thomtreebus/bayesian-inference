@@ -133,9 +133,97 @@ describe("API POST inference", () => {
     });
 
     it("should return a 400 error if the network in the body is invalid", async () => {
-      const network = { id: "Not a valid network" };
-      const response = await request(appTest).post("/api/create").send(network);
+      const data = { id: "Not a valid network" };
+      const response = await request(appTest).post("/api/inference").send(data);
       expect(response.statusCode).toBe(400);
+    });
+
+    it("should return an error if any parameters are missing", async () => {
+      const requestBody = {
+        algorithm: "LW",
+        query: { GRASS_WET: "T" },
+        evidence: { RAIN: "T" },
+        sampleSize: 1000,
+      };
+      const response = await request(appTest)
+        .post("/api/inference")
+        .send(requestBody);
+      expect(response.statusCode).toBe(400);
+      expect(response.body.message).toBe(
+        "Please make sure all required body elements are included in the request"
+      );
+    });
+
+    it("should return an error if networkId not present in database", async () => {
+      const requestBody = {
+        algorithm: "LW",
+        networkId: 1,
+        query: { GRASS_WET: "T" },
+        evidence: { RAIN: "T" },
+        sampleSize: 1000,
+      };
+      const response = await request(appTest)
+        .post("/api/inference")
+        .send(requestBody);
+      expect(response.statusCode).toBe(404);
+      expect(response.body.message).toBe("Network with id 1 does not exist");
+    });
+
+    it("should return an error if invalid algorithm is sent", async () => {
+      const createNetResponse = await request(appTest)
+        .post("/api/create")
+        .send(networkData)
+        .set("Accept", "application/json");
+
+      // Check response message
+      const message = createNetResponse.body.message;
+      expect(message).toBe("network successfully created");
+
+      // Check response id and created in database
+      const id = createNetResponse.body.networkId;
+
+      const requestBody = {
+        algorithm: "not an algorithm",
+        networkId: id,
+        query: { GRASS_WET: "T" },
+        evidence: { RAIN: "T" },
+        sampleSize: 1000,
+      };
+      const response = await request(appTest)
+        .post("/api/inference")
+        .send(requestBody);
+      expect(response.statusCode).toBe(404);
+      expect(response.body.message).toBe(
+        "not an algorithm is not a valid algorithm"
+      );
+    });
+
+    it("should return an error if LW is chosen without sampleSize", async () => {
+      const createNetResponse = await request(appTest)
+        .post("/api/create")
+        .send(networkData)
+        .set("Accept", "application/json");
+
+      // Check response message
+      const message = createNetResponse.body.message;
+      expect(message).toBe("network successfully created");
+
+      // Check response id and created in database
+      const id = createNetResponse.body.networkId;
+
+      const requestBody = {
+        algorithm: "LW",
+        networkId: id,
+        query: { GRASS_WET: "T" },
+        evidence: { RAIN: "T" },
+      };
+      const response = await request(appTest)
+        .post("/api/inference")
+        .send(requestBody);
+      expect(response.statusCode).toBe(400);
+      expect(response.body.message).toBe(
+        "Sample Size required for LW algorithm"
+      );
     });
   });
 });

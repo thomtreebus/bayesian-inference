@@ -101,6 +101,7 @@ module.exports.inference = async (req: Request, res: Response) => {
         0
       );
     }
+
     if (algorithm == "LW") {
       result = likelihoodWeighting.infer(
         network,

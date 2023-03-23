@@ -1,5 +1,5 @@
 import { Infer } from "../../src/types";
-import { allNodes } from "../../networks/alarm";
+import { alarmNodes } from "../../networks/alarm";
 import { createNetwork } from "../../src/utils/network";
 import { inferenceAlgorithms } from "../../src";
 const { likelihoodWeighting } = inferenceAlgorithms;
@@ -12,7 +12,7 @@ function percentError(target: number, output: number): number {
   return error * 100;
 }
 
-const network = createNetwork(...allNodes);
+const network = createNetwork(...alarmNodes);
 const sampleSize = 10000;
 console.log("evaluating....");
 

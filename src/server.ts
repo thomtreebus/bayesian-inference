@@ -6,7 +6,8 @@ const port: number = 3000;
 mongoose.set("strictQuery", true);
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGODB_URI as string);
+    const conn = await mongoose.connect("mongodb://localhost:27017/db");
+    mongoose.set("strictQuery", false);
     console.log(`✉ [database] Database connected: ${conn.connection.host}`);
   } catch (error) {
     console.log(error);

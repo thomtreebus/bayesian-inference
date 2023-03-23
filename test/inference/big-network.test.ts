@@ -2,7 +2,7 @@ import expect from "expect";
 
 import { Infer, Network } from "../../src/types";
 
-import { allNodes } from "../../networks/alarm";
+import { alarmNodes } from "../../networks/alarm";
 import { createNetwork } from "../../src/utils/network";
 // import { inferenceAlgorithms } from "../../src";
 import { likelihoodWeighting } from "../../src/inference";
@@ -601,7 +601,7 @@ const tests: { [key: string]: (network: Network) => (infer: Infer) => void } = {
 
 describe("infers", () => {
   describe("hugeNetwork", () => {
-    const network = createNetwork(...allNodes);
+    const network = createNetwork(...alarmNodes);
     const testNames = Object.keys(tests);
 
     for (const testName of testNames) {

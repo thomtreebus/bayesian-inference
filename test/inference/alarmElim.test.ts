@@ -1,23 +1,13 @@
 import expect from "expect";
 
 import { Infer } from "../../src/types";
-import { allNodes } from "../../networks/alarm";
+import { alarmNodes } from "../../networks/alarm";
 import { createNetwork } from "../../src/utils/network";
 import { inferenceAlgorithms } from "../../src";
 
 const { variableElimination } = inferenceAlgorithms;
 
-const network = createNetwork(...allNodes);
-const samples = 0;
-
-const within1Percent = (actual: number, approximation: number) => {
-  console.log(actual, approximation);
-  const ratio = actual / approximation;
-  if (Math.abs(1 - ratio) < 0.1) {
-    return true;
-  }
-  return false;
-};
+const network = createNetwork(...alarmNodes);
 
 const infersAlarmGiveBurglaryTrue = (infer: Infer) => {
   const given = { BURGLARY: "T" };

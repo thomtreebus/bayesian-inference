@@ -5,9 +5,11 @@ const { CptWithoutParents, CptWithParents } = require("../types");
 const NetworkSchema = new mongoose.Schema({
   nodes: [
     {
-      type: Schema.Types.ObjectId,
-      ref: "Node",
-      required: true,
+      id: String,
+      states: [String],
+      parents: [String],
+      cpt: CptWithParents | CptWithoutParents,
+      _id: false,
     },
   ],
 });

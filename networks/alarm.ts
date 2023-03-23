@@ -58,4 +58,4 @@ export const maryCalls: Node = {
   ],
 };
 
-export const allNodes = [burglary, earthquake, alarm, johnCalls, maryCalls];
+export const alarmNodes = [burglary, earthquake, alarm, johnCalls, maryCalls];

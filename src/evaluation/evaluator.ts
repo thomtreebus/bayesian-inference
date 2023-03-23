@@ -1,8 +1,9 @@
 import { Infer } from "../../src/types";
 import { alarmNodes } from "../../networks/alarm";
+import { allNodes } from "../../networks/big-network";
 import { createNetwork } from "../../src/utils/network";
 import { inferenceAlgorithms } from "../../src";
-const { likelihoodWeighting } = inferenceAlgorithms;
+const { likelihoodWeighting, variableElimination } = inferenceAlgorithms;
 const { convertArrayToCSV } = require("convert-array-to-csv");
 const converter = require("convert-array-to-csv");
 const fs = require("fs");
@@ -24,14 +25,30 @@ const results = [];
 const observedValues = { BURGLARY: "T" };
 const target = 0.6586;
 const trials = 10;
-console.log(
-  likelihoodWeighting.infer(
-    network,
-    { MARY_CALLS: "T" },
-    observedValues,
-    1000000
-  )
+let start = Date.now();
+const result = likelihoodWeighting.infer(
+  network,
+  { MARY_CALLS: "T" },
+  observedValues,
+  1000
 );
+console.log(result);
+let timeTaken = Date.now() - start;
+console.log("Total time taken : " + timeTaken + " milliseconds");
+
+const bigNetwork = createNetwork(...allNodes);
+const observed = { node1: "T", node2: "T" };
+start = Date.now();
+const res = variableElimination.infer(
+  bigNetwork,
+  { node10: "T" },
+  observed,
+  1000
+);
+console.log(res);
+timeTaken = Date.now() - start;
+console.log("Total time taken : " + timeTaken + " milliseconds");
+
 // for (let sampleSize = 1000; sampleSize <= 100000; sampleSize += 1000) {
 //   let total = 0;
 //   console.log("sample:", sampleSize);

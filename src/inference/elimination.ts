@@ -34,7 +34,6 @@ export const infer: Infer = (
   );
 
   const remainingFactors = eliminateVariables(factors, hiddenVariables);
-
   const joinedFactor = remainingFactors
     .filter((factor) => factor.length > 0)
     .reduce(joinFactors);

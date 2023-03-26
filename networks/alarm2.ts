@@ -551,8 +551,193 @@ export const INTUBATION: Node = {
 export const PRESS: Node = {
   id: "PRESS",
   states: ["ZERO", "LOW", "NORMAL", "HIGH"],
-  parents: [],
-  cpt: { T: 0.001, F: 0.999 },
+  parents: ["VENTTUBE", "KINKEDTUBE", "INTUBATION"],
+  cpt: [
+    {
+      condition: { VENTTUBE: "ZERO", KINKEDTUBE: "TRUE", INTUBATION: "NORMAL" },
+      probability: { ZERO: 0.97, LOW: 0.01, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: {
+        VENTTUBE: "ZERO",
+        KINKEDTUBE: "TRUE",
+        INTUBATION: "ESOPHAGEAL",
+      },
+      probability: { ZERO: 0.01, LOW: 0.3, NORMAL: 0.49, HIGH: 0.2 },
+    },
+    {
+      condition: {
+        VENTTUBE: "ZERO",
+        KINKEDTUBE: "TRUE",
+        INTUBATION: "ONESIDED",
+      },
+      probability: { ZERO: 0.01, LOW: 0.01, NORMAL: 0.08, HIGH: 0.9 },
+    },
+    {
+      condition: {
+        VENTTUBE: "ZERO",
+        KINKEDTUBE: "FALSE",
+        INTUBATION: "NORMAL",
+      },
+      probability: { ZERO: 0.01, LOW: 0.01, NORMAL: 0.01, HIGH: 0.97 },
+    },
+    {
+      condition: {
+        VENTTUBE: "ZERO",
+        KINKEDTUBE: "FALSE",
+        INTUBATION: "ESOPHAGEAL",
+      },
+      probability: { ZERO: 0.97, LOW: 0.01, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: {
+        VENTTUBE: "ZERO",
+        KINKEDTUBE: "FALSE",
+        INTUBATION: "ONESIDED",
+      },
+      probability: { ZERO: 0.1, LOW: 0.84, NORMAL: 0.05, HIGH: 0.01 },
+    },
+    {
+      condition: {
+        VENTTUBE: "LOW",
+        KINKEDTUBE: "TRUE",
+        INTUBATION: "NORMAL",
+      },
+      probability: { ZERO: 0.05, LOW: 0.25, NORMAL: 0.25, HIGH: 0.45 },
+    },
+    {
+      condition: {
+        VENTTUBE: "LOW",
+        KINKEDTUBE: "TRUE",
+        INTUBATION: "ESOPHAGEAL",
+      },
+      probability: { ZERO: 0.01, LOW: 0.15, NORMAL: 0.25, HIGH: 0.59 },
+    },
+    {
+      condition: {
+        VENTTUBE: "LOW",
+        KINKEDTUBE: "TRUE",
+        INTUBATION: "ONESIDED",
+      },
+      probability: { ZERO: 0.97, LOW: 0.01, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: {
+        VENTTUBE: "LOW",
+        KINKEDTUBE: "FALSE",
+        INTUBATION: "NORMAL",
+      },
+      probability: { ZERO: 0.01, LOW: 0.29, NORMAL: 0.3, HIGH: 0.4 },
+    },
+    {
+      condition: {
+        VENTTUBE: "LOW",
+        KINKEDTUBE: "FALSE",
+        INTUBATION: "ESOPHAGEAL",
+      },
+      probability: { ZERO: 0.01, LOW: 0.01, NORMAL: 0.08, HIGH: 0.9 },
+    },
+    {
+      condition: {
+        VENTTUBE: "LOW",
+        KINKEDTUBE: "FALSE",
+        INTUBATION: "ONESIDED",
+      },
+      probability: { ZERO: 0.01, LOW: 0.01, NORMAL: 0.01, HIGH: 0.97 },
+    },
+    {
+      condition: {
+        VENTTUBE: "NORMAL",
+        KINKEDTUBE: "TRUE",
+        INTUBATION: "NORMAL",
+      },
+      probability: { ZERO: 0.97, LOW: 0.01, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: {
+        VENTTUBE: "NORMAL",
+        KINKEDTUBE: "TRUE",
+        INTUBATION: "ESOPHAGEAL",
+      },
+      probability: { ZERO: 0.01, LOW: 0.97, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: {
+        VENTTUBE: "NORMAL",
+        KINKEDTUBE: "TRUE",
+        INTUBATION: "ONESIDED",
+      },
+      probability: { ZERO: 0.01, LOW: 0.01, NORMAL: 0.97, HIGH: 0.01 },
+    },
+    {
+      condition: {
+        VENTTUBE: "NORMAL",
+        KINKEDTUBE: "FALSE",
+        INTUBATION: "NORMAL",
+      },
+      probability: { ZERO: 0.01, LOW: 0.01, NORMAL: 0.01, HIGH: 0.97 },
+    },
+    {
+      condition: {
+        VENTTUBE: "NORMAL",
+        KINKEDTUBE: "FALSE",
+        INTUBATION: "ESOPHAGEAL",
+      },
+      probability: { ZERO: 0.97, LOW: 0.01, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: {
+        VENTTUBE: "NORMAL",
+        KINKEDTUBE: "FALSE",
+        INTUBATION: "ONESIDED",
+      },
+      probability: { ZERO: 0.4, LOW: 0.58, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: { VENTTUBE: "HIGH", KINKEDTUBE: "TRUE", INTUBATION: "NORMAL" },
+      probability: { ZERO: 0.2, LOW: 0.75, NORMAL: 0.04, HIGH: 0.01 },
+    },
+    {
+      condition: {
+        VENTTUBE: "HIGH",
+        KINKEDTUBE: "TRUE",
+        INTUBATION: "ESOPHAGEAL",
+      },
+      probability: { ZERO: 0.2, LOW: 0.7, NORMAL: 0.09, HIGH: 0.01 },
+    },
+    {
+      condition: {
+        VENTTUBE: "HIGH",
+        KINKEDTUBE: "TRUE",
+        INTUBATION: "ONESIDED",
+      },
+      probability: { ZERO: 0.97, LOW: 0.01, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: {
+        VENTTUBE: "HIGH",
+        KINKEDTUBE: "FALSE",
+        INTUBATION: "NORMAL",
+      },
+      probability: { ZERO: 0.01, LOW: 0.9, NORMAL: 0.08, HIGH: 0.01 },
+    },
+    {
+      condition: {
+        VENTTUBE: "HIGH",
+        KINKEDTUBE: "FALSE",
+        INTUBATION: "ESOPHAGEAL",
+      },
+      probability: { ZERO: 0.01, LOW: 0.01, NORMAL: 0.38, HIGH: 0.6 },
+    },
+    {
+      condition: {
+        VENTTUBE: "HIGH",
+        KINKEDTUBE: "FALSE",
+        INTUBATION: "ONESIDED",
+      },
+      probability: { ZERO: 0.01, LOW: 0.01, NORMAL: 0.01, HIGH: 0.97 },
+    },
+  ],
 };
 
 export const DISCONNECT: Node = {
@@ -572,43 +757,844 @@ export const MINVOLSET: Node = {
 export const VENTMACH: Node = {
   id: "VENTMACH",
   states: ["ZERO", "LOW", "NORMAL", "HIGH"],
-  parents: [],
-  cpt: { T: 0.001, F: 0.999 },
+  parents: ["MINVOLSET"],
+  cpt: [
+    {
+      condition: { MINVOLSET: "LOW" },
+      probability: { ZERO: 0.05, LOW: 0.93, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: { MINVOLSET: "NORMAL" },
+      probability: { ZERO: 0.05, LOW: 0.01, NORMAL: 0.93, HIGH: 0.01 },
+    },
+    {
+      condition: { MINVOLSET: "HIGH" },
+      probability: { ZERO: 0.05, LOW: 0.01, NORMAL: 0.01, HIGH: 0.93 },
+    },
+  ],
 };
 
 export const VENTTUBE: Node = {
   id: "VENTTUBE",
   states: ["ZERO", "LOW", "NORMAL", "HIGH"],
-  parents: [],
-  cpt: { T: 0.001, F: 0.999 },
+  parents: ["VENTMACH", "DISCONNECT"],
+  cpt: [
+    {
+      condition: { VENTMACH: "ZERO", DISCONNECT: "TRUE" },
+      probability: { ZERO: 0.97, LOW: 0.01, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: { VENTMACH: "ZERO", DISCONNECT: "False" },
+      probability: { ZERO: 0.97, LOW: 0.01, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: { VENTMACH: "LOW", DISCONNECT: "TRUE" },
+      probability: { ZERO: 0.97, LOW: 0.01, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: { VENTMACH: "LOW", DISCONNECT: "False" },
+      probability: { ZERO: 0.97, LOW: 0.01, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: { VENTMACH: "NORMAL", DISCONNECT: "TRUE" },
+      probability: { ZERO: 0.97, LOW: 0.01, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: { VENTMACH: "NORMAL", DISCONNECT: "False" },
+      probability: { ZERO: 0.01, LOW: 0.97, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: { VENTMACH: "HIGH", DISCONNECT: "TRUE" },
+      probability: { ZERO: 0.01, LOW: 0.01, NORMAL: 0.97, HIGH: 0.01 },
+    },
+    {
+      condition: { VENTMACH: "HIGH", DISCONNECT: "False" },
+      probability: { ZERO: 0.01, LOW: 0.01, NORMAL: 0.01, HIGH: 0.97 },
+    },
+  ],
 };
 
 export const VENTLUNG: Node = {
   id: "VENTLUNG",
   states: ["ZERO", "LOW", "NORMAL", "HIGH"],
-  parents: [],
-  cpt: { T: 0.001, F: 0.999 },
+  parents: ["VENTTUBE", "KINKEDTUBE", "INTUBATION"],
+  cpt: [
+    {
+      condition: { VENTTUBE: "ZERO", KINKEDTUBE: "TRUE", INTUBATION: "NORMAL" },
+      probability: { ZERO: 0.97, LOW: 0.01, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: {
+        VENTTUBE: "ZERO",
+        KINKEDTUBE: "TRUE",
+        INTUBATION: "ESOPHAGEAL",
+      },
+      probability: { ZERO: 0.95, LOW: 0.03, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: {
+        VENTTUBE: "ZERO",
+        KINKEDTUBE: "TRUE",
+        INTUBATION: "ONESIDED",
+      },
+      probability: { ZERO: 0.4, LOW: 0.58, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: {
+        VENTTUBE: "ZERO",
+        KINKEDTUBE: "FALSE",
+        INTUBATION: "NORMAL",
+      },
+      probability: { ZERO: 0.3, LOW: 0.68, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: {
+        VENTTUBE: "ZERO",
+        KINKEDTUBE: "FALSE",
+        INTUBATION: "ESOPHAGEAL",
+      },
+      probability: { ZERO: 0.97, LOW: 0.01, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: {
+        VENTTUBE: "ZERO",
+        KINKEDTUBE: "FALSE",
+        INTUBATION: "ONESIDED",
+      },
+      probability: { ZERO: 0.97, LOW: 0.01, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: {
+        VENTTUBE: "LOW",
+        KINKEDTUBE: "TRUE",
+        INTUBATION: "NORMAL",
+      },
+      probability: { ZERO: 0.97, LOW: 0.01, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: {
+        VENTTUBE: "LOW",
+        KINKEDTUBE: "TRUE",
+        INTUBATION: "ESOPHAGEAL",
+      },
+      probability: { ZERO: 0.97, LOW: 0.01, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: {
+        VENTTUBE: "LOW",
+        KINKEDTUBE: "TRUE",
+        INTUBATION: "ONESIDED",
+      },
+      probability: { ZERO: 0.97, LOW: 0.01, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: {
+        VENTTUBE: "LOW",
+        KINKEDTUBE: "FALSE",
+        INTUBATION: "NORMAL",
+      },
+      probability: { ZERO: 0.95, LOW: 0.03, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: {
+        VENTTUBE: "LOW",
+        KINKEDTUBE: "FALSE",
+        INTUBATION: "ESOPHAGEAL",
+      },
+      probability: { ZERO: 0.5, LOW: 0.48, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: {
+        VENTTUBE: "LOW",
+        KINKEDTUBE: "FALSE",
+        INTUBATION: "ONESIDED",
+      },
+      probability: { ZERO: 0.3, LOW: 0.68, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: {
+        VENTTUBE: "NORMAL",
+        KINKEDTUBE: "TRUE",
+        INTUBATION: "NORMAL",
+      },
+      probability: { ZERO: 0.97, LOW: 0.01, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: {
+        VENTTUBE: "NORMAL",
+        KINKEDTUBE: "TRUE",
+        INTUBATION: "ESOPHAGEAL",
+      },
+      probability: { ZERO: 0.01, LOW: 0.97, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: {
+        VENTTUBE: "NORMAL",
+        KINKEDTUBE: "TRUE",
+        INTUBATION: "ONESIDED",
+      },
+      probability: { ZERO: 0.01, LOW: 0.01, NORMAL: 0.97, HIGH: 0.01 },
+    },
+    {
+      condition: {
+        VENTTUBE: "NORMAL",
+        KINKEDTUBE: "FALSE",
+        INTUBATION: "NORMAL",
+      },
+      probability: { ZERO: 0.01, LOW: 0.01, NORMAL: 0.01, HIGH: 0.97 },
+    },
+    {
+      condition: {
+        VENTTUBE: "NORMAL",
+        KINKEDTUBE: "FALSE",
+        INTUBATION: "ESOPHAGEAL",
+      },
+      probability: { ZERO: 0.97, LOW: 0.01, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: {
+        VENTTUBE: "NORMAL",
+        KINKEDTUBE: "FALSE",
+        INTUBATION: "ONESIDED",
+      },
+      probability: { ZERO: 0.97, LOW: 0.01, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: { VENTTUBE: "HIGH", KINKEDTUBE: "TRUE", INTUBATION: "NORMAL" },
+      probability: { ZERO: 0.97, LOW: 0.01, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: {
+        VENTTUBE: "HIGH",
+        KINKEDTUBE: "TRUE",
+        INTUBATION: "ESOPHAGEAL",
+      },
+      probability: { ZERO: 0.97, LOW: 0.01, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: {
+        VENTTUBE: "HIGH",
+        KINKEDTUBE: "TRUE",
+        INTUBATION: "ONESIDED",
+      },
+      probability: { ZERO: 0.97, LOW: 0.01, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: {
+        VENTTUBE: "HIGH",
+        KINKEDTUBE: "FALSE",
+        INTUBATION: "NORMAL",
+      },
+      probability: { ZERO: 0.01, LOW: 0.97, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: {
+        VENTTUBE: "HIGH",
+        KINKEDTUBE: "FALSE",
+        INTUBATION: "ESOPHAGEAL",
+      },
+      probability: { ZERO: 0.01, LOW: 0.01, NORMAL: 0.97, HIGH: 0.01 },
+    },
+    {
+      condition: {
+        VENTTUBE: "HIGH",
+        KINKEDTUBE: "FALSE",
+        INTUBATION: "ONESIDED",
+      },
+      probability: { ZERO: 0.01, LOW: 0.01, NORMAL: 0.01, HIGH: 0.97 },
+    },
+  ],
 };
 
 export const VENTALV: Node = {
   id: "VENTALV",
   states: ["ZERO", "LOW", "NORMAL", "HIGH"],
-  parents: [],
-  cpt: { T: 0.001, F: 0.999 },
+  parents: ["VENTLUNG", "INTUBATION"],
+  cpt: [
+    {
+      condition: { VENTLUNG: "ZERO", INTUBATION: "NORMAL" },
+      probability: { ZERO: 0.97, LOW: 0.01, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: { VENTLUNG: "ZERO", INTUBATION: "ESOPHAGEAL" },
+      probability: { ZERO: 0.01, LOW: 0.97, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: { VENTLUNG: "ZERO", INTUBATION: "ONESIDED" },
+      probability: { ZERO: 0.01, LOW: 0.01, NORMAL: 0.97, HIGH: 0.01 },
+    },
+    {
+      condition: { VENTLUNG: "LOW", INTUBATION: "NORMAL" },
+      probability: { ZERO: 0.01, LOW: 0.01, NORMAL: 0.01, HIGH: 0.97 },
+    },
+    {
+      condition: { VENTLUNG: "LOW", INTUBATION: "ESOPHAGEAL" },
+      probability: { ZERO: 0.97, LOW: 0.01, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: { VENTLUNG: "LOW", INTUBATION: "ONESIDED" },
+      probability: { ZERO: 0.01, LOW: 0.97, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: { VENTLUNG: "NORMAL", INTUBATION: "NORMAL" },
+      probability: { ZERO: 0.01, LOW: 0.01, NORMAL: 0.97, HIGH: 0.01 },
+    },
+    {
+      condition: { VENTLUNG: "NORMAL", INTUBATION: "ESOPHAGEAL" },
+      probability: { ZERO: 0.01, LOW: 0.01, NORMAL: 0.01, HIGH: 0.97 },
+    },
+    {
+      condition: { VENTLUNG: "NORMAL", INTUBATION: "ONESIDED" },
+      probability: { ZERO: 0.97, LOW: 0.01, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: { VENTLUNG: "HIGH", INTUBATION: "NORMAL" },
+      probability: { ZERO: 0.03, LOW: 0.95, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: { VENTLUNG: "HIGH", INTUBATION: "ESOPHAGEAL" },
+      probability: { ZERO: 0.01, LOW: 0.94, NORMAL: 0.04, HIGH: 0.01 },
+    },
+    {
+      condition: { VENTLUNG: "HIGH", INTUBATION: "ONESIDED" },
+      probability: { ZERO: 0.01, LOW: 0.88, NORMAL: 0.1, HIGH: 0.01 },
+    },
+  ],
 };
 
 export const ARTCO2: Node = {
   id: "ARTCO2",
   states: ["LOW", "NORMAL", "HIGH"],
-  parents: [],
-  cpt: { T: 0.001, F: 0.999 },
+  parents: ["VENTALV"],
+  cpt: [
+    {
+      condition: { VENTALV: "ZERO" },
+      probability: { LOW: 0.01, NORMAL: 0.01, HIGH: 0.98 },
+    },
+    {
+      condition: { VENTALV: "LOW" },
+      probability: { LOW: 0.01, NORMAL: 0.01, HIGH: 0.98 },
+    },
+    {
+      condition: { VENTALV: "NORMAL" },
+      probability: { LOW: 0.04, NORMAL: 0.92, HIGH: 0.04 },
+    },
+    {
+      condition: { VENTALV: "HIGH" },
+      probability: { LOW: 0.9, NORMAL: 0.09, HIGH: 0.01 },
+    },
+  ],
 };
 
 export const CATECHOL: Node = {
   id: "CATECHOL",
   states: ["NORMAL", "HIGH"],
-  parents: [],
-  cpt: { T: 0.001, F: 0.999 },
+  parents: ["ARTCO2", "INSUFFANESTH", "SAO2", "TPR"],
+  cpt: [
+    {
+      condition: {
+        ARTCO2: "LOW",
+        INSUFFANESTH: "TRUE",
+        SAO2: "LOW",
+        TPR: "LOW",
+      },
+      probability: { NORMAL: 0.01, HIGH: 0.99 },
+    },
+    {
+      condition: {
+        ARTCO2: "NORMAL",
+        INSUFFANESTH: "TRUE",
+        SAO2: "LOW",
+        TPR: "LOW",
+      },
+      probability: { NORMAL: 0.01, HIGH: 0.99 },
+    },
+    {
+      condition: {
+        ARTCO2: "HIGH",
+        INSUFFANESTH: "TRUE",
+        SAO2: "LOW",
+        TPR: "LOW",
+      },
+      probability: { NORMAL: 0.01, HIGH: 0.99 },
+    },
+
+    {
+      condition: {
+        ARTCO2: "LOW",
+        INSUFFANESTH: "FALSE",
+        SAO2: "LOW",
+        TPR: "LOW",
+      },
+      probability: { NORMAL: 0.01, HIGH: 0.99 },
+    },
+    {
+      condition: {
+        ARTCO2: "NORMAL",
+        INSUFFANESTH: "FALSE",
+        SAO2: "LOW",
+        TPR: "LOW",
+      },
+      probability: { NORMAL: 0.01, HIGH: 0.99 },
+    },
+    {
+      condition: {
+        ARTCO2: "HIGH",
+        INSUFFANESTH: "FALSE",
+        SAO2: "LOW",
+        TPR: "LOW",
+      },
+      probability: { NORMAL: 0.01, HIGH: 0.99 },
+    },
+
+    {
+      condition: {
+        ARTCO2: "LOW",
+        INSUFFANESTH: "TRUE",
+        SAO2: "NORMAL",
+        TPR: "LOW",
+      },
+      probability: { NORMAL: 0.01, HIGH: 0.99 },
+    },
+    {
+      condition: {
+        ARTCO2: "NORMAL",
+        INSUFFANESTH: "TRUE",
+        SAO2: "NORMAL",
+        TPR: "LOW",
+      },
+      probability: { NORMAL: 0.01, HIGH: 0.99 },
+    },
+    {
+      condition: {
+        ARTCO2: "HIGH",
+        INSUFFANESTH: "TRUE",
+        SAO2: "NORMAL",
+        TPR: "LOW",
+      },
+      probability: { NORMAL: 0.01, HIGH: 0.99 },
+    },
+
+    {
+      condition: {
+        ARTCO2: "LOW",
+        INSUFFANESTH: "FALSE",
+        SAO2: "NORMAL",
+        TPR: "LOW",
+      },
+      probability: { NORMAL: 0.01, HIGH: 0.99 },
+    },
+    {
+      condition: {
+        ARTCO2: "NORMAL",
+        INSUFFANESTH: "FALSE",
+        SAO2: "NORMAL",
+        TPR: "LOW",
+      },
+      probability: { NORMAL: 0.01, HIGH: 0.99 },
+    },
+    {
+      condition: {
+        ARTCO2: "HIGH",
+        INSUFFANESTH: "FALSE",
+        SAO2: "NORMAL",
+        TPR: "LOW",
+      },
+      probability: { NORMAL: 0.01, HIGH: 0.99 },
+    },
+
+    {
+      condition: {
+        ARTCO2: "LOW",
+        INSUFFANESTH: "TRUE",
+        SAO2: "HIGH",
+        TPR: "LOW",
+      },
+      probability: { NORMAL: 0.01, HIGH: 0.99 },
+    },
+    {
+      condition: {
+        ARTCO2: "NORMAL",
+        INSUFFANESTH: "TRUE",
+        SAO2: "HIGH",
+        TPR: "LOW",
+      },
+      probability: { NORMAL: 0.01, HIGH: 0.99 },
+    },
+    {
+      condition: {
+        ARTCO2: "HIGH",
+        INSUFFANESTH: "TRUE",
+        SAO2: "HIGH",
+        TPR: "LOW",
+      },
+      probability: { NORMAL: 0.01, HIGH: 0.99 },
+    },
+
+    {
+      condition: {
+        ARTCO2: "LOW",
+        INSUFFANESTH: "FALSE",
+        SAO2: "HIGH",
+        TPR: "LOW",
+      },
+      probability: { NORMAL: 0.05, HIGH: 0.95 },
+    },
+    {
+      condition: {
+        ARTCO2: "NORMAL",
+        INSUFFANESTH: "FALSE",
+        SAO2: "HIGH",
+        TPR: "LOW",
+      },
+      probability: { NORMAL: 0.05, HIGH: 0.95 },
+    },
+    {
+      condition: {
+        ARTCO2: "HIGH",
+        INSUFFANESTH: "FALSE",
+        SAO2: "HIGH",
+        TPR: "LOW",
+      },
+      probability: { NORMAL: 0.01, HIGH: 0.99 },
+    },
+
+    {
+      condition: {
+        ARTCO2: "LOW",
+        INSUFFANESTH: "TRUE",
+        SAO2: "LOW",
+        TPR: "NORMAL",
+      },
+      probability: { NORMAL: 0.01, HIGH: 0.99 },
+    },
+    {
+      condition: {
+        ARTCO2: "NORMAL",
+        INSUFFANESTH: "TRUE",
+        SAO2: "LOW",
+        TPR: "NORMAL",
+      },
+      probability: { NORMAL: 0.01, HIGH: 0.99 },
+    },
+    {
+      condition: {
+        ARTCO2: "HIGH",
+        INSUFFANESTH: "TRUE",
+        SAO2: "LOW",
+        TPR: "NORMAL",
+      },
+      probability: { NORMAL: 0.01, HIGH: 0.99 },
+    },
+
+    {
+      condition: {
+        ARTCO2: "LOW",
+        INSUFFANESTH: "FALSE",
+        SAO2: "LOW",
+        TPR: "NORMAL",
+      },
+      probability: { NORMAL: 0.05, HIGH: 0.95 },
+    },
+    {
+      condition: {
+        ARTCO2: "NORMAL",
+        INSUFFANESTH: "FALSE",
+        SAO2: "LOW",
+        TPR: "NORMAL",
+      },
+      probability: { NORMAL: 0.05, HIGH: 0.95 },
+    },
+    {
+      condition: {
+        ARTCO2: "HIGH",
+        INSUFFANESTH: "FALSE",
+        SAO2: "LOW",
+        TPR: "NORMAL",
+      },
+      probability: { NORMAL: 0.01, HIGH: 0.99 },
+    },
+
+    {
+      condition: {
+        ARTCO2: "LOW",
+        INSUFFANESTH: "TRUE",
+        SAO2: "NORMAL",
+        TPR: "NORMAL",
+      },
+      probability: { NORMAL: 0.05, HIGH: 0.95 },
+    },
+    {
+      condition: {
+        ARTCO2: "NORMAL",
+        INSUFFANESTH: "TRUE",
+        SAO2: "NORMAL",
+        TPR: "NORMAL",
+      },
+      probability: { NORMAL: 0.05, HIGH: 0.95 },
+    },
+    {
+      condition: {
+        ARTCO2: "HIGH",
+        INSUFFANESTH: "TRUE",
+        SAO2: "NORMAL",
+        TPR: "NORMAL",
+      },
+      probability: { NORMAL: 0.01, HIGH: 0.99 },
+    },
+
+    {
+      condition: {
+        ARTCO2: "LOW",
+        INSUFFANESTH: "FALSE",
+        SAO2: "NORMAL",
+        TPR: "NORMAL",
+      },
+      probability: { NORMAL: 0.05, HIGH: 0.95 },
+    },
+    {
+      condition: {
+        ARTCO2: "NORMAL",
+        INSUFFANESTH: "FALSE",
+        SAO2: "NORMAL",
+        TPR: "NORMAL",
+      },
+      probability: { NORMAL: 0.05, HIGH: 0.95 },
+    },
+    {
+      condition: {
+        ARTCO2: "HIGH",
+        INSUFFANESTH: "FALSE",
+        SAO2: "NORMAL",
+        TPR: "NORMAL",
+      },
+      probability: { NORMAL: 0.01, HIGH: 0.99 },
+    },
+
+    {
+      condition: {
+        ARTCO2: "LOW",
+        INSUFFANESTH: "TRUE",
+        SAO2: "HIGH",
+        TPR: "NORMAL",
+      },
+      probability: { NORMAL: 0.05, HIGH: 0.95 },
+    },
+    {
+      condition: {
+        ARTCO2: "NORMAL",
+        INSUFFANESTH: "TRUE",
+        SAO2: "HIGH",
+        TPR: "NORMAL",
+      },
+      probability: { NORMAL: 0.05, HIGH: 0.95 },
+    },
+    {
+      condition: {
+        ARTCO2: "HIGH",
+        INSUFFANESTH: "TRUE",
+        SAO2: "HIGH",
+        TPR: "NORMAL",
+      },
+      probability: { NORMAL: 0.01, HIGH: 0.99 },
+    },
+
+    {
+      condition: {
+        ARTCO2: "LOW",
+        INSUFFANESTH: "FALSE",
+        SAO2: "HIGH",
+        TPR: "NORMAL",
+      },
+      probability: { NORMAL: 0.05, HIGH: 0.95 },
+    },
+    {
+      condition: {
+        ARTCO2: "NORMAL",
+        INSUFFANESTH: "FALSE",
+        SAO2: "HIGH",
+        TPR: "NORMAL",
+      },
+      probability: { NORMAL: 0.05, HIGH: 0.95 },
+    },
+    {
+      condition: {
+        ARTCO2: "HIGH",
+        INSUFFANESTH: "FALSE",
+        SAO2: "HIGH",
+        TPR: "NORMAL",
+      },
+      probability: { NORMAL: 0.01, HIGH: 0.99 },
+    },
+
+    {
+      condition: {
+        ARTCO2: "LOW",
+        INSUFFANESTH: "TRUE",
+        SAO2: "LOW",
+        TPR: "HIGH",
+      },
+      probability: { NORMAL: 0.7, HIGH: 0.3 },
+    },
+    {
+      condition: {
+        ARTCO2: "NORMAL",
+        INSUFFANESTH: "TRUE",
+        SAO2: "LOW",
+        TPR: "HIGH",
+      },
+      probability: { NORMAL: 0.7, HIGH: 0.3 },
+    },
+    {
+      condition: {
+        ARTCO2: "HIGH",
+        INSUFFANESTH: "TRUE",
+        SAO2: "LOW",
+        TPR: "HIGH",
+      },
+      probability: { NORMAL: 0.1, HIGH: 0.9 },
+    },
+
+    {
+      condition: {
+        ARTCO2: "LOW",
+        INSUFFANESTH: "FALSE",
+        SAO2: "LOW",
+        TPR: "HIGH",
+      },
+      probability: { NORMAL: 0.7, HIGH: 0.3 },
+    },
+    {
+      condition: {
+        ARTCO2: "NORMAL",
+        INSUFFANESTH: "FALSE",
+        SAO2: "LOW",
+        TPR: "HIGH",
+      },
+      probability: { NORMAL: 0.7, HIGH: 0.3 },
+    },
+    {
+      condition: {
+        ARTCO2: "HIGH",
+        INSUFFANESTH: "FALSE",
+        SAO2: "LOW",
+        TPR: "HIGH",
+      },
+      probability: { NORMAL: 0.1, HIGH: 0.9 },
+    },
+
+    {
+      condition: {
+        ARTCO2: "LOW",
+        INSUFFANESTH: "TRUE",
+        SAO2: "NORMAL",
+        TPR: "HIGH",
+      },
+      probability: { NORMAL: 0.7, HIGH: 0.3 },
+    },
+    {
+      condition: {
+        ARTCO2: "NORMAL",
+        INSUFFANESTH: "TRUE",
+        SAO2: "NORMAL",
+        TPR: "HIGH",
+      },
+      probability: { NORMAL: 0.7, HIGH: 0.3 },
+    },
+    {
+      condition: {
+        ARTCO2: "HIGH",
+        INSUFFANESTH: "TRUE",
+        SAO2: "NORMAL",
+        TPR: "HIGH",
+      },
+      probability: { NORMAL: 0.1, HIGH: 0.9 },
+    },
+
+    {
+      condition: {
+        ARTCO2: "LOW",
+        INSUFFANESTH: "FALSE",
+        SAO2: "NORMAL",
+        TPR: "HIGH",
+      },
+      probability: { NORMAL: 0.95, HIGH: 0.05 },
+    },
+    {
+      condition: {
+        ARTCO2: "NORMAL",
+        INSUFFANESTH: "FALSE",
+        SAO2: "NORMAL",
+        TPR: "HIGH",
+      },
+      probability: { NORMAL: 0.99, HIGH: 0.01 },
+    },
+    {
+      condition: {
+        ARTCO2: "HIGH",
+        INSUFFANESTH: "FALSE",
+        SAO2: "NORMAL",
+        TPR: "HIGH",
+      },
+      probability: { NORMAL: 0.3, HIGH: 0.7 },
+    },
+
+    {
+      condition: {
+        ARTCO2: "LOW",
+        INSUFFANESTH: "TRUE",
+        SAO2: "HIGH",
+        TPR: "HIGH",
+      },
+      probability: { NORMAL: 0.95, HIGH: 0.05 },
+    },
+    {
+      condition: {
+        ARTCO2: "NORMAL",
+        INSUFFANESTH: "TRUE",
+        SAO2: "HIGH",
+        TPR: "HIGH",
+      },
+      probability: { NORMAL: 0.99, HIGH: 0.01 },
+    },
+    {
+      condition: {
+        ARTCO2: "HIGH",
+        INSUFFANESTH: "TRUE",
+        SAO2: "HIGH",
+        TPR: "HIGH",
+      },
+      probability: { NORMAL: 0.3, HIGH: 0.7 },
+    },
+
+    {
+      condition: {
+        ARTCO2: "LOW",
+        INSUFFANESTH: "FALSE",
+        SAO2: "HIGH",
+        TPR: "HIGH",
+      },
+      probability: { NORMAL: 0.95, HIGH: 0.05 },
+    },
+    {
+      condition: {
+        ARTCO2: "NORMAL",
+        INSUFFANESTH: "FALSE",
+        SAO2: "HIGH",
+        TPR: "HIGH",
+      },
+      probability: { NORMAL: 0.99, HIGH: 0.01 },
+    },
+    {
+      condition: {
+        ARTCO2: "HIGH",
+        INSUFFANESTH: "FALSE",
+        SAO2: "HIGH",
+        TPR: "HIGH",
+      },
+      probability: { NORMAL: 0.3, HIGH: 0.7 },
+    },
+  ],
 };
 
 export const HR: Node = {
@@ -630,15 +1616,89 @@ export const HR: Node = {
 export const CO: Node = {
   id: "CO",
   states: ["LOW", "NORMAL", "HIGH"],
-  parents: ["HR", "STROKEVOLUME"],
-  cpt: { T: 0.001, F: 0.999 },
+  parents: ["STROKEVOLUME", "HR"],
+  cpt: [
+    {
+      condition: { STROKEVOLUME: "LOW", HR: "LOW" },
+      probability: { LOW: 0.98, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: { STROKEVOLUME: "NORMAL", HR: "LOW" },
+      probability: { LOW: 0.95, NORMAL: 0.04, HIGH: 0.01 },
+    },
+    {
+      condition: { STROKEVOLUME: "HIGH", HR: "LOW" },
+      probability: { LOW: 0.3, NORMAL: 0.69, HIGH: 0.01 },
+    },
+    {
+      condition: { STROKEVOLUME: "LOW", HR: "NORMAL" },
+      probability: { LOW: 0.95, NORMAL: 0.04, HIGH: 0.01 },
+    },
+    {
+      condition: { STROKEVOLUME: "NORMAL", HR: "NORMAL" },
+      probability: { LOW: 0.04, NORMAL: 0.95, HIGH: 0.01 },
+    },
+    {
+      condition: { STROKEVOLUME: "HIGH", HR: "NORMAL" },
+      probability: { LOW: 0.01, NORMAL: 0.3, HIGH: 0.69 },
+    },
+    {
+      condition: { STROKEVOLUME: "LOW", HR: "HIGH" },
+      probability: { LOW: 0.8, NORMAL: 0.19, HIGH: 0.01 },
+    },
+    {
+      condition: { STROKEVOLUME: "NORMAL", HR: "HIGH" },
+      probability: { LOW: 0.01, NORMAL: 0.04, HIGH: 0.95 },
+    },
+    {
+      condition: { STROKEVOLUME: "HIGH", HR: "HIGH" },
+      probability: { LOW: 0.01, NORMAL: 0.01, HIGH: 0.98 },
+    },
+  ],
 };
 
 export const BP: Node = {
   id: "BP",
   states: ["LOW", "NORMAL", "HIGH"],
-  parents: [],
-  cpt: { T: 0.001, F: 0.999 },
+  parents: ["TPR", "CO"],
+  cpt: [
+    {
+      condition: { TPR: "LOW", CO: "LOW" },
+      probability: { LOW: 0.98, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: { TPR: "NORMAL", CO: "LOW" },
+      probability: { LOW: 0.98, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: { TPR: "HIGH", CO: "LOW" },
+      probability: { LOW: 0.9, NORMAL: 0.09, HIGH: 0.01 },
+    },
+    {
+      condition: { TPR: "LOW", CO: "NORMAL" },
+      probability: { LOW: 0.98, NORMAL: 0.01, HIGH: 0.01 },
+    },
+    {
+      condition: { TPR: "NORMAL", CO: "NORMAL" },
+      probability: { LOW: 0.1, NORMAL: 0.85, HIGH: 0.05 },
+    },
+    {
+      condition: { TPR: "HIGH", CO: "NORMAL" },
+      probability: { LOW: 0.05, NORMAL: 0.2, HIGH: 0.75 },
+    },
+    {
+      condition: { TPR: "LOW", CO: "HIGH" },
+      probability: { LOW: 0.3, NORMAL: 0.6, HIGH: 0.1 },
+    },
+    {
+      condition: { TPR: "NORMAL", CO: "HIGH" },
+      probability: { LOW: 0.05, NORMAL: 0.4, HIGH: 0.55 },
+    },
+    {
+      condition: { TPR: "HIGH", CO: "HIGH" },
+      probability: { LOW: 0.01, NORMAL: 0.09, HIGH: 0.9 },
+    },
+  ],
 };
 
 export const allNodes = [

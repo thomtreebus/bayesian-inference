@@ -543,9 +543,9 @@ export const SHUNT: Node = {
 
 export const INTUBATION: Node = {
   id: "INTUBATION",
-  states: ["LOW", "ESOPHAGEAL", "ONESIDED"],
+  states: ["NORMAL", "ESOPHAGEAL", "ONESIDED"],
   parents: [],
-  cpt: { LOW: 0.92, ESOPHAGEAL: 0.03, ONESIDED: 0.05 },
+  cpt: { NORMAL: 0.92, ESOPHAGEAL: 0.03, ONESIDED: 0.05 },
 };
 
 export const PRESS: Node = {
@@ -784,7 +784,7 @@ export const VENTTUBE: Node = {
       probability: { ZERO: 0.97, LOW: 0.01, NORMAL: 0.01, HIGH: 0.01 },
     },
     {
-      condition: { VENTMACH: "ZERO", DISCONNECT: "False" },
+      condition: { VENTMACH: "ZERO", DISCONNECT: "FALSE" },
       probability: { ZERO: 0.97, LOW: 0.01, NORMAL: 0.01, HIGH: 0.01 },
     },
     {
@@ -792,7 +792,7 @@ export const VENTTUBE: Node = {
       probability: { ZERO: 0.97, LOW: 0.01, NORMAL: 0.01, HIGH: 0.01 },
     },
     {
-      condition: { VENTMACH: "LOW", DISCONNECT: "False" },
+      condition: { VENTMACH: "LOW", DISCONNECT: "FALSE" },
       probability: { ZERO: 0.97, LOW: 0.01, NORMAL: 0.01, HIGH: 0.01 },
     },
     {
@@ -800,7 +800,7 @@ export const VENTTUBE: Node = {
       probability: { ZERO: 0.97, LOW: 0.01, NORMAL: 0.01, HIGH: 0.01 },
     },
     {
-      condition: { VENTMACH: "NORMAL", DISCONNECT: "False" },
+      condition: { VENTMACH: "NORMAL", DISCONNECT: "FALSE" },
       probability: { ZERO: 0.01, LOW: 0.97, NORMAL: 0.01, HIGH: 0.01 },
     },
     {
@@ -808,7 +808,7 @@ export const VENTTUBE: Node = {
       probability: { ZERO: 0.01, LOW: 0.01, NORMAL: 0.97, HIGH: 0.01 },
     },
     {
-      condition: { VENTMACH: "HIGH", DISCONNECT: "False" },
+      condition: { VENTMACH: "HIGH", DISCONNECT: "FALSE" },
       probability: { ZERO: 0.01, LOW: 0.01, NORMAL: 0.01, HIGH: 0.97 },
     },
   ],
@@ -1603,11 +1603,11 @@ export const HR: Node = {
   parents: ["CATECHOL"],
   cpt: [
     {
-      condition: { CATECHOL: "TRUE" },
+      condition: { CATECHOL: "NORMAL" },
       probability: { LOW: 0.05, NORMAL: 0.9, HIGH: 0.05 },
     },
     {
-      condition: { CATECHOL: "FALSE" },
+      condition: { CATECHOL: "HIGH" },
       probability: { LOW: 0.01, NORMAL: 0.09, HIGH: 0.9 },
     },
   ],

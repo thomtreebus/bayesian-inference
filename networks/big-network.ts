@@ -13,7 +13,7 @@ export const node1: Node = {
         node17: "T",
         node37: "T",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.65, F: 0.35 },
     },
     {
       condition: {
@@ -23,7 +23,7 @@ export const node1: Node = {
         node17: "T",
         node37: "T",
       },
-      probability: { T: 0.25, F: 0.75 },
+      probability: { T: 0.22, F: 0.78 },
     },
     {
       condition: {
@@ -33,7 +33,7 @@ export const node1: Node = {
         node17: "T",
         node37: "T",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.2, F: 0.8 },
     },
     {
       condition: {
@@ -183,7 +183,7 @@ export const node1: Node = {
         node17: "T",
         node37: "F",
       },
-      probability: { T: 0.25, F: 0.75 },
+      probability: { T: 0.22, F: 0.78 },
     },
     {
       condition: {
@@ -193,7 +193,7 @@ export const node1: Node = {
         node17: "T",
         node37: "F",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.22, F: 0.78 },
     },
     {
       condition: {
@@ -203,7 +203,7 @@ export const node1: Node = {
         node17: "T",
         node37: "F",
       },
-      probability: { T: 0.25, F: 0.75 },
+      probability: { T: 0.2, F: 0.8 },
     },
     {
       condition: {
@@ -223,7 +223,7 @@ export const node1: Node = {
         node17: "T",
         node37: "F",
       },
-      probability: { T: 0.25, F: 0.75 },
+      probability: { T: 0.2, F: 0.8 },
     },
     {
       condition: {
@@ -233,7 +233,7 @@ export const node1: Node = {
         node17: "T",
         node37: "F",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.65, F: 0.35 },
     },
     {
       condition: {
@@ -263,7 +263,7 @@ export const node1: Node = {
         node17: "F",
         node37: "F",
       },
-      probability: { T: 0.25, F: 0.75 },
+      probability: { T: 0.2, F: 0.8 },
     },
     {
       condition: {
@@ -293,7 +293,7 @@ export const node1: Node = {
         node17: "F",
         node37: "F",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.2, F: 0.8 },
     },
     {
       condition: {
@@ -323,7 +323,7 @@ export const node1: Node = {
         node17: "F",
         node37: "F",
       },
-      probability: { T: 0.25, F: 0.75 },
+      probability: { T: 0.2, F: 0.8 },
     },
   ],
 };
@@ -354,7 +354,7 @@ export const node2: Node = {
         node8: "T",
         node9: "T",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.2, F: 0.8 },
     },
     {
       condition: {
@@ -390,7 +390,7 @@ export const node2: Node = {
         node8: "T",
         node9: "T",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.2, F: 0.8 },
     },
     {
       condition: {
@@ -414,7 +414,7 @@ export const node2: Node = {
         node8: "T",
         node9: "T",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.2, F: 0.8 },
     },
     {
       condition: {
@@ -426,7 +426,7 @@ export const node2: Node = {
         node8: "T",
         node9: "T",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.65, F: 0.35 },
     },
     {
       condition: {
@@ -438,7 +438,7 @@ export const node2: Node = {
         node8: "T",
         node9: "T",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.2, F: 0.8 },
     },
     {
       condition: {
@@ -486,7 +486,7 @@ export const node2: Node = {
         node8: "T",
         node9: "T",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.2, F: 0.8 },
     },
     {
       condition: {
@@ -498,7 +498,7 @@ export const node2: Node = {
         node8: "T",
         node9: "T",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.2, F: 0.8 },
     },
     {
       condition: {
@@ -510,7 +510,7 @@ export const node2: Node = {
         node8: "T",
         node9: "T",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.2, F: 0.8 },
     },
     {
       condition: {
@@ -558,7 +558,7 @@ export const node2: Node = {
         node8: "T",
         node9: "T",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.65, F: 0.35 },
     },
     {
       condition: {
@@ -606,7 +606,7 @@ export const node2: Node = {
         node8: "T",
         node9: "T",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.65, F: 0.35 },
     },
     {
       condition: {
@@ -642,7 +642,7 @@ export const node2: Node = {
         node8: "T",
         node9: "T",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.65, F: 0.35 },
     },
     {
       condition: {
@@ -702,7 +702,7 @@ export const node2: Node = {
         node8: "T",
         node9: "T",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.22, F: 0.78 },
     },
     {
       condition: {
@@ -738,7 +738,7 @@ export const node2: Node = {
         node8: "F",
         node9: "T",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.22, F: 0.78 },
     },
     {
       condition: {
@@ -750,7 +750,7 @@ export const node2: Node = {
         node8: "F",
         node9: "T",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.22, F: 0.78 },
     },
     {
       condition: {
@@ -810,7 +810,7 @@ export const node2: Node = {
         node8: "F",
         node9: "T",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.2, F: 0.8 },
     },
     {
       condition: {
@@ -870,7 +870,7 @@ export const node2: Node = {
         node8: "F",
         node9: "T",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.2, F: 0.8 },
     },
     {
       condition: {
@@ -1050,7 +1050,7 @@ export const node2: Node = {
         node8: "F",
         node9: "T",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.65, F: 0.35 },
     },
     {
       condition: {
@@ -1074,7 +1074,7 @@ export const node2: Node = {
         node8: "F",
         node9: "T",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.65, F: 0.35 },
     },
     {
       condition: {
@@ -1278,7 +1278,7 @@ export const node2: Node = {
         node8: "T",
         node9: "F",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.22, F: 0.78 },
     },
     {
       condition: {
@@ -1470,7 +1470,7 @@ export const node2: Node = {
         node8: "T",
         node9: "F",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.65, F: 0.35 },
     },
     {
       condition: {
@@ -1482,7 +1482,7 @@ export const node2: Node = {
         node8: "T",
         node9: "F",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.65, F: 0.35 },
     },
     {
       condition: {
@@ -1518,7 +1518,7 @@ export const node2: Node = {
         node8: "F",
         node9: "F",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.22, F: 0.78 },
     },
     {
       condition: {
@@ -1626,7 +1626,7 @@ export const node2: Node = {
         node8: "F",
         node9: "F",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.2, F: 0.8 },
     },
     {
       condition: {
@@ -1674,7 +1674,7 @@ export const node2: Node = {
         node8: "F",
         node9: "F",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.22, F: 0.78 },
     },
     {
       condition: {
@@ -1703,18 +1703,6 @@ export const node2: Node = {
     {
       condition: {
         node3: "T",
-        node4: "F",
-        node5: "T",
-        node6: "T",
-        node7: "F",
-        node8: "F",
-        node9: "F",
-      },
-      probability: { T: 0.69, F: 0.31 },
-    },
-    {
-      condition: {
-        node3: "F",
         node4: "F",
         node5: "T",
         node6: "T",
@@ -1726,6 +1714,18 @@ export const node2: Node = {
     },
     {
       condition: {
+        node3: "F",
+        node4: "F",
+        node5: "T",
+        node6: "T",
+        node7: "F",
+        node8: "F",
+        node9: "F",
+      },
+      probability: { T: 0.69, F: 0.31 },
+    },
+    {
+      condition: {
         node3: "T",
         node4: "T",
         node5: "F",
@@ -1770,7 +1770,7 @@ export const node2: Node = {
         node8: "F",
         node9: "F",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.22, F: 0.78 },
     },
     {
       condition: {
@@ -1782,7 +1782,7 @@ export const node2: Node = {
         node8: "F",
         node9: "F",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.22, F: 0.78 },
     },
     {
       condition: {
@@ -1919,11 +1919,11 @@ export const node10: Node = {
   cpt: [
     {
       condition: { node11: "T", node12: "T" },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.65, F: 0.35 },
     },
     {
       condition: { node11: "F", node12: "T" },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.65, F: 0.35 },
     },
     {
       condition: { node11: "T", node12: "F" },
@@ -1958,11 +1958,11 @@ export const node13: Node = {
     },
     {
       condition: { node14: "F", node15: "T" },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.65, F: 0.35 },
     },
     {
       condition: { node14: "T", node15: "F" },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.65, F: 0.35 },
     },
     {
       condition: { node14: "F", node15: "F" },
@@ -2022,7 +2022,7 @@ export const node18: Node = {
     },
     {
       condition: { node19: "F", node20: "T", node21: "T", node22: "T" },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.2, F: 0.8 },
     },
     {
       condition: { node19: "T", node20: "F", node21: "T", node22: "T" },
@@ -2030,19 +2030,19 @@ export const node18: Node = {
     },
     {
       condition: { node19: "F", node20: "F", node21: "T", node22: "T" },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.99, F: 0.01 },
     },
     {
       condition: { node19: "T", node20: "T", node21: "F", node22: "T" },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.98, F: 0.02 },
     },
     {
       condition: { node19: "F", node20: "T", node21: "F", node22: "T" },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.2, F: 0.8 },
     },
     {
       condition: { node19: "T", node20: "F", node21: "F", node22: "T" },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.02, F: 0.98 },
     },
     {
       condition: { node19: "F", node20: "F", node21: "F", node22: "T" },
@@ -2054,15 +2054,15 @@ export const node18: Node = {
     },
     {
       condition: { node19: "F", node20: "T", node21: "T", node22: "F" },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.3, F: 0.7 },
     },
     {
       condition: { node19: "T", node20: "F", node21: "T", node22: "F" },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.2, F: 0.8 },
     },
     {
       condition: { node19: "F", node20: "F", node21: "T", node22: "F" },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.1, F: 0.9 },
     },
     {
       condition: { node19: "T", node20: "T", node21: "F", node22: "F" },
@@ -2086,31 +2086,31 @@ export const node19: Node = {
   id: "node19",
   states: ["T", "F"],
   parents: [],
-  cpt: { T: 0.75, F: 0.25 },
+  cpt: { T: 0.2, F: 0.8 },
 };
 export const node20: Node = {
   id: "node20",
   states: ["T", "F"],
   parents: [],
-  cpt: { T: 0.75, F: 0.25 },
+  cpt: { T: 0.4, F: 0.6 },
 };
 export const node21: Node = {
   id: "node21",
   states: ["T", "F"],
   parents: [],
-  cpt: { T: 0.75, F: 0.25 },
+  cpt: { T: 0.1, F: 0.9 },
 };
 export const node22: Node = {
   id: "node22",
   states: ["T", "F"],
   parents: [],
-  cpt: { T: 0.75, F: 0.25 },
+  cpt: { T: 0.5, F: 0.5 },
 };
 export const node23: Node = {
   id: "node23",
   states: ["T", "F"],
   parents: [],
-  cpt: { T: 0.75, F: 0.25 },
+  cpt: { T: 0.4, F: 0.6 },
 };
 export const node24: Node = {
   id: "node24",
@@ -2225,7 +2225,7 @@ export const node24: Node = {
         node17: "F",
         node37: "T",
       },
-      probability: { T: 0.25, F: 0.75 },
+      probability: { T: 0.2, F: 0.8 },
     },
     {
       condition: {
@@ -2235,7 +2235,7 @@ export const node24: Node = {
         node17: "F",
         node37: "T",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.2, F: 0.8 },
     },
     {
       condition: {
@@ -2245,7 +2245,7 @@ export const node24: Node = {
         node17: "F",
         node37: "T",
       },
-      probability: { T: 0.25, F: 0.75 },
+      probability: { T: 0.22, F: 0.78 },
     },
     {
       condition: {
@@ -2255,7 +2255,7 @@ export const node24: Node = {
         node17: "F",
         node37: "T",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.2, F: 0.8 },
     },
     {
       condition: {
@@ -2285,7 +2285,7 @@ export const node24: Node = {
         node17: "T",
         node37: "F",
       },
-      probability: { T: 0.25, F: 0.75 },
+      probability: { T: 0.2, F: 0.8 },
     },
     {
       condition: {
@@ -2315,7 +2315,7 @@ export const node24: Node = {
         node17: "T",
         node37: "F",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.2, F: 0.8 },
     },
     {
       condition: {
@@ -2365,7 +2365,7 @@ export const node24: Node = {
         node17: "F",
         node37: "F",
       },
-      probability: { T: 0.25, F: 0.75 },
+      probability: { T: 0.22, F: 0.78 },
     },
     {
       condition: {
@@ -2375,7 +2375,7 @@ export const node24: Node = {
         node17: "F",
         node37: "F",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.2, F: 0.8 },
     },
     {
       condition: {
@@ -2395,7 +2395,7 @@ export const node24: Node = {
         node17: "F",
         node37: "F",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.22, F: 0.78 },
     },
     {
       condition: {
@@ -2405,7 +2405,7 @@ export const node24: Node = {
         node17: "F",
         node37: "F",
       },
-      probability: { T: 0.25, F: 0.75 },
+      probability: { T: 0.2, F: 0.8 },
     },
     {
       condition: {
@@ -2435,7 +2435,7 @@ export const node24: Node = {
         node17: "F",
         node37: "F",
       },
-      probability: { T: 0.25, F: 0.75 },
+      probability: { T: 0.2, F: 0.8 },
     },
   ],
 };
@@ -2452,7 +2452,7 @@ export const node25: Node = {
         node29: "T",
         node30: "T",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.22, F: 0.78 },
     },
     {
       condition: {
@@ -2472,7 +2472,7 @@ export const node25: Node = {
         node29: "T",
         node30: "T",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.2, F: 0.8 },
     },
     {
       condition: {
@@ -2482,7 +2482,7 @@ export const node25: Node = {
         node29: "T",
         node30: "T",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.22, F: 0.78 },
     },
     {
       condition: {
@@ -2492,7 +2492,7 @@ export const node25: Node = {
         node29: "T",
         node30: "T",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.2, F: 0.8 },
     },
     {
       condition: {
@@ -2502,7 +2502,7 @@ export const node25: Node = {
         node29: "T",
         node30: "T",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.22, F: 0.78 },
     },
     {
       condition: {
@@ -2512,7 +2512,7 @@ export const node25: Node = {
         node29: "T",
         node30: "T",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.22, F: 0.78 },
     },
     {
       condition: {
@@ -2532,7 +2532,7 @@ export const node25: Node = {
         node29: "F",
         node30: "T",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.2, F: 0.8 },
     },
     {
       condition: {
@@ -2542,7 +2542,7 @@ export const node25: Node = {
         node29: "F",
         node30: "T",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.65, F: 0.35 },
     },
     {
       condition: {
@@ -2562,7 +2562,7 @@ export const node25: Node = {
         node29: "F",
         node30: "T",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.2, F: 0.8 },
     },
     {
       condition: {
@@ -2582,7 +2582,7 @@ export const node25: Node = {
         node29: "F",
         node30: "T",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.65, F: 0.35 },
     },
     {
       condition: {
@@ -2592,7 +2592,7 @@ export const node25: Node = {
         node29: "F",
         node30: "T",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.65, F: 0.35 },
     },
     {
       condition: {
@@ -2602,7 +2602,7 @@ export const node25: Node = {
         node29: "F",
         node30: "T",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.2, F: 0.8 },
     },
     {
       condition: {
@@ -2632,7 +2632,7 @@ export const node25: Node = {
         node29: "T",
         node30: "F",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.2, F: 0.8 },
     },
     {
       condition: {
@@ -2642,7 +2642,7 @@ export const node25: Node = {
         node29: "T",
         node30: "F",
       },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.2, F: 0.8 },
     },
     {
       condition: {
@@ -3114,7 +3114,7 @@ export const node36: Node = {
         node17: "T",
         node37: "F",
       },
-      probability: { T: 0.4, F: 0.6 },
+      probability: { T: 0.2, F: 0.8 },
     },
     {
       condition: {
@@ -3253,7 +3253,7 @@ export const node37: Node = {
     },
     {
       condition: { node38: "T", node39: "F" },
-      probability: { T: 0.75, F: 0.25 },
+      probability: { T: 0.65, F: 0.35 },
     },
     {
       condition: { node38: "F", node39: "F" },

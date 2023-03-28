@@ -3291,6 +3291,134 @@ export const node39: Node = {
   cpt: { T: 0.75, F: 0.25 },
 };
 
+export const node40: Node = {
+  id: "node40",
+  states: ["T", "F"],
+  parents: [],
+  cpt: { T: 0.75, F: 0.25 },
+};
+
+export const node41: Node = {
+  id: "node41",
+  states: ["T", "F"],
+  parents: ["node39", "node40"],
+  cpt: [
+    {
+      condition: { node39: "T", node40: "T" },
+      probability: { T: 0.75, F: 0.25 },
+    },
+    {
+      condition: { node39: "F", node40: "T" },
+      probability: { T: 0.75, F: 0.25 },
+    },
+    {
+      condition: { node39: "T", node40: "F" },
+      probability: { T: 0.75, F: 0.25 },
+    },
+    {
+      condition: { node39: "F", node40: "F" },
+      probability: { T: 0.25, F: 0.75 },
+    },
+  ],
+};
+
+export const node42: Node = {
+  id: "node42",
+  states: ["T", "F"],
+  parents: [],
+  cpt: { T: 0.75, F: 0.25 },
+};
+
+export const node43: Node = {
+  id: "node43",
+  states: ["T", "F"],
+  parents: [],
+  cpt: { T: 0.75, F: 0.25 },
+};
+
+export const node44: Node = {
+  id: "node44",
+  states: ["T", "F"],
+  parents: [],
+  cpt: { T: 0.75, F: 0.25 },
+};
+
+export const node45: Node = {
+  id: "node45",
+  states: ["T", "F"],
+  parents: [],
+  cpt: { T: 0.75, F: 0.25 },
+};
+
+export const node46: Node = {
+  id: "node46",
+  states: ["T", "F"],
+  parents: ["node44", "node45"],
+  cpt: [
+    {
+      condition: { node44: "T", node45: "T" },
+      probability: { T: 0.75, F: 0.25 },
+    },
+    {
+      condition: { node44: "F", node45: "T" },
+      probability: { T: 0.75, F: 0.25 },
+    },
+    {
+      condition: { node44: "T", node45: "F" },
+      probability: { T: 0.81, F: 0.19 },
+    },
+    {
+      condition: { node44: "F", node45: "F" },
+      probability: { T: 0.25, F: 0.75 },
+    },
+  ],
+};
+
+export const node47: Node = {
+  id: "node47",
+  states: ["T", "F"],
+  parents: [],
+  cpt: { T: 0.75, F: 0.25 },
+};
+
+export const node48: Node = {
+  id: "node48",
+  states: ["T", "F"],
+  parents: [],
+  cpt: { T: 0.75, F: 0.25 },
+};
+
+export const node49: Node = {
+  id: "node49",
+  states: ["T", "F"],
+  parents: ["node47", "node46"],
+  cpt: [
+    {
+      condition: { node47: "T", node46: "T" },
+      probability: { T: 0.2, F: 0.8 },
+    },
+    {
+      condition: { node47: "F", node46: "T" },
+      probability: { T: 0.1, F: 0.9 },
+    },
+    {
+      condition: { node47: "T", node46: "F" },
+      probability: { T: 0.81, F: 0.19 },
+    },
+    {
+      condition: { node47: "F", node46: "F" },
+      probability: { T: 0.25, F: 0.75 },
+    },
+  ],
+};
+
+export const node50: Node = {
+  id: "node50",
+  states: ["T", "F"],
+  parents: [],
+  cpt: { T: 0.75, F: 0.25 },
+};
+
 export const allNodes = [
   node1,
   node2,
@@ -3331,4 +3459,15 @@ export const allNodes = [
   node37,
   node38,
   node39,
+  node40,
+  node41,
+  node42,
+  node43,
+  node44,
+  node45,
+  node46,
+  node47,
+  node48,
+  node49,
+  node50,
 ];

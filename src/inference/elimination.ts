@@ -25,13 +25,19 @@ export const infer: Infer = (
 ): number => {
   const variables = Object.keys(network);
   const variablesToInfer = Object.keys(query);
-  const hiddenVariables = variables
-    .filter((v) => v !== variablesToInfer[0])
-    .filter((hiddenVar) => !observedValues?.[hiddenVar]);
 
   const factors = variables.map((nodeId) =>
     createFactor(network[nodeId], observedValues)
   );
+
+  const eliminationOrdering = minimumDegreeEliminationOrdering(
+    factors,
+    variables
+  );
+
+  const hiddenVariables = eliminationOrdering
+    .filter((v) => v !== variablesToInfer[0])
+    .filter((hiddenVar) => !observedValues?.[hiddenVar]);
 
   const remainingFactors = eliminateVariables(factors, hiddenVariables);
   const joinedFactor = remainingFactors
@@ -46,6 +52,85 @@ export const infer: Infer = (
 
   return inferenceRow?.value ?? 0;
 };
+
+/**
+ * Compute an elimination ordering using the minimum degree heuristic.
+ *
+ * @param factors - The factors in the network.
+ * @param variables - The variables in the network.
+ * @returns An elimination ordering for the variables.
+ */
+function minimumDegreeEliminationOrdering(
+  factors: Factor[],
+  variables: string[]
+): string[] {
+  const adjList: Record<string, Set<string>> = createAdjList(
+    variables,
+    factors
+  );
+
+  const degrees: Record<string, number> = {}; // initialize empty degrees object
+
+  // compute degree for each variable
+  variables.forEach((variable) => {
+    degrees[variable] = adjList[variable].size;
+  });
+
+  const ordering: string[] = []; // initialize empty ordering array
+
+  while (variables.length > 0) {
+    let minDegree = Infinity;
+    let minVar: string = "";
+
+    // find variable with minimum degree
+    variables.forEach((variable) => {
+      if (degrees[variable] < minDegree) {
+        minDegree = degrees[variable];
+        minVar = variable;
+      }
+    });
+
+    // add variable to ordering and update degrees
+    ordering.push(minVar);
+    variables.splice(variables.indexOf(minVar), 1);
+    adjList[minVar].forEach((neighbor) => {
+      degrees[neighbor]--;
+    });
+  }
+
+  return ordering;
+}
+
+/**
+ * Create an adjacency list for the variables of a Bayesian network
+ * populate the list with the factors from each variable
+ * @param variables variables in a network
+ * @param factors factors in a network
+ * @returns the adjacency list
+ */
+function createAdjList(variables: string[], factors: Factor[]) {
+  const adjList: Record<string, Set<string>> = {}; // initialize empty adjacency list
+
+  // initialize empty set for each variable
+  variables.forEach((variable) => {
+    adjList[variable] = new Set<string>();
+  });
+  // populate adjacency list by iterating over variables and factors
+  variables.forEach((variable) => {
+    adjList[variable] = new Set<string>();
+    factors.forEach((factor) => {
+      if (factor[0].combination.hasOwnProperty(variable)) {
+        Object.keys(factor[0].combination).forEach((otherVar) => {
+          if (otherVar !== variable) {
+            adjList[variable].add(otherVar);
+            adjList[otherVar].add(variable);
+          }
+        });
+      }
+    });
+  });
+  return adjList;
+}
 
 /**
  * Eliminate variables from a factor by summing them out

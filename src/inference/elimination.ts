@@ -69,26 +69,26 @@ function minimumDegreeEliminationOrdering(
     factors
   );
 
-  const degrees: Record<string, number> = {}; // initialize empty degrees object
+  const degrees: Record<string, number> = {};
 
   // compute degree for each variable
-  variables.forEach((variable) => {
+  for (const variable of variables) {
     degrees[variable] = factorGraph[variable].size;
-  });
+  }
 
-  const ordering: string[] = []; // initialize empty ordering array
+  const ordering: string[] = [];
 
   while (variables.length > 0) {
     let minDegree = Infinity;
     let minVar: string = "";
 
     // find variable with minimum degree
-    variables.forEach((variable) => {
+    for (const variable of variables) {
       if (degrees[variable] < minDegree) {
         minDegree = degrees[variable];
         minVar = variable;
       }
-    });
+    }
 
     // add variable to ordering and update degrees
     ordering.push(minVar);
@@ -116,9 +116,9 @@ function createFactorGraph(variables: string[], factors: Factor[]) {
     factorGraph[variable] = new Set<string>();
   });
   // populate adjacency list by iterating over variables and factors
-  variables.forEach((variable) => {
+  for (const variable of variables) {
     factorGraph[variable] = new Set<string>();
-    factors.forEach((factor) => {
+    for (const factor of factors) {
       if (factor[0].combination.hasOwnProperty(variable)) {
         Object.keys(factor[0].combination).forEach((otherVar) => {
           if (otherVar !== variable) {
@@ -127,8 +127,8 @@ function createFactorGraph(variables: string[], factors: Factor[]) {
           }
         });
       }
-    });
-  });
+    }
+  }
   return factorGraph;
 }
 

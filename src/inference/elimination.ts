@@ -64,7 +64,7 @@ function minimumDegreeEliminationOrdering(
   factors: Factor[],
   variables: string[]
 ): string[] {
-  const adjList: Record<string, Set<string>> = createAdjList(
+  const factorGraph: Record<string, Set<string>> = createFactorGraph(
     variables,
     factors
   );
@@ -73,7 +73,7 @@ function minimumDegreeEliminationOrdering(
 
   // compute degree for each variable
   variables.forEach((variable) => {
-    degrees[variable] = adjList[variable].size;
+    degrees[variable] = factorGraph[variable].size;
   });
 
   const ordering: string[] = []; // initialize empty ordering array
@@ -93,7 +93,7 @@ function minimumDegreeEliminationOrdering(
     // add variable to ordering and update degrees
     ordering.push(minVar);
     variables.splice(variables.indexOf(minVar), 1);
-    adjList[minVar].forEach((neighbor) => {
+    factorGraph[minVar].forEach((neighbor) => {
       degrees[neighbor]--;
     });
   }
@@ -102,34 +102,34 @@ function minimumDegreeEliminationOrdering(
 }
 
 /**
- * Create an adjacency list for the variables of a Bayesian network
+ * Create a factor graph for the variables of a Bayesian network
  * populate the list with the factors from each variable
  * @param variables variables in a network
- * @param factors factors in a network
- * @returns the adjacency list
+ * @param factors factors in a for each variable
+ * @returns the factor graph
  */
-function createAdjList(variables: string[], factors: Factor[]) {
-  const adjList: Record<string, Set<string>> = {}; // initialize empty adjacency list
+function createFactorGraph(variables: string[], factors: Factor[]) {
+  const factorGraph: Record<string, Set<string>> = {}; // initialize empty adjacency list
 
   // initialize empty set for each variable
   variables.forEach((variable) => {
-    adjList[variable] = new Set<string>();
+    factorGraph[variable] = new Set<string>();
   });
   // populate adjacency list by iterating over variables and factors
   variables.forEach((variable) => {
-    adjList[variable] = new Set<string>();
+    factorGraph[variable] = new Set<string>();
     factors.forEach((factor) => {
       if (factor[0].combination.hasOwnProperty(variable)) {
         Object.keys(factor[0].combination).forEach((otherVar) => {
           if (otherVar !== variable) {
-            adjList[variable].add(otherVar);
-            adjList[otherVar].add(variable);
+            factorGraph[variable].add(otherVar);
+            factorGraph[otherVar].add(variable);
           }
         });
       }
     });
   });
-  return adjList;
+  return factorGraph;
 }
 
 /**

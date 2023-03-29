@@ -1,7 +1,7 @@
 import { Infer } from "../../src/types";
 import { alarm, alarmNodes } from "../../networks/alarm";
-// import { allNodes } from "../../networks/big-network";
-import { allNodes } from "../../networks/alarm2";
+import { allNodes } from "../../networks/big-network";
+// import { allNodes } from "../../networks/alarm2";
 import { asiaNodes } from "../../networks/asia";
 import { createNetwork } from "../../src/utils/network";
 import { inferenceAlgorithms } from "../../src";
@@ -20,9 +20,9 @@ const sampleSize = 10000;
 console.log("evaluating....");
 
 const sampleSizes = [100, 250, 500, 1000, 5000, 10000];
-const alarmNet = createNetwork(...allNodes);
+// const alarmNet = createNetwork(...allNodes);
 const asiaNet = createNetwork(...asiaNodes);
-// const bigNet = createNetwork(...allNodes);
+const bigNet = createNetwork(...allNodes);
 // const target = 0.2327;
 // const pe = percentError(target, average);
 
@@ -51,12 +51,11 @@ const asiaNet = createNetwork(...asiaNodes);
 let startTime = performance.now();
 for (let i = 0; i < 100; i++) {
   const prob = variableElimination.infer(
-    alarmNet,
-    { PRESS: "NORMAL" },
-    { VENTMACH: "NORMAL", DISCONNECT: "FALSE" },
+    bigNet,
+    { node22: "T" },
+    { node10: "T", node36: "T" },
     sampleSize
   );
-  // console.log(prob);
 }
 let endTime = performance.now();
 console.log(

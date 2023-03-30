@@ -18,7 +18,7 @@ connectDB();
 
 app.listen(port, () => {
   return console.log(
-    `⚡️[server]: Server is running at https://localhost:${port}`
+    `⚡️[server]: Server is running at ${process.env.URI}${port}`
   );
 });
 

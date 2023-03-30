@@ -20,9 +20,9 @@ const within1Percent = (actual: number, approximation: number) => {
 };
 
 const inferGivenSmoker = (infer: Infer) => {
-  // const observedValues = { BURGLARY: "T" };
-  // let approx = infer(network, { EARTHQUAKE: "T" }, observedValues, samples);
-  // expect(within1Percent(0.002, +approx.toFixed(4))).toBeTruthy();
+  const observedValues = { SMOKER: "T" };
+  let approx = infer(network, { POLLUTION: "HIGH" }, observedValues, samples);
+  expect(within1Percent(0.002, approx)).toBeTruthy();
 
   expect(true).toBeTruthy();
   //   const given = { SMOKER: "T" };

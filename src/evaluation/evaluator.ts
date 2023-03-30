@@ -1,7 +1,7 @@
 import { Infer } from "../../src/types";
-import { alarm, alarmNodes } from "../../networks/alarm";
-import { allNodes } from "../../networks/big-network";
-// import { allNodes } from "../../networks/alarm2";
+
+// import { allNodes } from "../../networks/big-network";
+import { alarmNodes } from "../../networks/alarm";
 import { asiaNodes } from "../../networks/asia";
 import { createNetwork } from "../../src/utils/network";
 import { inferenceAlgorithms } from "../../src";
@@ -12,88 +12,77 @@ const fs = require("fs");
 
 function percentError(target: number, output: number): number {
   const error = (target - output) / target;
-  // return Math.abs(error);
-  return Math.abs(error * 100);
+  return Math.abs(error);
+  // return Math.abs(error * 100);
+}
+
+function standardDeviation(array: number[]) {
+  const n = array.length;
+  const mean = array.reduce((a, b) => a + b) / n;
+  return Math.sqrt(
+    array.map((x) => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / n
+  );
 }
 
 const sampleSize = 10000;
 console.log("evaluating....");
 
-const sampleSizes = [100, 250, 500, 1000, 5000, 10000];
-// const alarmNet = createNetwork(...allNodes);
+const sampleSizes = [100, 250, 500, 750, 1000, 1500, 2500, 5000, 7500, 10000];
+const alarmNet = createNetwork(...alarmNodes);
 const asiaNet = createNetwork(...asiaNodes);
-const bigNet = createNetwork(...allNodes);
-// const target = 0.2327;
-// const pe = percentError(target, average);
+// const bigNet = createNetwork(...allNodes);
 
-// const trials = 10;
 // let res = [];
 // const target = 0.23269281903064404;
-// for (let i = 1000; i <= 100000; i += 1000) {
-//   const sampleSize = i;
-//   console.log("sample:", sampleSize);
+// for (const sampleSize of sampleSizes) {
+//   console.log("samples:", sampleSize);
 //   let total = 0;
-//   // for (let i = 0; i < 3; i++) {
-//   const prob = likelihoodWeighting.infer(
-//     alarmNet,
-//     { PRESS: "NORMAL" },
-//     { VENTMATCH: "NORMAL", DISCONNECT: "FALSE" },
-//     sampleSize
-//   );
-//   total += prob;
-//   // }
-//   console.log("total", total);
-//   // const avg = total / 3;
-//   const error = percentError(target, prob);
-//   console.log(prob, error);
-//   res.push([sampleSize, error]);
+//   let values = [];
+//   for (let i = 0; i < 100; i++) {
+//     const prob = likelihoodWeighting.infer(
+//       alarmNet,
+//       { PRESS: "NORMAL" },
+//       { VENTMATCH: "NORMAL", DISCONNECT: "FALSE" },
+//       sampleSize
+//     );
+//     total += prob;
+//     values.push(prob);
+//   }
+//   const avg = total / 100;
+//   const error = percentError(target, avg);
+//   const sd = standardDeviation(values);
+//   res.push([sampleSize, error, sd]);
 // }
+
+let total = 0;
+const target = 0.500237791366289;
 let startTime = performance.now();
 for (let i = 0; i < 100; i++) {
-  const prob = variableElimination.infer(
-    bigNet,
-    { node22: "T" },
-    { node10: "T", node36: "T" },
-    sampleSize
+  const prob = likelihoodWeighting.infer(
+    asiaNet,
+    { PRESS: "NORMAL" },
+    { VENTMACH: "NORMAL", DISCONNECT: "FALSE" },
+    100
   );
+  console.log(prob);
+  total += prob;
 }
 let endTime = performance.now();
+const average = total / 100;
+const pe = percentError(target, average);
+
 console.log(
-  "average time taken VE : ",
+  "average time taken LW : ",
   (endTime - startTime) / 100,
   " milliseconds"
 );
-
-// let total = 0;
-// const target = 0.500237791366289;
-// let startTime = performance.now();
-// for (let i = 0; i < 100; i++) {
-//   const prob = likelihoodWeighting.infer(
-//     alarmNet,
-//     { PRESS: "NORMAL" },
-//     { VENTMACH: "NORMAL", DISCONNECT: "FALSE" },
-//     100
-//   );
-//   console.log(prob);
-//   total += prob;
-// }
-// let endTime = performance.now();
-// const average = total / 100;
-// const pe = percentError(target, average);
-
-// console.log(
-//   "average time taken LW : ",
-//   (endTime - startTime) / 100,
-//   " milliseconds"
-// );
-// console.log("error", pe);
+console.log("error", pe);
 
 // console.log(prob);
 // // const pe = percentError(target, average);
 // console.log("finished!");
 // console.log(res);
-
-// const header = ["Sample Size", "Error"];
+// const header = ["Sample Size", "Error", "Standard Deviation"];
 // const csv = convertArrayToCSV(res, {
 //   header,
 //   seperator: ";",

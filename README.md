@@ -16,6 +16,13 @@ Install the packages:
 $ npm install
 ```
 
+Some environment variables are required to run the application. Here is the complete list of variables that need to be stored in a file named .env along with example values that can be used. 
+```
+DB_CONNECTION_URL=mongodb://localhost:27017/db
+TEST_DB_CONNECTION_URL=mongodb://localhost:27017/test
+URI=https://localhost:
+```
+
 Start the server by running the start command:
 
 ```

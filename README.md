@@ -1,6 +1,7 @@
-brew services start mongodb-community@6.0
+# Individual Project Code - Thom Treebus (k20069603)
+This repository contains the source code developed as part of the 6CCS3PRJ Individual Project.
 
-
+The software is composed of a Bayesian inference API that can be used to 
 ## Software Setup
 Clone the reporitory, or download the source code and open a new terminal window inside the project directory.
 

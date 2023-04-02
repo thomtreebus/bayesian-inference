@@ -1,3 +1,11 @@
+/**
+ * This file is a modified version of a file from the BayesJS package
+ * Original authors: Felipe Nolleto Nascimento, Fernando Alex Helwanger
+ * Version: v0.6.5
+ * Github Repository: https://github.com/bayesjs/bayesjs
+ * NPM Link: https://www.npmjs.com/package/bayesjs
+ */
+
 import expect from "expect";
 
 import { Infer } from "../../src/types";
@@ -26,27 +34,46 @@ const infersGiveSprinklerTrue = (infer: Infer) => {
   const observedValues = { SPRINKLER: "T" };
   let approx = infer(network, { RAIN: "T" }, observedValues, sampleSize);
   expect(within10Percent(0.0062, approx)).toBeTruthy();
-  // expect(infer(network, { RAIN: "F" }, given, 0).toFixed(4)).toBe("0.9938");
-  // expect(infer(network, { GRASS_WET: "T" }, given, 0).toFixed(4)).toBe(
-  //   "0.9006"
-  // );
-  // expect(infer(network, { GRASS_WET: "F" }, given, 0).toFixed(4)).toBe(
-  //   "0.0994"
-  // );
+
+  approx = infer(network, { RAIN: "F" }, observedValues, sampleSize);
+  expect(within10Percent(0.9938, approx)).toBeTruthy();
+
+  approx = infer(network, { GRASS_WET: "T" }, observedValues, sampleSize);
+  expect(within10Percent(0.9006, approx)).toBeTruthy();
+
+  approx = infer(network, { GRASS_WET: "F" }, observedValues, sampleSize);
+  expect(within10Percent(0.0994, approx)).toBeTruthy();
 };
 
-// const inferGivenSmoker = (infer: Infer) => {
-//   const observedValues = { SMOKER: "T" };
-//   let approx = infer(network, { POLLUTION: "HIGH" }, observedValues, samples);
-//   expect(within10Percent(0.002, approx)).toBeTruthy();
+const infersGiveGrassWetTrue = (infer: Infer) => {
+  const observedValues = { GRASS_WET: "T" };
+  let approx = infer(network, { RAIN: "T" }, observedValues, sampleSize);
+  expect(within10Percent(0.3577, approx)).toBeTruthy();
 
-//   expect(true).toBeTruthy();
-//   //   const given = { SMOKER: "T" };
+  approx = infer(network, { RAIN: "F" }, observedValues, sampleSize);
+  expect(within10Percent(0.6423, approx)).toBeTruthy();
 
-//   //   expect(infer(network, { POLLUTION: "HIGH" }, given, samples).toFixed(4)).toBe(
-//   //     "0.0020"
-//   //   );
-// };
+  approx = infer(network, { SPRINKLER: "T" }, observedValues, sampleSize);
+  expect(within10Percent(0.6467, approx)).toBeTruthy();
+
+  approx = infer(network, { SPRINKLER: "F" }, observedValues, sampleSize);
+  expect(within10Percent(0.3533, approx)).toBeTruthy();
+};
+
+const infersGiveRainTrue = (infer: Infer) => {
+  const observedValues = { RAIN: "T" };
+  let approx = infer(network, { SPRINKLER: "T" }, observedValues, sampleSize);
+  expect(within10Percent(0.01, approx)).toBeTruthy();
+
+  approx = infer(network, { SPRINKLER: "F" }, observedValues, sampleSize);
+  expect(within10Percent(0.99, approx)).toBeTruthy();
+
+  approx = infer(network, { GRASS_WET: "T" }, observedValues, sampleSize);
+  expect(within10Percent(0.8019, approx)).toBeTruthy();
+
+  approx = infer(network, { GRASS_WET: "F" }, observedValues, sampleSize);
+  expect(within10Percent(0.1981, approx)).toBeTruthy();
+};
 
 const inferenceAlgorithmNames: { [key: string]: Infer } = {
   "Likelihood Weighting": likelihoodWeighting.infer,
@@ -54,6 +81,7 @@ const inferenceAlgorithmNames: { [key: string]: Infer } = {
 
 const tests: { [key: string]: (infer: Infer) => void } = {
   "infers given sprinkler true": infersGiveSprinklerTrue,
+  "infers given grass wet true": infersGiveGrassWetTrue,
 };
 
 describe("inference tests", () => {

@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "jest --config ./jest.config.js --detectOpenHandles",
-    "test:coverage": "jest --config ./jest.config.js --coverage",
+    "test:coverage": "jest --config ./jest.config.js --coverage --runInBand",
     "start": "npx nodemon",
     "start:prod": "npm run build && node build/server.js",
     "lint": "eslint . --ext .ts",

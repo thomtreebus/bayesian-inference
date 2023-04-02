@@ -25,16 +25,21 @@ export const infer: Infer = (
 ): number => {
   const variables = Object.keys(network);
   const variablesToInfer = Object.keys(query);
-  const hiddenVariables = variables
-    .filter((v) => v !== variablesToInfer[0])
-    .filter((hiddenVar) => !observedValues?.[hiddenVar]);
 
   const factors = variables.map((nodeId) =>
     createFactor(network[nodeId], observedValues)
   );
 
-  const remainingFactors = eliminateVariables(factors, hiddenVariables);
+  const eliminationOrdering = minimumDegreeEliminationOrdering(
+    factors,
+    variables
+  );
 
+  const hiddenVariables = eliminationOrdering
+    .filter((v) => v !== variablesToInfer[0])
+    .filter((hiddenVar) => !observedValues?.[hiddenVar]);
+
+  const remainingFactors = eliminateVariables(factors, hiddenVariables);
   const joinedFactor = remainingFactors
     .filter((factor) => factor.length > 0)
     .reduce(joinFactors);
@@ -47,6 +52,85 @@ export const infer: Infer = (
 
   return inferenceRow?.value ?? 0;
 };
+
+/**
+ * Compute an elimination ordering using the minimum degree heuristic.
+ *
+ * @param factors - The factors in the network.
+ * @param variables - The variables in the network.
+ * @returns An elimination ordering for the variables.
+ */
+function minimumDegreeEliminationOrdering(
+  factors: Factor[],
+  variables: string[]
+): string[] {
+  const factorGraph: Record<string, Set<string>> = createFactorGraph(
+    variables,
+    factors
+  );
+
+  const degrees: Record<string, number> = {};
+
+  // compute degree for each variable
+  for (const variable of variables) {
+    degrees[variable] = factorGraph[variable].size;
+  }
+
+  const ordering: string[] = [];
+
+  while (variables.length > 0) {
+    let minDegree = Infinity;
+    let minVar: string = "";
+
+    // find variable with minimum degree
+    for (const variable of variables) {
+      if (degrees[variable] < minDegree) {
+        minDegree = degrees[variable];
+        minVar = variable;
+      }
+    }
+
+    // add variable to ordering and update degrees
+    ordering.push(minVar);
+    variables.splice(variables.indexOf(minVar), 1);
+    factorGraph[minVar].forEach((neighbor) => {
+      degrees[neighbor]--;
+    });
+  }
+
+  return ordering;
+}
+
+/**
+ * Create a factor graph for the variables of a Bayesian network
+ * populate the list with the factors from each variable
+ * @param variables variables in a network
+ * @param factors factors in a for each variable
+ * @returns the factor graph
+ */
+function createFactorGraph(variables: string[], factors: Factor[]) {
+  const factorGraph: Record<string, Set<string>> = {}; // initialize empty adjacency list
+
+  // initialize empty set for each variable
+  variables.forEach((variable) => {
+    factorGraph[variable] = new Set<string>();
+  });
+  // populate adjacency list by iterating over variables and factors
+  for (const variable of variables) {
+    factorGraph[variable] = new Set<string>();
+    for (const factor of factors) {
+      if (factor[0].combination.hasOwnProperty(variable)) {
+        Object.keys(factor[0].combination).forEach((otherVar) => {
+          if (otherVar !== variable) {
+            factorGraph[variable].add(otherVar);
+            factorGraph[otherVar].add(variable);
+          }
+        });
+      }
+    }
+  }
+  return factorGraph;
+}
 
 /**
  * Eliminate variables from a factor by summing them out

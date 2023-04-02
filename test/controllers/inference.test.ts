@@ -3,6 +3,7 @@ const request = require("supertest");
 const appTest = require("../../src/app");
 const mongoose = require("mongoose");
 const NetworkSchema = require("../../src/models/Network");
+const dbTestUrl: string = process.env.TEST_DB_CONNECTION_URL as string;
 
 const networkData = {
   RAIN: {
@@ -47,7 +48,7 @@ const networkData = {
 
 // Connect to the test database
 beforeAll(async () => {
-  await mongoose.connect("mongodb://localhost:27017/test", {
+  await mongoose.connect(dbTestUrl, {
     useNewUrlParser: true,
   });
   mongoose.set("strictQuery", true);

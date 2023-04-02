@@ -7,7 +7,6 @@ import {
   Infer,
   Combinations,
 } from "../types";
-import { isNil } from "ramda";
 import { hasNoParents } from "../utils/network";
 
 interface FactorRow {

@@ -4,6 +4,7 @@ const appTest = require("../../src/app");
 const mongoose = require("mongoose");
 const NetworkSchema = require("../../src/models/Network");
 // Import the API controller
+import { createNetwork } from "../../src/utils/network";
 const dbTestUrl: string = process.env.TEST_DB_CONNECTION_URL as string;
 
 // Connect to the test database

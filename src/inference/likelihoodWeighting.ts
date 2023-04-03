@@ -160,17 +160,17 @@ function getCptRowIndex(cpt: CptWithParents, condition: any) {
 
 /**
  * Create a random value for a variable using it's probability distribution
- * @param weights the probability of each sate
+ * @param probabilities the probability of each sate
  * @param states the states for a variable
  * @returns random state from states
  */
-function getRandom(weights: number[], states: string[]) {
+function getRandom(probabilities: number[], states: string[]) {
   const num = chance.floating({ min: 0, max: 1 });
   let s = 0;
-  let lastIndex = weights.length - 1;
+  let lastIndex = probabilities.length - 1;
 
   for (var i = 0; i < lastIndex; ++i) {
-    s += weights[i];
+    s += probabilities[i];
     if (num < s) {
       return states[i];
     }

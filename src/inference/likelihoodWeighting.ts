@@ -3,7 +3,6 @@ const chance = new Chance();
 const _ = require("lodash");
 
 import {
-  Node,
   Network,
   CptWithParents,
   CptWithoutParents,
@@ -65,7 +64,7 @@ function weightedSample(network: Network, observedValues: Combinations) {
         states = Object.keys(cpt[index].probability);
       }
       // create random sample for node
-      sample[nodeName] = getRandom(weights, states);
+      sample[nodeName] = getRandomState(weights, states);
     }
   }
   return {
@@ -164,7 +163,7 @@ function getCptRowIndex(cpt: CptWithParents, condition: any) {
  * @param states the states for a variable
  * @returns random state from states
  */
-function getRandom(probabilities: number[], states: string[]) {
+function getRandomState(probabilities: number[], states: string[]) {
   const num = chance.floating({ min: 0, max: 1 });
   let s = 0;
   let lastIndex = probabilities.length - 1;

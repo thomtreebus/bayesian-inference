@@ -4,6 +4,7 @@ const app: Express = require("./app");
 const port: number = 8000;
 const dbUrl: string = process.env.DB_CONNECTION_URL as string;
 mongoose.set("strictQuery", true);
+
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect(dbUrl);

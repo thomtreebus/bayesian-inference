@@ -12,7 +12,6 @@ import { Infer } from "../../src/types";
 import { allNodes } from "../../networks/grass-wet";
 import { createNetwork } from "../../src/utils/network";
 import { likelihoodWeighting } from "../../src/inference";
-import { Console } from "console";
 
 const network = createNetwork(...allNodes);
 

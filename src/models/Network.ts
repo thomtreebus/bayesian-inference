@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-const Schema = mongoose.Schema;
 const { CptWithoutParents, CptWithParents } = require("../types");
 
 const NetworkSchema = new mongoose.Schema({
